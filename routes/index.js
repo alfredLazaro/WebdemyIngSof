@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const pool = require('../config/database');
+const bcrypt = require('bcryptjs');
 
 router.get('/', async (req, res) => {
     const cursos = await pool.query('SELECT inscritos FROM curso ORDER BY inscritos DESC');
@@ -9,7 +10,6 @@ router.get('/', async (req, res) => {
     //res.redirect('index'); //redirige a index pero esta vacio
     res.send(cursos); //muestra la consulta en la pagina
 });
-
 router.get('/curso', async (req,res)=>{
     const repetidos= await pool.query('SELECT * FROM curso ORDER BY inscritos DESC,fechaCreacion DESC');
     res.send(repetidos);
@@ -82,5 +82,36 @@ router.get('/:id/etiquetas', async (req, res) => {
     console.log(cursos);
     res.send(cursos); //muestra la consulta en la pagina
 });
+
+//andre estuvo aqui
+
+router.post('/registrar', async (req,res)=> {
+    const { nombre,apellido,fecha_nacimiento,correo, pass} = req.body;
+
+    let salt = bcrypt.genSaltSync();
+    let hash = bcrypt.hashSync(pass,salt);
+    var cumple= true;
+
+    if(pass.length<=5)
+    {
+        res.json("muy corto");
+        cumple=false;
+    }
+    if(nombre==pass)
+    {
+        res.json("el nombre y la clave no pueden ser iguales");
+        cumple=false;
+    }
+    if(cumple)
+    {
+        const cursos = await pool.query(`INSERT INTO usuario (nombres, apellidos, fecha_nacimiento, correo, contrasena, fotografia) VALUES ('${nombre}', '${apellido}', '${fecha_nacimiento}', '${correo}', '${hash}', 'ss')`,(err,rows,fields) => {
+            if(!err){
+                res.json(rows);
+            }else{
+                console.log(err);
+            }
+        });
+    }
+})
 
 module.exports = router;

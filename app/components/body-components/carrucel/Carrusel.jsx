@@ -124,7 +124,7 @@ class Filtro extends Component {
     
     var filtracion0= this.state.cursos.filter(curso =>curso.nombreEtiqueta.includes(this.nombreAbuscar) ||
     this.nombreAbuscar === "" );
-
+    console.log(this.state.cursos);
     let hash = {};
     var filtracion = filtracion0.filter(curso=>hash[curso.id_curso]? false : hash[curso.id_curso]=true);
 
