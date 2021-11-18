@@ -10,14 +10,6 @@ router.get('/', async (req, res) => {
     //res.redirect('index'); //redirige a index pero esta vacio
     res.send(cursos); //muestra la consulta en la pagina
 });
-<<<<<<< HEAD
-router.get('/curso', async (req,res)=>{
-    const repetidos= await pool.query('SELECT * FROM curso ORDER BY inscritos DESC,fechaCreacion DESC');
-    res.send(repetidos);
-});
-=======
-
->>>>>>> unionFrontend
 
 router.get('/cursos', async (req,res)=>{
     const repetidos= await pool.query('SELECT curso.id_curso, curso.nombre as nombreCurso, curso.imagen, curso.inscritos, curso.created_at, etiqueta.nombre as nombreEtiqueta, usuario.nombres as nomT, usuario.apellidos as apellT FROM curso, curso_has_etiqueta, etiqueta, tutor, usuario WHERE curso.id_curso = curso_has_etiqueta.curso_id_curso and curso_has_etiqueta.etiqueta_id_etiqueta = etiqueta.id_etiqueta and curso.tutor_id_tutor = tutor.id_tutor and usuario.id_usuario = tutor.usuario_id_usuario ORDER BY inscritos desc,created_at desc');
@@ -104,6 +96,29 @@ router.post('/registrar', async (req,res)=> {
             }else{
                 console.log(err);
             }
+        });
+    }
+})
+
+router.post('/login',async (req,res)=>{
+    //los datos que se cargan en postman 
+    const user = req.body.user;
+    const password = req.body.password;
+    //consulta para obtener el email
+    const passwordHash=await bcrypt.hash(password,8);
+    const email= await pool.query(`SELECT correo FROM usuario where correo= ?`,user); 
+    //comprobamos que sean datos 
+    
+    if(user == email[0].correo && password == '12345'){
+        //let passwordHash = await bcrypt.hash(password,8);
+        res.json({
+            message: '¡AUTENTICADO WEY!',
+            passwordHash: passwordHash
+        });
+    }else{
+        res.json({
+            message: '¡error!',
+            email : email[0]
         });
     }
 })
