@@ -22,7 +22,7 @@ router.get('/cursos', async (req,res)=>{
 
 router.get('/cursoU',async (req,res)=>{
     //const idCurso= //parte del frontend obtenerlo
-    const cursoUnico = await pool.query('SELECT * FROM Modulo join CURSO where id_curso=CURSO_id_curso and id_curso = ?',5113);
+    const cursoUnico = await pool.query('SELECT * FROM Modulo join curso where id_curso=CURSO_id_curso and id_curso = ?',5113);
     res.send(cursoUnico);
 });
 
