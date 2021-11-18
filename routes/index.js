@@ -83,4 +83,22 @@ router.get('/:id/etiquetas', async (req, res) => {
     res.send(cursos); //muestra la consulta en la pagina
 });
 
+router.get('/register/registro', async (req,res)=>{
+    
+    const repetidos= await pool.query('');
+    res.send(repetidos);
+});
+
+router.get('/:correo/verificar', async (req,res)=>{
+    const {correo} = req.params;
+    const repetidos= await pool.query(`SELECT U.correo FROM USUARIO as U WHERE U.correo =`, [correo], (err,rows,fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    });
+    res.send(repetidos);
+});
+
 module.exports = router;

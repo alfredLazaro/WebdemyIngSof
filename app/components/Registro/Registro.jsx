@@ -37,6 +37,8 @@ class Registro extends Component{
             almenosDosNumContrase   : false,
             confirmarContrase       : false,
             veriCorreo              :false,
+
+            hayCorreo               :"",
         
         }
     
@@ -56,7 +58,7 @@ class Registro extends Component{
         this.validarConfirContrase= this.validarConfirContrase.bind(this);
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
-      
+        this.mandarBD             = this.mandarBD.bind(this);
 
     }
 
@@ -113,10 +115,11 @@ class Registro extends Component{
     validarRegistro(event){
         var todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
-            // se sube ala base de datos .
-        }else{
-            // no se hace nada.
+          this.mandarBD();
         }
+    }
+    mandarBD(){
+
     }
 
     validarAllCampos(){
@@ -185,7 +188,17 @@ class Registro extends Component{
     }
 
     correoExiste(){
-        //esto se hace con la base de datos .
+        fetch(`/api/cursos/${this.state.campoCorreo}/correo`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              hayCorreo:data
+            });
+        });
+        if(this.state.hayCorreo.length >0){
+            return false;
+            console.log("correp ya existe")
+        }
         return true;
     }
 
@@ -210,7 +223,7 @@ class Registro extends Component{
             //investigar sobre el dominio.
             //falta eso creo
         }
-        if(!this.correoExiste(llenadoCor)){
+        if(this.correoExiste(llenadoCor)){
             this.setState({correoExistente:true});
             //validar con la BD
             res = false;
