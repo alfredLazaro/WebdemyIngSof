@@ -115,7 +115,6 @@ class Registro extends Component{
     validarRegistro(event){
         var todoBienTodoCorrecto = false;
         todoBienTodoCorrecto = this.validarAllCampos();
-        console.log(todoBienTodoCorrecto +"<----")
         if(todoBienTodoCorrecto){
           this.mandarBD();
           //activa un pop up..con el mensaje de que fue registrado exitosamente.
@@ -123,7 +122,6 @@ class Registro extends Component{
         }
     }
     mandarBD(){
-        alert("esta mandando");
         console.log("trata de mandar la BD");        
         try{
         fetch(`/api/cursos/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}/USUARIO`)
@@ -133,7 +131,8 @@ class Registro extends Component{
               hayCorreo:data
             });
         }); 
-        console.log('si manda');
+
+        console.log(this.state.hayCorreo);
         }
         catch(eer){
             console.log(eer);
@@ -149,15 +148,11 @@ class Registro extends Component{
         var firsName = false;
         var lastName = false;
         var emailVal = false;
-        
-        console.log('contr:'+contrase+'confir:'+confirCon+'firs:'+firsName+'last:'+lastName+'ema'+emailVal);
         var contrase = this.validarContrase();
         var confirCon= this.validarConfirContrase();
         var firsName = this.validarApellido();
         var lastName = this.validarNombre();
-        var emailVal = this.validarCorreo();
-        console.log('contr:'+contrase+'confir:'+confirCon+'firs:'+firsName+'last:'+lastName+'ema'+emailVal);
-        
+        var emailVal = this.validarCorreo();        
         
         if(firsName && lastName && emailVal && contrase && confirCon){                
             res = true;
@@ -226,10 +221,10 @@ class Registro extends Component{
             });
         });
         if(this.state.hayCorreo.length >= 0){    
-            console.log(this.state.hayCorreo);        
+           
             return false;            
         }
-        console.log(this.state.hayCorreo);        
+        
         return true;
     }
 
@@ -282,7 +277,6 @@ class Registro extends Component{
         var numArro = 0;
         for(var i = 0 ; i< cadVericacion.length;i++){
             if(cadVericacion[i] == '@'){
-                console.log("verificaCorreo")
                 numArro++;
             }
         }

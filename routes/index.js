@@ -100,7 +100,7 @@ router.post('/:datos/USUARIO', (req, res) => {
     const {nombre, apellidos, correo,contrasenia} = req.body;
     console.log(nombre, apellidos, correo,contrasenia);
     const query = `
-     INSERT INTRO USUARIO ( nombres,apellidos,correo,contrasena) VALUES (?,?,?,?);`;
+     INSERT INTRO USUARIO ( nombres,apellidos,correo,contrasena) VALUES ("javier","filigrana","filigrana@gmail.com","nose12343jaja");`;
     mysqlConnection.query(query, [nombre, apellidos, correo,contrasenia], (err, rows, fields) => {
       if(!err) {
         res.json(rows);
