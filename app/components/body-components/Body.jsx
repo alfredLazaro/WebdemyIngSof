@@ -10,29 +10,25 @@ const Body =()=>{
         
         <div className="fondo">
             <div className="BodyPart" >
-            <div className='vistaDescrip'>
-                {<h5>esto debe desaparecer</h5>}
-            </div>
+                <div className='vistaDescrip'>
+                    {<h5>esto debe desaparecer</h5>}
+                </div>
                 <div className="descripcion">
-                    
-                    <h3 className="letraDescrip">
-                        <br />
-                       <p> Esta pagina esta pensada para el aprendizaje de herramientas 
+                    <p> 
+                        Esta pagina esta pensada para el aprendizaje de herramientas 
                         tecnológicas y fomentar el aprendizaje en todas las personas 
                         que deseen aprender   
-                        </p>
-                    </h3>
-                        
+                    </p>
                 </div>        
             </div>        
                 <div className="introTit">            
-                <div className="BodyPart">  
-                        <div className="plataforma">
-                            <p id="tituloCursPlat">Cursos en plataforma:</p>
-                        </div> 
+                    <div>  
+                            <div className="plataforma">
+                                <p id="tituloCursPlat">Cursos en plataforma:</p>
+                            </div> 
+                    </div>
                 </div>
-           </div>
-           <div className="BodyPart">
+           <div>
                 <Carrusel 
  
                     />
