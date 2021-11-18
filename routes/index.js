@@ -83,15 +83,9 @@ router.get('/:id/etiquetas', async (req, res) => {
     res.send(cursos); //muestra la consulta en la pagina
 });
 
-router.get('/register/registro', async (req,res)=>{
-    
-    const repetidos= await pool.query('');
-    res.send(repetidos);
-});
-
-router.get('/:correo/verificar', async (req,res)=>{
+router.get('/:correo/USUARIO', async (req,res)=>{
     const {correo} = req.params;
-    const repetidos= await pool.query(`SELECT U.correo FROM USUARIO as U WHERE U.correo =`, [correo], (err,rows,fields) => {
+    const repetidos= await pool.query(`SELECT U.correo FROM USUARIO as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
@@ -100,5 +94,21 @@ router.get('/:correo/verificar', async (req,res)=>{
     });
     res.send(repetidos);
 });
+//var nos="INSERT INTO USUARIO (nombres,apellidos,correo,contrasena) VALUES("NOSE","nose112","nose@gmail.com","nosepues");"
+
+router.post('/:datos/USUARIO', (req, res) => {
+    const {nombre, apellidos, correo,contrasenia} = req.body;
+    console.log(nombre, apellidos, correo,contrasenia);
+    const query = `
+     INSERT INTRO USUARIO ( nombres,apellidos,correo,contrasena) VALUES (?,?,?,?);`;
+    mysqlConnection.query(query, [nombre, apellidos, correo,contrasenia], (err, rows, fields) => {
+      if(!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    });
+  
+  });
 
 module.exports = router;

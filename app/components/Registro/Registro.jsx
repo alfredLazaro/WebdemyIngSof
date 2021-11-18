@@ -38,7 +38,7 @@ class Registro extends Component{
             confirmarContrase       : false,
             veriCorreo              :false,
 
-            hayCorreo               :"",
+            hayCorreo               :[],
         
         }
     
@@ -113,26 +113,56 @@ class Registro extends Component{
     }
 
     validarRegistro(event){
-        var todoBienTodoCorrecto = this.validarAllCampos();
+        var todoBienTodoCorrecto = false;
+        todoBienTodoCorrecto = this.validarAllCampos();
+        console.log(todoBienTodoCorrecto +"<----")
         if(todoBienTodoCorrecto){
           this.mandarBD();
+          //activa un pop up..con el mensaje de que fue registrado exitosamente.
+          //y presiona aceptar,donde es llevado a su perfil.
         }
     }
     mandarBD(){
-
+        alert("esta mandando");
+        console.log("trata de mandar la BD");        
+        try{
+        fetch(`/api/cursos/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}/USUARIO`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              hayCorreo:data
+            });
+        }); 
+        console.log('si manda');
+        }
+        catch(eer){
+            console.log(eer);
+            console.log('no manda');
+        }
     }
 
     validarAllCampos(){
         var res = false;
         this.devolverValoresState();
+        var contrase = false;
+        var confirCon= false;
+        var firsName = false;
+        var lastName = false;
+        var emailVal = false;
+        
+        console.log('contr:'+contrase+'confir:'+confirCon+'firs:'+firsName+'last:'+lastName+'ema'+emailVal);
         var contrase = this.validarContrase();
         var confirCon= this.validarConfirContrase();
         var firsName = this.validarApellido();
         var lastName = this.validarNombre();
         var emailVal = this.validarCorreo();
+        console.log('contr:'+contrase+'confir:'+confirCon+'firs:'+firsName+'last:'+lastName+'ema'+emailVal);
+        
+        
         if(firsName && lastName && emailVal && contrase && confirCon){                
-                res = true;
-        }        
+            res = true;
+        }     
+           
         return res;
     }
 
@@ -188,17 +218,18 @@ class Registro extends Component{
     }
 
     correoExiste(){
-        fetch(`/api/cursos/${this.state.campoCorreo}/correo`)
+        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIO`)
         .then(res => res.json())
         .then(data => {
             this.setState({
               hayCorreo:data
             });
         });
-        if(this.state.hayCorreo.length >0){
-            return false;
-            console.log("correp ya existe")
+        if(this.state.hayCorreo.length >= 0){    
+            console.log(this.state.hayCorreo);        
+            return false;            
         }
+        console.log(this.state.hayCorreo);        
         return true;
     }
 
@@ -209,33 +240,40 @@ class Registro extends Component{
             this.setState({maximoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length <= 5){
             this.setState({minimoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length == 0){
             this.setState({cadVacioCorreo:true});
             res = false;
         }
+        
         if(!this.esCorreo(llenadoCor)){
             this.setState({dominioFalCorreo:true});
             res = false;
-            //investigar sobre el dominio.
-            //falta eso creo
+          
         }
+        
         if(this.correoExiste(llenadoCor)){
             this.setState({correoExistente:true});
             //validar con la BD
             res = false;
         }
-        if(nombreLlenado.includes("..")){
+        
+        /* var dosPuntosSeg = '';
+        if(nombreLlenado.includes(dosPuntosSeg)){
             this.setState({puntosContinuosCorreo:true});
             res = false;
-        }
+        } */
+        
         if(llenadoCor.includes("  ")){
             this.setState({cadVaciasCorreo:true});
             res = false;
         }
+        
         return res;
     }
 
