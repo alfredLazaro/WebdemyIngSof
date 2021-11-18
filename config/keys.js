@@ -1,10 +1,12 @@
 module.exports = {
 
     database: {
-        host: 'localhost',
-        user: 'root',
-        password: 'tarija12345Javi',
-        database: 'practicadb'
+
+        host: 'bnzejryfzccllt1iv6cd-mysql.services.clever-cloud.com',
+        user: 'uwniakdgootbcctr',
+        password: 'pl7TQyNVrNog321QJICH',
+        database: 'bnzejryfzccllt1iv6cd'
+
     }
 
 }; 

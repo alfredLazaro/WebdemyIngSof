@@ -15,11 +15,10 @@ const Body =()=>{
             </div>
                 <div className="descripcion">
                     
-                    <h3 className="letraDescrip">
-                        <br />
+                    <h3 className="letraDescrip">                        
                        <p> Esta pagina esta pensada para el aprendizaje de herramientas 
                         tecnológicas y fomentar el aprendizaje en todas las personas 
-                        que deseen aprender   
+                        que deseen aprender bla bla BLASDAJOF ADA 
                         </p>
                     </h3>
                         
