@@ -162,7 +162,7 @@ class VistaEst extends Component{
                             <p id="txtOrdCursos"> Ordenar cursos </p> 
                         </div>
 
-                        <div className="w3-container w3-cell w3-cell-middle iconoOrd">
+                        <div className="w3-container w3-cell w3-cell-middle">
                             <button className="btnIconos w3-button" onClick={this.listOrd}>
                                 <i className="fa fa-bars w3-xxlarge" ></i>
                             </button>
@@ -185,7 +185,7 @@ class VistaEst extends Component{
                                         <div key={curso.id_curso} className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCur">
-                                                    <img id="imagenCursoRed" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
+                                                    <img id="imagenCursoCard" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
                                                 </div>
                                                 <div className="w3-container w3-cell w3-cell-middle infoCur">
                                                     <p className="tituloCurs">{curso.nombreCurso}</p>                  
@@ -198,7 +198,7 @@ class VistaEst extends Component{
                                                                 Tutor: {curso.nomT} {curso.apellT}
                                                             </div>
                                                         </div>
-                                                        <p> Objetivo curso </p>
+                                                        <p> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam, nisi non ad odit mollitia sunt assumenda modi reprehenderit quo, iste, itaque deleniti. Repellat, molestiae quaerat! Illum modi totam velit facere. </p>
                                                     </div>
                                                 </div>
                                             </div>
