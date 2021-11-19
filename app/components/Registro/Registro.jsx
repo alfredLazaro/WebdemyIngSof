@@ -61,6 +61,7 @@ class Registro extends Component{
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
+        this.correoExiste         = this.correoExiste.bind(this);
 
     }
 
@@ -123,11 +124,42 @@ class Registro extends Component{
           //y presiona aceptar,donde es llevado a su perfil.
         }
     }
+    
+    /* fetch('/api/cursos/register',{
+        method: 'POST',
+        data:{
+            first: "javier",
+            last: "filigran",
+            email: 'filigra@gmail.com',
+            password: "nose12343432"
+        }
+        
+    }).then(function(response) {                
+        console.log(response);
+        return response.json()
+      }).then(function(body) {
+        console.log(body);
+      }); */
     mandarBD(){
         console.log("trata de mandar la BD");        
         try{
-        fetch(`/api/cursos/register/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}`); 
-        console.log(this.state.hayCorreo);
+            /* console.log(this.state.campoNombre+" "+this.state.campoApellido);   */
+            var data ={
+                first: this.state.campoNombre,
+                last: this.state.campoApellido,
+                email: this.state.campoCorreo,
+                password: this.state.campoContraseña
+            };
+            fetch('/api/cursos/register',{
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }
+                
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));                    
         }
         catch(eer){
             console.log(eer);
@@ -208,18 +240,17 @@ class Registro extends Component{
     }
 
     correoExiste(){
-        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIO`)
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
         .then(res => res.json())
         .then(data => {
             this.setState({
               hayCorreo:data
             });
         });
-        if(this.state.hayCorreo.length >= 0){    
-           
+        if(this.state.hayCorreo.length >= 0){           
             return false;            
         }
-        
+        console.log(this.state.hayCorreo);
         return true;
     }
 
@@ -249,7 +280,6 @@ class Registro extends Component{
         
         if(this.correoExiste(llenadoCor)){
             this.setState({correoExistente:true});
-            //validar con la BD
             res = false;
         }
         
