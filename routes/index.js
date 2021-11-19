@@ -169,21 +169,21 @@ router.post('/register', async(req, res) => {
 
 router.get('/:email/login',async (req,res)=>{
     //los datos que se cargan en postman 
-    const {user} = req.params;
-    const password = req.params;
+    const {email} = req.params;
+    //const password = req.params;
     //consulta para obtener el email
-    const passwordHash=await bcrypt.hash([password],8);
-    const email= await pool.query(`SELECT * FROM usuario where correo= ?`,[user],(err,rows,fields) =>{
+    /* const passwordHash=await bcrypt.hash([password],8); */
+    const emailR= await pool.query(`SELECT * FROM usuario where correo= ?`,email,(err,rows,fields) =>{
         if(!err){
-            res.json(rows);
+            res.json(rows[0]);
         }else{
             console.log(err);
         }
     }); 
-    res.send(email);
+    res.send(emailR);
     //comprobamos que sean datos 
-    
-    if(user == email[0].correo && (await bcrypt.compare(password,email[0].contrasena))){
+    /* 
+    if(user == emailR[0].correo && (await bcrypt.compare(password,email[0].contrasena))){
         //let passwordHash = await bcrypt.hash(password,8);
         res.json({
             message: '¡AUTENTICADO WEY!',
@@ -195,7 +195,7 @@ router.get('/:email/login',async (req,res)=>{
             email : email[0],
             passwordHash: passwordHash
         });
-    }
+    } */
 })
 
 module.exports = router;

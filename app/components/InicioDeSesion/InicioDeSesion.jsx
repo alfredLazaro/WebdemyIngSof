@@ -47,7 +47,7 @@ class InicioDeSesion extends Component{
     validarCorreo(){
         var res = true;
         var estadoCor = this.state.campoCorreo;
-        if(estadoCor==" "){
+        if(estadoCor==""){
             this.setState({vacioCorr:true});
             res =false;
         }else{}
@@ -56,7 +56,7 @@ class InicioDeSesion extends Component{
     validarContra(){
         var res = true;
         var estadoCont = this.state.campoContra;
-        if(estadoCont==" "){
+        if(estadoCont==""){
             this.setState({vacioContra:true});
             res =false;
         }else{}
@@ -69,11 +69,20 @@ class InicioDeSesion extends Component{
         console.log(estaBien);
         if(estaBien){
             try {
-                fetch(`/api/cursos/${this.state.campoCorreo}/login/`) 
+                fetch(`/api/cursos/${this.state.campoCorreo}/login`) 
                     
                     .then(res => res.json())
-                    .then(data =>{ console.log(data)
-                        if(campoCorreo== data.correo &&bcrypt.compare(data.contrasena,campoContra)){
+                    .then(data =>{ console.log(data.contrasena)
+                        console.log(this.state.campoContra);
+                        var vale=await bcrypt.compare(data.contrasena,this.state.campoContra);
+                        console.log(vale);
+                        return new Promise(async(resolve,reject) => {
+                            const val=await bcrypt.compare(data.contrasena,this.state.campoContra);
+                            const resp=resolve(true);
+                            /* return reject(); */
+                        });
+                        console.log("fgfç");
+                        if(this.state.campoCorreo== data.correo && (await bcrypt.compare(this.state.campoContra,data.contrasena))){
                             console.log("buen inicio");
                         }else{
                             console.log("ALGO MAL");
