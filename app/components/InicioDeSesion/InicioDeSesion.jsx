@@ -77,7 +77,8 @@ class InicioDeSesion extends Component{
                         
                         if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
                             console.log("buen inicio");
-                            
+                            this.props.history.push("/estudiante/"+data.id_usuario);
+                            window.location.href = window.location.href;
                         }else{
                             console.log("ALGO MAL");
                             this.setState({vacioContra:true});
