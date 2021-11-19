@@ -68,10 +68,10 @@ router.get('/:id/etiquetas', async (req, res) => {
     console.log(cursos);
     res.send(cursos); //muestra la consulta en la pagina
 });
-
-router.get('/:correo/USUARIO', async (req,res)=>{
+/**Consultas para pag registtro */
+router.get('/:correo/usuario', async (req,res)=>{
     const {correo} = req.params;
-    const repetidos= await pool.query(`SELECT U.correo FROM USUARIO as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
+    const repetidos= await pool.query(`SELECT U.correo FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
@@ -81,91 +81,36 @@ router.get('/:correo/USUARIO', async (req,res)=>{
     res.send(repetidos);
 });
 
-router.get('/:correo/USUARIOID', async (req,res)=>{
+router.get('/:correo/usuarioid', async (req,res)=>{
     const {correo} = req.params;
-    const repetidos= await pool.query(`SELECT id_usuario FROM USUARIO as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
+    const repetidos= await pool.query(`SELECT id_usuario FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
             console.log(err);
         }
     });
+    console.log(repetidos);
     res.send(repetidos);
 });
-//var nos="INSERT INTO USUARIO (nombres,apellidos,correo,contrasena) VALUES("NOSE","nose112","nose@gmail.com","nosepues");"
-
-router.post('/:datos/USUARIO', (req, res) => {
-    const {nombre, apellidos, correo,contrasenia} = req.body ;
-    console.log(nombre, apellidos, correo,contrasenia);
-    const query = `
-     INSERT INTRO USUARIO ( nombres,apellidos,correo,contrasena) VALUES ("javier","filigrana","filigrana@gmail.com","nose12343jaja");`;
-    mysqlConnection.query(query,(err, rows, fields) => {
-      if(!err) {
-        res.json(rows);
-      } else {
-        console.log(err);
-      }
-    });
   
-  });
-//andre estuvo aqui
-
-/* router.post('/:datos/registrar', async (req,res)=> {
-    const { nombre,apellido,fecha_nacimiento,correo, pass} = req.body;
-
-    let salt = bcrypt.genSaltSync();
-    let hash = bcrypt.hashSync(pass,salt);
-    var cumple= true;
-
-    if(pass.length<=5)
-    {
-        res.json("muy corto");
-        cumple=false;
-    }
-    if(nombre==pass)
-    {
-        res.json("el nombre y la clave no pueden ser iguales");
-        cumple=false;
-    }
-    if(cumple)
-    {
-        const cursos = await pool.query(`INSERT INTO usuario (nombres, apellidos, fecha_nacimiento, correo, contrasena, fotografia) VALUES ('${nombre}', '${apellido}', '${fecha_nacimiento}', '${correo}', '${hash}', 'ss')`,(err,rows,fields) => {
-            if(!err){
-                res.json(rows);
-            }else{
-                console.log(err);
-            }
-        });
-    }
-}) */
-
-
-/* fetch('/users', { 
-        method: 'POST',
-        data: {
-          name: self.refs.name,
-          job: self.refs.job
-        }
-      })
-      .then(function(response) {
-        return response.json()
-      }).then(function(body) {
-        console.log(body);
-      });
-  } */
 router.post('/register', async(req, res) => {
-    const {nombre, apellidos, correo, pass} = req.body;
-    let salt = bcrypt.genSaltSync();
-    let hash = bcrypt.hashSync(pass, salt);
-
-    const curso = await pool.query(`insert into bnzejryfzccllt1iv6cd.usuario (nombres, apellidos, correo, contrasena) values ('${nombre}', '${apellidos}', '${correo}', '${hash}')`,(err, rows, fields) => {
+    console.log("entra al post");
+    const {first,last , email, password} = req.body;
+    console.log(req.body);
+    /* let salt = bcrypt.genSaltSync();
+    let hash = bcrypt.hashSync(password, salt); */    
+    const curso = await pool.query(`insert into usuario (nombres, apellidos, correo, contrasena) values (?, ?, ?, ?)`, [first,last,email,password],(err, rows, fields) => {
+          
         if(!err){
             res.json(rows);
         }else{
             console.log(err);
         }
     });
+    console.log("sale del post");
 });
+/**Fin consultas para pag registtro */
 
 router.get('/:email/login',async (req,res)=>{
     //los datos que se cargan en postman 
