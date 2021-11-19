@@ -270,7 +270,7 @@ class Filtro extends Component {
                               Tutor: {curso.nomT} {curso.apellT}
                             </div>
                         </div>
-                        </Link> 
+                    </Link> 
                         </button>
                   </div>                  
                   )

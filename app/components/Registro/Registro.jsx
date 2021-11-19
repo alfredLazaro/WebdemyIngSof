@@ -36,9 +36,11 @@ class Registro extends Component{
             cadContraseIdenticas    : false,
             almenosDosNumContrase   : false,
             confirmarContrase       : false,
-            veriCorreo              :false,
+            veriCorreo              : false,
 
+            regisExitoso            : false,
             hayCorreo               :[],
+            idUs                    :[],
         
         }
     
@@ -117,21 +119,14 @@ class Registro extends Component{
         todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
           this.mandarBD();
-          //activa un pop up..con el mensaje de que fue registrado exitosamente.
+          this.setState({regisExitoso : true});
           //y presiona aceptar,donde es llevado a su perfil.
         }
     }
     mandarBD(){
         console.log("trata de mandar la BD");        
         try{
-        fetch(`/api/cursos/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}/USUARIO`)
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-              hayCorreo:data
-            });
-        }); 
-
+        fetch(`/api/cursos/USUARIO`); 
         console.log(this.state.hayCorreo);
         }
         catch(eer){
@@ -409,6 +404,7 @@ class Registro extends Component{
                         </div>
 
                     </div>
+                    {/* {this.state.regisExitoso? <Exito></Exito> : null} */}
 
                     <div id='campContrasenias' >
                         <i id='logoContras' class="w3-xxlarge fa fa-envelope-o"></i>  
@@ -458,3 +454,42 @@ class Registro extends Component{
 
 
 export default withRouter(Registro);
+
+class Exito extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            idUs:this.obtenerIdConCorreo(),
+        };
+        this.llevarAvistaDeEstudiante = this.llevarAvistaDeEstudiante.bind(this);
+    }
+
+    llevarAvistaDeEstudiante(){
+        var idMandar = this.obtenerIdConCorreo();
+        
+    }
+
+    obtenerIdConCorreo(){
+        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIOID`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              idUs:data
+            });
+        });
+        return idUs;                
+    }
+
+    render() {    
+      return (
+        <div className='popup'>
+          <div className='popup_inner'>
+            <p className='textoPopup'>Registro exitoso!</p>
+            <Link className='linkInial' to={`/Inicio/${this.state.idUs}`} >                         
+            <button className='btnOk' onClick={this.llevarAvistaDeEstudiante}>Aceptar</button>
+            </Link> 
+          </div>
+        </div>
+      );
+    }
+}

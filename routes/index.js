@@ -94,14 +94,26 @@ router.get('/:correo/USUARIO', async (req,res)=>{
     });
     res.send(repetidos);
 });
+
+router.get('/:correo/USUARIOID', async (req,res)=>{
+    const {correo} = req.params;
+    const repetidos= await pool.query(`SELECT id_usuario FROM USUARIO as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    });
+    res.send(repetidos);
+});
 //var nos="INSERT INTO USUARIO (nombres,apellidos,correo,contrasena) VALUES("NOSE","nose112","nose@gmail.com","nosepues");"
 
 router.post('/:datos/USUARIO', (req, res) => {
-    const {nombre, apellidos, correo,contrasenia} = req.body;
+    const {nombre, apellidos, correo,contrasenia} = req.body ;
     console.log(nombre, apellidos, correo,contrasenia);
     const query = `
      INSERT INTRO USUARIO ( nombres,apellidos,correo,contrasena) VALUES ("javier","filigrana","filigrana@gmail.com","nose12343jaja");`;
-    mysqlConnection.query(query, [nombre, apellidos, correo,contrasenia], (err, rows, fields) => {
+    mysqlConnection.query(query,(err, rows, fields) => {
       if(!err) {
         res.json(rows);
       } else {
