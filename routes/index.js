@@ -106,10 +106,10 @@ router.post('/login',async (req,res)=>{
     const password = req.body.password;
     //consulta para obtener el email
     const passwordHash=await bcrypt.hash(password,8);
-    const email= await pool.query(`SELECT correo FROM usuario where correo= ?`,user); 
+    const email= await pool.query(`SELECT * FROM usuario where correo= ?`,user); 
     //comprobamos que sean datos 
     
-    if(user == email[0].correo && password == '12345'){
+    if(user == email[0].correo && (await bcrypt.compare(password,email[0].contrasena))){
         //let passwordHash = await bcrypt.hash(password,8);
         res.json({
             message: '¡AUTENTICADO WEY!',
@@ -118,7 +118,8 @@ router.post('/login',async (req,res)=>{
     }else{
         res.json({
             message: '¡error!',
-            email : email[0]
+            email : email[0],
+            passwordHash: passwordHash
         });
     }
 })
