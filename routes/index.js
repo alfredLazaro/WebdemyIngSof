@@ -175,7 +175,22 @@ router.get('/:email/login',async (req,res)=>{
     /* const passwordHash=await bcrypt.hash([password],8); */
     const emailR= await pool.query(`SELECT * FROM usuario where correo= ?`,email,(err,rows,fields) =>{
         if(!err){
-            res.json(rows[0]);
+             res.json(rows[0]); 
+             console.log(email);
+             //console.log(emailR.correo);
+            /* if(email == emailR[0].correo  && (await bcrypt.compare(password,email[0].contrasena)) ){
+                //let passwordHash = await bcrypt.hash(password,8);
+                res.json({
+                    message: '¡AUTENTICADO WEY!',
+                    
+                });
+            }else{
+                res.json({
+                    message: '¡error!',
+                    emailR : email[0],
+                   
+                });
+            }  */
         }else{
             console.log(err);
         }
