@@ -61,23 +61,14 @@ class InicioDeSesion extends Component{
         }else{}
         return res;
     }
-    /**
-    validarIniciSecion(event){
-        var todoBienTodoCorrecto = this.validarAllCampos();
-        //se hace la consulta en aqui
-        
-        if(todoBienTodoCorrecto){
-            // se comprueba la base de datos
-        }else{
-            
-        }
-
-    } */
+    
    
     validarInicio(event){
         var estaBien=this.validarAllCampos();
         if(estaBien){
+            
             /**capturar de la BD */
+
         }else{
             this.setState({vacioContra:true});
             this.setState({vacioCorr:true});
@@ -108,8 +99,8 @@ class InicioDeSesion extends Component{
                             <div  class="w3-rest" >
                             <i id='iconCor' class="w3-email"></i>
                             <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
+                            {/* <i id='iconCor' class="w3-email"></i>
+                            <i id='iconCor' class="w3-email"></i> */}
                                 <i id='iconCor' class="fa fa-envelope"></i>
                                 <div >
                                     <input  id='prinPar'  class="w3-input w3-border" name="email" type="text" placeholder="correo electronico" 
@@ -129,14 +120,14 @@ class InicioDeSesion extends Component{
                         <br />
                         <div >
                             <div>
+                             <i id='iconCor' class="w3-email"></i>
                             <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
+                            {/*<i id='iconCor' class="w3-email"></i>
+                            <i id='iconCor' class="w3-email"></i> */}
                                 <i id='iconCor' class="fa fa-lock"></i>
                                 
                                 <input id='prinPar'  class="w3-input w3-border" name="campoContra" type="Password" placeholder="contraseña" 
-                                value={this.state.campoContra} onChange={this.contraChanche} 
+                                value={this.state.campoContra} onChange={this.contraChange} 
                                 />
                             </div>
                             

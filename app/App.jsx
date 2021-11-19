@@ -18,9 +18,7 @@ import { useParams } from 'react-router';
 function VistaGeneral(){
   return(
     <Router>
-        <AppBar 
-
-        />
+        <AppBar showOptOthers='false' showButtonUser='false'/>
         <Body
           
         />
@@ -34,7 +32,7 @@ function VistaCurso(){
 
  return(   
   <Router>
-      <AppBar/>
+      <AppBar showOptOthers='false' showButtonUser='false'/>
       <Inicio id_curso = {params.entrada} />
   </Router>
   );
@@ -44,7 +42,7 @@ function VistaCurso(){
 function VistaEstudiante(){
   return(
     <Router>
-        <AppBar/>
+        <AppBar showButtRegis='false' showButtLogin='false'/>
         <VistaEst/>
       </Router>
   );
@@ -53,9 +51,9 @@ function VistaEstudiante(){
 function VistaRegistro(){
   return(
     <Router>      
-        <AppBar showButtRegis='false' showButtLogin='false' />
+        <AppBar showButtRegis='false' showButtLogin='false' showOptOthers='false' showButtonUser='false'/>
         <Registro>
-      </Registro>
+        </Registro>
     </Router>
   );
 }
@@ -63,7 +61,7 @@ function VistaRegistro(){
 function VistaLogin(){
   return(
     <Router>      
-        <AppBar showButtRegis='false' showButtLogin='false' />
+        <AppBar showButtRegis='false' showButtLogin='false' showOptOthers='false' showButtonUser='false'/>
 
         <InicioDeSesion>
 

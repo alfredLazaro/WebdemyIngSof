@@ -13,7 +13,7 @@
     margin-top: 2%;
 }
 #campNombre{
-    width: 245px;
+    width: 90%;
     height: 15%;
     float: left;
     padding: 15px;
@@ -23,7 +23,7 @@
 }
 
 #campApelli{
-    width: 245px;
+    width: 90%;
     height: 34px;
     float: left;
     padding: 15px;
@@ -35,6 +35,7 @@
 #campNomApe{
     margin-top: 4%;
 }
+
 
 .contenierNomApe{
     margin-top: 5%;
@@ -106,8 +107,9 @@
 /*El input de nombres y apellidos nas sus alertas*/
 /*a revisar*/
 
+
 #botonRegis{
-    width: 200px; 
+    width: 25%;; 
     height: 50px;
     background: rgba(94, 139, 126, 0.65);
     border: 1px solid #000000;
@@ -131,12 +133,21 @@
 }
 
 
-#form{
+#formResgistro{
     margin-left: 20%;
-    Width:761px;       
-    margin-bottom: 6%; 
+    Width:55%;       
+    height: auto;
+    margin-bottom: 10%;
+    /* position:absolute;
+    top: 75%;
+    left: 30%;     
+    transform: translate(-50%,-50%); */
+    
 }
 
-  body{
+body{
     font-family: 'Roboto', sans-serif;
-  }
+}
+#iconCor{
+    margin-left: 5%;
+}

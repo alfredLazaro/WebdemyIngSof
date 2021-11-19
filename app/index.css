@@ -22,6 +22,7 @@ body{
   border-color: #2F5D62;
   height: 0px;
   border:none;
+  
 
   position: absolute;
   color: white;
@@ -32,10 +33,21 @@ body{
   padding: 10px;
 }
 
+
 .linkInial{
   color: inherit;
   text-decoration: inherit;
 }
+
+.linkAppBar{
+  text-decoration:none;
+  display: table-cell;
+  vertical-align: middle;
+  margin-left: 0.5em;
+  margin-right: 2.5em;
+  max-width: 9em;
+}
+
 .curseDescription{
   padding-block-start: 0.5cm;
   line-height: 1.8;
@@ -47,11 +59,39 @@ body{
   font-size: 40px;
 }
 
+.pestanaOp{
+  color: white;
+  font-size: 30px;
+  text-align: center;
+}
+
 .appBar{
-  height: 125px;
-  margin: -0.6%;
+  height: 9em;
+  width: 100%;
   background-color: #2F5D62;
-  margin-bottom: 25px;
+  margin-top: -1.5em;
+}
+
+.pestanas{
+  width: 78%;
+  display: table-row;
+}
+.botones{
+  width: 22%;
+  margin-left: auto;
+}
+
+#listaUser{
+  margin-left: 5em;
+}
+
+.btnIconAppBar{
+  border: none;
+  margin-left: 10em; /*para alinear a derecha*/
+  background-color: #2F5D62;
+  height: 5em;
+  width: 5em;
+  cursor: pointer;
 }
 
 /* estan correctamente acomadados.*/
@@ -60,18 +100,21 @@ body{
   display:flex;
 }
 
+.appBarIzq{
+  margin-right: 20%;
+  display:flex;
+}
+
 #ButtonRegister{
-  margin-top: 15%;
-  margin-left:  5%;
   border-radius: 10px;
+  margin: 5px;
   background-color: #192d30;
   color: #FFFFFF;
 }
 
 #ButtonLogin{
-  margin-top: 15%;
-  margin-left:  5%;
   border-radius: 10px;
+  margin: 5px;
   background-color: #192d30;
   color: #FFFFFF;
 }
@@ -82,7 +125,7 @@ body{
 .fondo {
   background-image: url(./imagenes/chicaCompu.jpeg); 
   background-size: 100% 100%;
-  margin-top: -3%;
+  margin-top: -1.5%;
   margin-left: -1%;
   margin-right: -1%;
   margin-bottom: -1%;
@@ -104,18 +147,25 @@ body{
   opacity: 0.0;   /*esto es*/
 }
 
+.BodyPart{
+  padding-left: 10em;
+  padding-right: 10em;  
+}
+
 .descripcion{  /*descripcion general*/
   width: 60%;
   height: 120px;
   background-color: #DFEEEA;
   border-radius: 20px;
-  margin-left: 14%;
   text-align: center;
-  opacity: 0.8  ;
+  opacity: 0.8 ;
+  font-size: 24px;
+  margin-left: auto;
+  margin-right: auto;
   font-family: Arial, Helvetica, sans-serif;
 }
 .letraDescrip{
-  top: 20px;
+  padding: 2px;
 }
 #tituloCursPlat{
   color: #000000;
@@ -192,7 +242,7 @@ body{
   display: grid;
   grid-template-columns: 0.09% 98% 0.1%;
   width: 100%;
-  height: 400px;
+  height: 400;
   /*este es el contenedor principal?*/
 }
 
@@ -254,7 +304,7 @@ body{
 .fondoCurso{
   background-color:#DFEEEA;
   background-size: 100% 100%;
-  margin-top: -3%;
+  margin-top: -0.5%;
   margin-left: -1%;
   margin-right: -1%;
   margin-bottom: -1%;
@@ -315,11 +365,9 @@ body{
   font-size: 45px;
   -webkit-text-stroke: 1px black;
   font-family: Arial;
-  margin-top: 10px;
-  margin-bottom: 10px;
   color: white;
   position: absolute;
-  top:45%;
+  top:65%;
 }
 
 .tituloCursos{
@@ -358,13 +406,14 @@ body{
   background-color: #2F5D62;
   font-size: 20px;
   color: #FFFFFF;
+  cursor: pointer;
   position: absolute;
   right: 0px;
   margin-right: 50px;
   padding: 5px;
   border-radius: 10px;
   position: absolute;
-  top:47%;
+  top:67%;
 }
 
 .etiqueta{

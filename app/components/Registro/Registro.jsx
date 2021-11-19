@@ -350,107 +350,108 @@ class Registro extends Component{
                 <title>Document</title>
             </head>
             <body>
-                <div id='form'  className="w3-container w3-card-4 w3-light-grey" onSubmit={this.validarRegistro}> 
-                <h1 id='TituloPrin' className="w3-center">Registrate en Wdemy</h1>
-                <div className="w3-row w3-section">
-                    
-                    <div id='campNomApe' className="w3-rest">
-                        <i id='logNomApe' class="w3-xxlarge fa fa-user"></i>
+                <div id='formResgistro' class="w3-container w3-card-4 w3-light-grey "  onSubmit={this.validarRegistro}> 
+                    <h1 id='TituloPrin' className="w3-center">Registrate en Wdemy</h1>
+                    <div className="w3-row w3-section">
+                        
+                        <div id='campNomApe' className="w3-rest">
+                            <i id='logNomApe' class="w3-xxlarge fa fa-user"></i>
 
-                        <div className="contenierNomApe ">                            
-                            <div className='alertsIzq'>
-                                <input id='campNombre' className="w3-input w3-border" name="first" type="text" placeholder="Nombre(s)"
-                                    value={this.state.campoNombre} onChange={this.nameChange}
-                                />
-                                {this.state.errorVacioNombre?       <p>El campo nombre(s) no debe  estar vacio</p>                  : null }
-                                {this.state.errorCaraEspeciNombre?  <p>No debe  contener caracteres especiales</p>                  : null }
-                                {this.state.maximoCaraNombre?       <p>El nombre debe tener máximo 25 caracteres</p>                : null }
-                                {this.state.minimoCaraNombre?       <p>El nombre debe tener mínimamente 2 caracteres</p>            : null }
-                                {this.state.cadVaciasNombre?        <p>El nombre no debe contener cadenas de caracteres vacias</p>  : null }
-                                
-                            </div>
-                          
-                            <div className='alertsDere'>
-                                <input id='campApelli' class="w3-input w3-border" name="last" type="text" placeholder="Apellidos" 
-                                    value={this.state.campoApellido} onChange={this.firstNameChange}
-                                />
-                                {this.state.errorVacioApellido?        <p>El campo apellidos no debe estar vacio</p>                       : null }
-                                {this.state.errorCaraEspeciApellido?  <p>No debe  contener caracteres especiales</p>                      : null }
-                                {this.state.maximoCaraApellido?       <p>El apellido debe tener máximo 25 caracteres</p>                  : null }
-                                {this.state.minimoCaraApellido?       <p>Los apellidos deben tener mínimamente 6 caracteres</p>           : null }
-                                {this.state.cadVaciasApellido ?       <p>Los apellidos no debe contener cadenas de caracteres vacias</p>  : null }
-                
-                            </div>
-                        </div>
+                            <div className="contenierNomApe ">                            
+                                <div className='alertsIzq'>
+                                    <input id='campNombre' className="w3-input w3-border" name="first" type="text" placeholder="Nombre(s)"
+                                        value={this.state.campoNombre} onChange={this.nameChange}
+                                    />
+                                    {this.state.errorVacioNombre?       <p>El campo nombre(s) no debe  estar vacio</p>                  : null }
+                                    {this.state.errorCaraEspeciNombre?  <p>No debe  contener caracteres especiales</p>                  : null }
+                                    {this.state.maximoCaraNombre?       <p>El nombre debe tener máximo 25 caracteres</p>                : null }
+                                    {this.state.minimoCaraNombre?       <p>El nombre debe tener mínimamente 2 caracteres</p>            : null }
+                                    {this.state.cadVaciasNombre?        <p>El nombre no debe contener cadenas de caracteres vacias</p>  : null }
+                                    
+                                </div>
+                            
+                                <div className='alertsDere'>
+                                    <input id='campApelli' class="w3-input w3-border" name="last" type="text" placeholder="Apellidos" 
+                                        value={this.state.campoApellido} onChange={this.firstNameChange}
+                                    />
+                                    {this.state.errorVacioApellido?        <p>El campo apellidos no debe estar vacio</p>                       : null }
+                                    {this.state.errorCaraEspeciApellido?  <p>No debe  contener caracteres especiales</p>                      : null }
+                                    {this.state.maximoCaraApellido?       <p>El apellido debe tener máximo 25 caracteres</p>                  : null }
+                                    {this.state.minimoCaraApellido?       <p>Los apellidos deben tener mínimamente 6 caracteres</p>           : null }
+                                    {this.state.cadVaciasApellido ?       <p>Los apellidos no debe contener cadenas de caracteres vacias</p>  : null }
                     
-                    </div>                 
-                    <div id='campCorr' class="w3-row w3-section">
-                        <i id='logoCorreo' class="w3-xxlarge fa fa-envelope-o"></i>
-                        <div className="w3-rest">
-                            <input id='campoCorreo'  class="w3-input w3-border" name="email" type="text" placeholder="correo" 
-                                value={this.state.campoCorreo} onChange={this.correoChange}
-                            />
-                        </div>
+                                </div>
+                            </div>
+                        
+                        </div>                 
+                        <div id='campCorr' class="w3-row w3-section">
+                            <i id='logoCorreo' class="w3-xxlarge fa fa-envelope-o"></i>
+                            <div className="w3-rest">
+                                <input id='campoCorreo'  class="w3-input w3-border" name="email" type="text" placeholder="correo" 
+                                    value={this.state.campoCorreo} onChange={this.correoChange}
+                                />
+                            </div>
 
-                        <div className='alersCorreo'>
-                            {this.state.maximoCaraCorreo?     <p>El correo debe contener como maximo 50 caracteres.</p>       : null }
-                            {this.state.dominioFalCorreo?     <p>El correo debe contener un dominio</p>                       : null }
-                            {this.state.correoExistente?      <p>El correo que ingresó ya está registrado</p>                 : null }
-                            {this.state.puntosContinuosCorreo?<p>El correo que ingresó tiene más de dos puntos continuos</p>  : null }
-                            {this.state.minimoCaraCorreo?     <p>El correo que ingrese debe contener más de 5 caracteres</p>  : null }                            
-                            {this.state.cadVacioCorreo?       <p>El campo correo no debe estar vacio</p>                      : null }
-                            {this.state.cadVaciasCorreo?      <p>El correo no debe contener cadenas de caracteres vacias</p>  : null }   
-                            {this.state.veriCorreo?            <p>Verifique su correo                                    </p> : null }                         
-                        </div>
+                            <div className='alersCorreo'>
+                                {this.state.maximoCaraCorreo?     <p>El correo debe contener como maximo 50 caracteres.</p>       : null }
+                                {this.state.dominioFalCorreo?     <p>El correo debe contener un dominio</p>                       : null }
+                                {this.state.correoExistente?      <p>El correo que ingresó ya está registrado</p>                 : null }
+                                {this.state.puntosContinuosCorreo?<p>El correo que ingresó tiene más de dos puntos continuos</p>  : null }
+                                {this.state.minimoCaraCorreo?     <p>El correo que ingrese debe contener más de 5 caracteres</p>  : null }                            
+                                {this.state.cadVacioCorreo?       <p>El campo correo no debe estar vacio</p>                      : null }
+                                {this.state.cadVaciasCorreo?      <p>El correo no debe contener cadenas de caracteres vacias</p>  : null }   
+                                {this.state.veriCorreo?            <p>Verifique su correo                                    </p> : null }                         
+                            </div>
 
                     </div>
                     {/* {this.state.regisExitoso? <Exito></Exito> : null} */}
 
-                    <div id='campContrasenias' >
-                        <i id='logoContras' class="w3-xxlarge fa fa-envelope-o"></i>  
-                            <div className="contenierNomApe" > 
-                            <div className='alertsIzq'>                            
-                                <input id='campNombre'  class="w3-input w3-border" name="password" type="password" placeholder="contraseña" 
-                                    value={this.state.campoContraseña} onChange={this.passwordChange}                            
-                                />
-                                {this.state.minimoCaraContrase?       <p>Debe tener por lo menos 8 caracteres</p>                 : null }
-                                {this.state.cadVacioContrase?         <p>El campo contraseña no debe estar vacio</p>              : null }
-                                {this.state.cadContraseIdenticas?     <p>Las contraseñas deben de ser idénticas</p>               : null }
-                                {this.state.almenosDosNumContrase?    <p>Debes introducir al menos 2 numeros en tu contraseña</p> : null }
-                                {this.state.confirmarContrase?        <p>Debe confirmar su contraseña</p>                         : null }
+                        <div id='campContrasenias' >
+                            <i id='iconCor' class="fa fa-lock"></i>
+                                <div className="contenierNomApe" > 
+                                <div className='alertsIzq'>                            
+                                    <input id='campNombre'  class="w3-input w3-border" name="password" type="password" placeholder="contraseña" 
+                                        value={this.state.campoContraseña} onChange={this.passwordChange}                            
+                                    />
+                                    {this.state.minimoCaraContrase?       <p>Debe tener por lo menos 8 caracteres</p>                 : null }
+                                    {this.state.cadVacioContrase?         <p>El campo contraseña no debe estar vacio</p>              : null }
+                                    {this.state.cadContraseIdenticas?     <p>Las contraseñas deben de ser idénticas</p>               : null }
+                                    {this.state.almenosDosNumContrase?    <p>Debes introducir al menos 2 numeros en tu contraseña</p> : null }
+                                    {this.state.confirmarContrase?        <p>Debe confirmar su contraseña</p>                         : null }
+                                </div>
+                                <div className='alertsDere'>
+                                    <input id='campApelli'  class="w3-input w3-border" name="password" type="password" placeholder="confirmar contraseña"
+                                        value={this.state.campoConfirContraseña} onChange={this.passwordConfirChang}                            
+                                    />                            
+                                    {this.state.confirmarContrase?            <p>Las contraseñas deben de ser idénticas</p>               : null }
+                                </div> 
                             </div>
-                            <div className='alertsDere'>
-                                <input id='campApelli'  class="w3-input w3-border" name="password" type="password" placeholder="confirmar contraseña"
-                                    value={this.state.campoConfirContraseña} onChange={this.passwordConfirChang}                            
-                                />                            
-                                {this.state.confirmarContrase?            <p>Las contraseñas deben de ser idénticas</p>               : null }
-                            </div> 
+    
                         </div>
-   
-                    </div>
-                    
-                </div>
-                <div>
+                        
+                        </div>
+                        <div>
 
-                    <button className="w3-btn " id='botonRegis' onClick={this.validarRegistro}>
-                         Registrarse
-                    </button>
+                            <button className="w3-btn " id='botonRegis' onClick={this.validarRegistro}>
+                                Registrarse
+                            </button>
+                            
+                        </div>
                     
-                </div>
-               
-                <div className='enlacePre' >
-                    <p >¿ya tienes cuenta?</p>
-                    <a id='enlace' href="/login">iniciar sesion</a>
-                    
-                </div>
+                        <div className='enlacePre' >
+                            <p >¿ya tienes cuenta?</p>
+                            <a id='enlace' href="/login">iniciar sesion</a>
+                            
+                        </div>
 
-                </div>                
+                    </div>                
                 </body>
             </html>
             
         );
     }
 }
+
 
 
 export default withRouter(Registro);
