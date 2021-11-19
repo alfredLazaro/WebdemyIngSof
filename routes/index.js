@@ -167,13 +167,20 @@ router.post('/register', async(req, res) => {
     });
 });
 
-router.post('/login',async (req,res)=>{
+router.get('/:email/login',async (req,res)=>{
     //los datos que se cargan en postman 
-    const user = req.body.user;
-    const password = req.body.password;
+    const {user} = req.params;
+    const password = req.params;
     //consulta para obtener el email
-    const passwordHash=await bcrypt.hash(password,8);
-    const email= await pool.query(`SELECT * FROM usuario where correo= ?`,user); 
+    const passwordHash=await bcrypt.hash([password],8);
+    const email= await pool.query(`SELECT * FROM usuario where correo= ?`,[user],(err,rows,fields) =>{
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    }); 
+    res.send(email);
     //comprobamos que sean datos 
     
     if(user == email[0].correo && (await bcrypt.compare(password,email[0].contrasena))){

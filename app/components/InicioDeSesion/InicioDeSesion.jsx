@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import { withRouter } from "react-router-dom";
 import './inicioSesion.css'
+const bcrypt = require('bcryptjs');
 class InicioDeSesion extends Component{
      constructor(props){
         super(props);
@@ -36,7 +37,7 @@ class InicioDeSesion extends Component{
         });
     }
     validarAllCampos(){
-        var res = false;
+        var res = true;
          this.devolverValoresState();
         this.validarCorreo();
         this.validarContra(); 
@@ -46,7 +47,7 @@ class InicioDeSesion extends Component{
     validarCorreo(){
         var res = true;
         var estadoCor = this.state.campoCorreo;
-        if(estadoCor==""){
+        if(estadoCor==" "){
             this.setState({vacioCorr:true});
             res =false;
         }else{}
@@ -55,7 +56,7 @@ class InicioDeSesion extends Component{
     validarContra(){
         var res = true;
         var estadoCont = this.state.campoContra;
-        if(estadoCont==""){
+        if(estadoCont==" "){
             this.setState({vacioContra:true});
             res =false;
         }else{}
@@ -65,8 +66,28 @@ class InicioDeSesion extends Component{
    
     validarInicio(event){
         var estaBien=this.validarAllCampos();
+        console.log(estaBien);
         if(estaBien){
-            
+            try {
+                fetch(`/api/cursos/${this.state.campoCorreo}/login/`) 
+                    
+                    .then(res => res.json())
+                    .then(data =>{ console.log(data)
+                        if(campoCorreo== data.correo &&bcrypt.compare(data.contrasena,campoContra)){
+                            console.log("buen inicio");
+                        }else{
+                            console.log("ALGO MAL");
+                        }
+                    }
+                  )
+                  /* .then(function(response) {
+                    return response.json()
+                  }).then(function(body) {
+                    console.log(body);
+                  }); */
+            } catch (error) {
+                
+            }
             /**capturar de la BD */
 
         }else{
