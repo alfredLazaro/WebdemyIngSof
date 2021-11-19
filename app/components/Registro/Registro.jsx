@@ -36,7 +36,11 @@ class Registro extends Component{
             cadContraseIdenticas    : false,
             almenosDosNumContrase   : false,
             confirmarContrase       : false,
-            veriCorreo              :false,
+            veriCorreo              : false,
+
+            regisExitoso            : false,
+            hayCorreo               :[],
+            idUs                    :[],
         
         }
     
@@ -56,7 +60,7 @@ class Registro extends Component{
         this.validarConfirContrase= this.validarConfirContrase.bind(this);
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
-      
+        this.mandarBD             = this.mandarBD.bind(this);
 
     }
 
@@ -111,26 +115,44 @@ class Registro extends Component{
     }
 
     validarRegistro(event){
-        var todoBienTodoCorrecto = this.validarAllCampos();
+        var todoBienTodoCorrecto = false;
+        todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
-            // se sube ala base de datos .
-            //se debe de aver con los encargados de backend.
-        }else{
-            // no se hace nada.
+          this.mandarBD();
+          this.setState({regisExitoso : true});
+          //y presiona aceptar,donde es llevado a su perfil.
+        }
+    }
+    mandarBD(){
+        console.log("trata de mandar la BD");        
+        try{
+        fetch(`/api/cursos/register/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}`); 
+        console.log(this.state.hayCorreo);
+        }
+        catch(eer){
+            console.log(eer);
+            console.log('no manda');
         }
     }
 
     validarAllCampos(){
         var res = false;
         this.devolverValoresState();
+        var contrase = false;
+        var confirCon= false;
+        var firsName = false;
+        var lastName = false;
+        var emailVal = false;
         var contrase = this.validarContrase();
         var confirCon= this.validarConfirContrase();
         var firsName = this.validarApellido();
         var lastName = this.validarNombre();
-        var emailVal = this.validarCorreo();
+        var emailVal = this.validarCorreo();        
+        
         if(firsName && lastName && emailVal && contrase && confirCon){                
-                res = true;
-        }        
+            res = true;
+        }     
+           
         return res;
     }
 
@@ -186,7 +208,18 @@ class Registro extends Component{
     }
 
     correoExiste(){
-        //esto se hace con la base de datos .
+        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIO`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              hayCorreo:data
+            });
+        });
+        if(this.state.hayCorreo.length >= 0){    
+           
+            return false;            
+        }
+        
         return true;
     }
 
@@ -197,33 +230,40 @@ class Registro extends Component{
             this.setState({maximoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length <= 5){
             this.setState({minimoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length == 0){
             this.setState({cadVacioCorreo:true});
             res = false;
         }
+        
         if(!this.esCorreo(llenadoCor)){
             this.setState({dominioFalCorreo:true});
             res = false;
-            //investigar sobre el dominio.
-            //falta eso creo
+          
         }
-        if(!this.correoExiste(llenadoCor)){
+        
+        if(this.correoExiste(llenadoCor)){
             this.setState({correoExistente:true});
             //validar con la BD
             res = false;
         }
-        if(nombreLlenado.includes("..")){
+        
+        /* var dosPuntosSeg = '';
+        if(nombreLlenado.includes(dosPuntosSeg)){
             this.setState({puntosContinuosCorreo:true});
             res = false;
-        }
+        } */
+        
         if(llenadoCor.includes("  ")){
             this.setState({cadVaciasCorreo:true});
             res = false;
         }
+        
         return res;
     }
 
@@ -232,7 +272,6 @@ class Registro extends Component{
         var numArro = 0;
         for(var i = 0 ; i< cadVericacion.length;i++){
             if(cadVericacion[i] == '@'){
-                console.log("verificaCorreo")
                 numArro++;
             }
         }
@@ -364,7 +403,8 @@ class Registro extends Component{
                                 {this.state.veriCorreo?            <p>Verifique su correo                                    </p> : null }                         
                             </div>
 
-                        </div>
+                    </div>
+                    {/* {this.state.regisExitoso? <Exito></Exito> : null} */}
 
                         <div id='campContrasenias' >
                             <i id='iconCor' class="fa fa-lock"></i>
@@ -416,3 +456,41 @@ class Registro extends Component{
 
 export default withRouter(Registro);
 
+class Exito extends Component {
+    constructor(props){
+        super(props);
+        this.state={
+            idUs:this.obtenerIdConCorreo(),
+        };
+        this.llevarAvistaDeEstudiante = this.llevarAvistaDeEstudiante.bind(this);
+    }
+
+    /* llevarAvistaDeEstudiante(){
+        var idMandar = this.obtenerIdConCorreo();
+        
+    }
+
+    obtenerIdConCorreo(){
+        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIOID`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              idUs:data
+            });
+        });
+        return idUs;                
+    } */
+
+    render() {    
+      return (
+        <div className='popup'>
+          <div className='popup_inner'>
+            <p className='textoPopup'>Registro exitoso!</p>
+           {/*  <Link className='linkInial' to={`/Inicio/${this.state.idUs}`} >                          */}
+            <button className='btnOk' onClick={this.llevarAvistaDeEstudiante}>Aceptar</button>
+            {/* </Link>  */}
+          </div>
+        </div>
+      );
+    }
+}

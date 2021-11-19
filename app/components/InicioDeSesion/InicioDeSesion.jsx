@@ -61,23 +61,14 @@ class InicioDeSesion extends Component{
         }else{}
         return res;
     }
-    /**
-    validarIniciSecion(event){
-        var todoBienTodoCorrecto = this.validarAllCampos();
-        //se hace la consulta en aqui
-        
-        if(todoBienTodoCorrecto){
-            // se comprueba la base de datos
-        }else{
-            
-        }
-
-    } */
+    
    
     validarInicio(event){
         var estaBien=this.validarAllCampos();
         if(estaBien){
+            
             /**capturar de la BD */
+
         }else{
             this.setState({vacioContra:true});
             this.setState({vacioCorr:true});

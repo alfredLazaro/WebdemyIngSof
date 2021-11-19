@@ -6,9 +6,12 @@
     width: 101.2%;
     min-height: 600px;
     margin: -0.6%;
-    margin-top: -25px;
     padding-left: 2.5em;
     padding-right: 2.5em;
+    margin-top: -0.5%;
+    margin-left: -1%;
+    margin-right: -1%;
+    margin-bottom: -1%;
   }
 
   .inputPagEst{
@@ -26,8 +29,8 @@
 
   .contCursosEst{
     align-content: center;
-    padding-left: 12em;
-    padding-right: 12em;
+    padding-left: 8em;
+    padding-right: 8em;
   }
   
   .linkCursoEst{
@@ -66,9 +69,6 @@
     text-align: right;
   }
 
-  .iconoOrd{
-    width: 5%;
-  }
 
 
   .elementosLista{
@@ -92,10 +92,21 @@
     -o-border-radius: 10px;
   }
   .imagenCur{
-    width: 25%;
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0;
   }
+
+  #imagenCursoCard{
+    height: 11em;
+    width: 100%;
+    object-fit: cover; 
+  }
+
   .infoCur{
-    width: 75%;
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0;
     text-align: left;
     font-size: 18px;
   }
