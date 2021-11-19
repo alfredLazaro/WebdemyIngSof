@@ -124,7 +124,7 @@ class Filtro extends Component {
     
     var filtracion0= this.state.cursos.filter(curso =>curso.nombreEtiqueta.includes(this.nombreAbuscar) ||
     this.nombreAbuscar === "" );
-
+    console.log(this.state.cursos);
     let hash = {};
     var filtracion = filtracion0.filter(curso=>hash[curso.id_curso]? false : hash[curso.id_curso]=true);
 
@@ -284,7 +284,7 @@ class Filtro extends Component {
               </ul>
               {this.numFiltrado === 0 ? 
                 <div id="contenedorNoEnc">
-                    <h1 > <img src={`${process.env.PUBLIC_URL}/assets/imagenes/imagenDeNoEncontrado.png`}></img>  
+                    <h1 > <img src={`/assets/imagenes/ImagenDeNoEncontrado.PNG`}></img>  
                      ¡Ups! No hay cursos disponibles 
                     </h1>
                 </div> : null

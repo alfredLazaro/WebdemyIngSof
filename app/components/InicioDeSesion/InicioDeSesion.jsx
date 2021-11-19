@@ -66,7 +66,9 @@ class InicioDeSesion extends Component{
     validarInicio(event){
         var estaBien=this.validarAllCampos();
         if(estaBien){
+            
             /**capturar de la BD */
+
         }else{
             this.setState({vacioContra:true});
             this.setState({vacioCorr:true});
