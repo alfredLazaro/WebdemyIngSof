@@ -44,6 +44,7 @@ class Inicio extends Component{
                   modulos: data
                 });
             });
+        console.log(this.state.modulos);
     }
 
     fetchTags(){
@@ -62,10 +63,12 @@ class Inicio extends Component{
         return text.slice(1,11);
     }
 
-    refrescar() {
+    refrescar() {        
         this.props.history.push("/");
-        window.location.href = window.location.href;    
+        window.location.href = window.location.href;   
     }
+
+    
 
     render() {
         return(

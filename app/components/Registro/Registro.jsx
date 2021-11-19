@@ -7,7 +7,7 @@ class Registro extends Component{
         this.state  ={
             campoNombre             : "", 
             campoApellido           : "", 
-            campoCorreo             : "javierfiligranaagreda@gmail.com", 
+            campoCorreo             : "evito33@gmail.com", 
             campoContraseña         : "", 
             campoConfirContraseña   : "", 
 
@@ -60,8 +60,9 @@ class Registro extends Component{
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
-        this.correoExiste         = this.correoExiste.bind(this);        
-        this.mandarAsuVista       = this.mandarAsuVista.bind(this);
+        this.correoExiste         = this.correoExiste.bind(this);
+        this.mandarAsuVista       = this.mandarAsuVista.bind(this); 
+        this.fetchTags            = this.fetchTags.bind(this); 
     }
 
     devolverValoresState(){
@@ -221,21 +222,6 @@ class Registro extends Component{
         return res;
     }
 
-    correoExiste(correoIn){        
-        fetch(`/api/cursos/${correoIn}/usuario`)
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-              hayCorreo:data
-            });
-        });
-        if(this.state.hayCorreo.length >= 0){           
-            return false;            
-        }
-        console.log(this.state.hayCorreo);
-        return true;
-    }
-
     validarCorreo(){
         var res = true;
         var llenadoCor = this.state.campoCorreo;
@@ -347,28 +333,59 @@ class Registro extends Component{
             var res = false;   
         }
         return res;
-
+        this.fetchTags(); 
     }
-
-    sacarId(){
-        console.log("entra a sacar");
-        var res = -1;
+/*
+    fetch(`/api/cursos/${this.state.curso}/etiquetas`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                  etiquetas: data
+                });
+            });
+*/ 
+    sacarId(){        
+        var restorno = -1;
+        var ids = [];
         fetch(`/api/cursos/${this.state.campoCorreo}/usuarioid`)
         .then(res => res.json())
         .then(data => {
-            this.setState({
-              idUs : data
-            });
+            ids = data;
         });   
-        res = parseInt(this.state.idUs[0]); 
-        alert(res);            
-        return res;
+        //restorno = parseInt(ids[0]); 
+        console.log(ids)            
+        return restorno;
+    }
+
+    correoExiste(correoIn){    
+        var opRows = [];  
+         
+        fetch(`/api/cursos/${correoIn}/usuario`)
+            .then(res => res.json())
+            .then(data => {
+                opRows = data;
+            });
+        if(opRows.size >= 0){           
+            return false;            
+        }
+        console.log(opRows);
+        return true;
+    }
+
+    fetchTags(){
+        fetch('/api/cursos/cursos')
+        .then(res => res.json())
+        .then(data => {
+            this.setState({hayCorreo:data});
+        });
+        console.log(this.state.hayCorreo);
     }
 
     mandarAsuVista(){        
+        this.fetchTags();
         var idUsuario = this.sacarId();
        // this.props.history.push(`/Estudiante/${idUsuario}`);
-        window.location.href = window.location.href;                          
+       // window.location.href = window.location.href;                          
     }
 
     render(){

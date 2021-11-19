@@ -1,3 +1,9 @@
+/*
+    para ingresar ala BD que esa en un hosting:para terminal, desconosco su uso en otros lados.
+
+    mysql -h bnzejryfzccllt1iv6cd-mysql.services.clever-cloud.com -P 3306 -u uwniakdgootbcctr -p bnzejryfzccllt1iv6cd
+    passsword:pl7TQyNVrNog321QJICH
+*/ 
 
 const express = require('express');
 const router = express.Router();
@@ -38,7 +44,7 @@ router.get('/:id', async (req, res) => {
             console.log(err);
         }
     });
-    console.log(cursos);
+    
     res.send(cursos); //muestra la consulta en la pagina
 });
 
@@ -52,7 +58,7 @@ router.get('/:id/modulos', async (req, res) => {
             console.log(err);
         }
     });
-    console.log(cursos);
+
     res.send(cursos); //muestra la consulta en la pagina
 });
 
@@ -65,25 +71,31 @@ router.get('/:id/etiquetas', async (req, res) => {
             console.log(err);
         }
     });
-    console.log(cursos);
+   
     res.send(cursos); //muestra la consulta en la pagina
 });
-/**Consultas para pag registtro */
+/**Consultas para pag registtro 
+ * 
+*/
+
 router.get('/:correo/usuario', async (req,res)=>{
     const {correo} = req.params;
-    const repetidos= await pool.query(`SELECT U.correo FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
+    console.log(correo);
+    const idConCorreo= await pool.query(`SELECT usuario.correo FROM usuario  WHERE usuario.correo = ? `, [correo], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
             console.log(err);
         }
     });
-    res.send(repetidos);
+
+    res.send(idConCorreo);
 });
 
 router.get('/:correo/usuarioid', async (req,res)=>{
     const {correo} = req.params;
-    const repetidos= await pool.query(`SELECT id_usuario FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
+    console.log(correo);
+    const repetidos= await pool.query(`SELECT usuario.id_usuario FROM usuario WHERE usuario.correo = ? `, [correo], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
@@ -110,7 +122,9 @@ router.post('/register', async(req, res) => {
     });
     console.log("sale del post");
 });
-/**Fin consultas para pag registtro */
+/**Fin consultas para pag registtro 
+ * 
+*/
 
 router.post('/login',async (req,res)=>{
     //los datos que se cargan en postman 

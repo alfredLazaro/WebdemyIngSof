@@ -35,6 +35,7 @@ class Filtro extends Component {
   
   componentDidMount(){
     this.fetchCourse();
+    console.log(this.state.cursos);
   }
 
   fetchCourse(){
