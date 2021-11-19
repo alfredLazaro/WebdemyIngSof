@@ -110,7 +110,7 @@ router.post('/:datos/USUARIO', (req, res) => {
   });
 //andre estuvo aqui
 
-router.post('/registrar', async (req,res)=> {
+/* router.post('/:datos/registrar', async (req,res)=> {
     const { nombre,apellido,fecha_nacimiento,correo, pass} = req.body;
 
     let salt = bcrypt.genSaltSync();
@@ -137,7 +137,35 @@ router.post('/registrar', async (req,res)=> {
             }
         });
     }
-})
+}) */
+
+
+/* fetch('/users', { 
+        method: 'POST',
+        data: {
+          name: self.refs.name,
+          job: self.refs.job
+        }
+      })
+      .then(function(response) {
+        return response.json()
+      }).then(function(body) {
+        console.log(body);
+      });
+  } */
+router.post('/register', async(req, res) => {
+    const {nombre, apellidos, correo, pass} = req.body;
+    let salt = bcrypt.genSaltSync();
+    let hash = bcrypt.hashSync(pass, salt);
+
+    const curso = await pool.query(`insert into bnzejryfzccllt1iv6cd.usuario (nombres, apellidos, correo, contrasena) values ('${nombre}', '${apellidos}', '${correo}', '${hash}')`,(err, rows, fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    });
+});
 
 router.post('/login',async (req,res)=>{
     //los datos que se cargan en postman 

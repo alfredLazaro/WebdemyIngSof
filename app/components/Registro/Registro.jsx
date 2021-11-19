@@ -126,7 +126,7 @@ class Registro extends Component{
     mandarBD(){
         console.log("trata de mandar la BD");        
         try{
-        fetch(`/api/cursos/USUARIO`); 
+        fetch(`/api/cursos/register/${this.state.campoNombre,this.state.campoApellido,this.state.campoCorreo,this.state.campoContraseña}`); 
         console.log(this.state.hayCorreo);
         }
         catch(eer){
@@ -465,7 +465,7 @@ class Exito extends Component {
         this.llevarAvistaDeEstudiante = this.llevarAvistaDeEstudiante.bind(this);
     }
 
-    llevarAvistaDeEstudiante(){
+    /* llevarAvistaDeEstudiante(){
         var idMandar = this.obtenerIdConCorreo();
         
     }
@@ -479,16 +479,16 @@ class Exito extends Component {
             });
         });
         return idUs;                
-    }
+    } */
 
     render() {    
       return (
         <div className='popup'>
           <div className='popup_inner'>
             <p className='textoPopup'>Registro exitoso!</p>
-            <Link className='linkInial' to={`/Inicio/${this.state.idUs}`} >                         
+           {/*  <Link className='linkInial' to={`/Inicio/${this.state.idUs}`} >                          */}
             <button className='btnOk' onClick={this.llevarAvistaDeEstudiante}>Aceptar</button>
-            </Link> 
+            {/* </Link>  */}
           </div>
         </div>
       );
