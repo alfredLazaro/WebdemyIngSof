@@ -17,7 +17,7 @@ const Body =()=>{
                     <p> 
                         Esta pagina esta pensada para el aprendizaje de herramientas 
                         tecnológicas y fomentar el aprendizaje en todas las personas 
-                        que deseen aprender   
+                        que deseen aprender
                     </p>
                 </div>        
             </div>        
