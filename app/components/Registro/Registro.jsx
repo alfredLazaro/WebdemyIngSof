@@ -7,7 +7,7 @@ class Registro extends Component{
         this.state  ={
             campoNombre             : "", 
             campoApellido           : "", 
-            campoCorreo             : "", 
+            campoCorreo             : "javierfiligranaagreda@gmail.com", 
             campoContraseña         : "", 
             campoConfirContraseña   : "", 
 
@@ -51,7 +51,6 @@ class Registro extends Component{
         this.passwordChange      = this.passwordChange.bind(this);
         this.passwordConfirChang = this.passwordConfirChang.bind(this);
         this.validarAllCampos    = this.validarAllCampos.bind(this);
-        this.validarAllCampos    = this.validarAllCampos.bind(this);
         this.devolverValoresState= this.devolverValoresState.bind(this);
 
         this.validarNombre        = this.validarNombre.bind(this);
@@ -61,8 +60,8 @@ class Registro extends Component{
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
-        this.correoExiste         = this.correoExiste.bind(this);
-
+        this.correoExiste         = this.correoExiste.bind(this);        
+        this.mandarAsuVista       = this.mandarAsuVista.bind(this);
     }
 
     devolverValoresState(){
@@ -117,33 +116,17 @@ class Registro extends Component{
 
     validarRegistro(event){
         var todoBienTodoCorrecto = false;
-        todoBienTodoCorrecto = this.validarAllCampos();
+            todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
-          this.mandarBD();
-          this.setState({regisExitoso : true});
+          this.mandarBD(); 
           //y presiona aceptar,donde es llevado a su perfil.
         }
+        this.setState({regisExitoso : true});
     }
     
-    /* fetch('/api/cursos/register',{
-        method: 'POST',
-        data:{
-            first: "javier",
-            last: "filigran",
-            email: 'filigra@gmail.com',
-            password: "nose12343432"
-        }
-        
-    }).then(function(response) {                
-        console.log(response);
-        return response.json()
-      }).then(function(body) {
-        console.log(body);
-      }); */
     mandarBD(){
         console.log("trata de mandar la BD");        
-        try{
-            /* console.log(this.state.campoNombre+" "+this.state.campoApellido);   */
+        try{            
             var data ={
                 first: this.state.campoNombre,
                 last: this.state.campoApellido,
@@ -155,8 +138,7 @@ class Registro extends Component{
                 body: JSON.stringify(data),
                 headers:{
                     'Content-Type': 'application/json'
-                }
-                
+                }                
             }).then(res => res.json())
             .catch(error => console.error('Error:', error))
             .then(response => console.log('Success:', response));                    
@@ -239,8 +221,8 @@ class Registro extends Component{
         return res;
     }
 
-    correoExiste(){
-        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+    correoExiste(correoIn){        
+        fetch(`/api/cursos/${correoIn}/usuario`)
         .then(res => res.json())
         .then(data => {
             this.setState({
@@ -368,7 +350,27 @@ class Registro extends Component{
 
     }
 
-    
+    sacarId(){
+        console.log("entra a sacar");
+        var res = -1;
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuarioid`)
+        .then(res => res.json())
+        .then(data => {
+            this.setState({
+              idUs : data
+            });
+        });   
+        res = parseInt(this.state.idUs[0]); 
+        alert(res);            
+        return res;
+    }
+
+    mandarAsuVista(){        
+        var idUsuario = this.sacarId();
+       // this.props.history.push(`/Estudiante/${idUsuario}`);
+        window.location.href = window.location.href;                          
+    }
+
     render(){
         return(
             <html lang="en">
@@ -380,6 +382,16 @@ class Registro extends Component{
                 <title>Document</title>
             </head>
             <body>
+
+                {this.state.regisExitoso?
+                 <div className='popup'>
+                     <div className='popup_inner'>
+                        <p className='textoPopup'>Registro exitoso!</p>           
+                        <button className='btnOk' onClick={this.mandarAsuVista}>Aceptar</button>        
+                    </div>
+                </div>
+                : null}
+
                 <div id='formResgistro' class="w3-container w3-card-4 w3-light-grey "  onSubmit={this.validarRegistro}> 
                     <h1 id='TituloPrin' className="w3-center">Registrate en Wdemy</h1>
                     <div className="w3-row w3-section">
@@ -434,8 +446,7 @@ class Registro extends Component{
                             </div>
 
                     </div>
-                    {/* {this.state.regisExitoso? <Exito></Exito> : null} */}
-
+                    
                         <div id='campContrasenias' >
                             <i id='iconCor' class="fa fa-lock"></i>
                                 <div className="contenierNomApe" > 
@@ -485,42 +496,3 @@ class Registro extends Component{
 
 
 export default withRouter(Registro);
-
-class Exito extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            idUs:this.obtenerIdConCorreo(),
-        };
-        this.llevarAvistaDeEstudiante = this.llevarAvistaDeEstudiante.bind(this);
-    }
-
-    /* llevarAvistaDeEstudiante(){
-        var idMandar = this.obtenerIdConCorreo();
-        
-    }
-
-    obtenerIdConCorreo(){
-        fetch(`/api/cursos/${this.state.campoCorreo}/USUARIOID`)
-        .then(res => res.json())
-        .then(data => {
-            this.setState({
-              idUs:data
-            });
-        });
-        return idUs;                
-    } */
-
-    render() {    
-      return (
-        <div className='popup'>
-          <div className='popup_inner'>
-            <p className='textoPopup'>Registro exitoso!</p>
-           {/*  <Link className='linkInial' to={`/Inicio/${this.state.idUs}`} >                          */}
-            <button className='btnOk' onClick={this.llevarAvistaDeEstudiante}>Aceptar</button>
-            {/* </Link>  */}
-          </div>
-        </div>
-      );
-    }
-}

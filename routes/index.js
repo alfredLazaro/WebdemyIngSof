@@ -68,9 +68,8 @@ router.get('/:id/etiquetas', async (req, res) => {
     console.log(cursos);
     res.send(cursos); //muestra la consulta en la pagina
 });
-
+/**Consultas para pag registtro */
 router.get('/:correo/usuario', async (req,res)=>{
-    console.log("entra hacer consulta");
     const {correo} = req.params;
     const repetidos= await pool.query(`SELECT U.correo FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
         if(!err){
@@ -79,11 +78,10 @@ router.get('/:correo/usuario', async (req,res)=>{
             console.log(err);
         }
     });
-    console.log("listo para responder");
     res.send(repetidos);
 });
 
-/* router.get('/:correo/USUARIOID', async (req,res)=>{
+router.get('/:correo/usuarioid', async (req,res)=>{
     const {correo} = req.params;
     const repetidos= await pool.query(`SELECT id_usuario FROM usuario as U WHERE U.correo =?`, [correo], (err,rows,fields) => {
         if(!err){
@@ -92,64 +90,16 @@ router.get('/:correo/usuario', async (req,res)=>{
             console.log(err);
         }
     });
+    console.log(repetidos);
     res.send(repetidos);
-}); */
-//var nos="INSERT INTO USUARIO (nombres,apellidos,correo,contrasena) VALUES("NOSE","nose112","nose@gmail.com","nosepues");"
-
-//andre estuvo aqui
-
-/* router.post('/:datos/registrar', async (req,res)=> {
-    const { nombre,apellido,fecha_nacimiento,correo, pass} = req.body;
-
-    let salt = bcrypt.genSaltSync();
-    let hash = bcrypt.hashSync(pass,salt);
-    var cumple= true;
-
-    if(pass.length<=5)
-    {
-        res.json("muy corto");
-        cumple=false;
-    }
-    if(nombre==pass)
-    {
-        res.json("el nombre y la clave no pueden ser iguales");
-        cumple=false;
-    }
-    if(cumple)
-    {
-        const cursos = await pool.query(`INSERT INTO usuario (nombres, apellidos, fecha_nacimiento, correo, contrasena, fotografia) VALUES ('${nombre}', '${apellido}', '${fecha_nacimiento}', '${correo}', '${hash}', 'ss')`,(err,rows,fields) => {
-            if(!err){
-                res.json(rows);
-            }else{
-                console.log(err);
-            }
-        });
-    }
-}) */
-
-
-/* fetch('/users', { 
-        method: 'POST',
-        data: {
-          name: self.refs.name,
-          job: self.refs.job
-        }
-      })
-      .then(function(response) {
-        return response.json()
-      }).then(function(body) {
-        console.log(body);
-      });
-  } */
-
+});
   
 router.post('/register', async(req, res) => {
     console.log("entra al post");
     const {first,last , email, password} = req.body;
     console.log(req.body);
     /* let salt = bcrypt.genSaltSync();
-    let hash = bcrypt.hashSync(password, salt); */
-    
+    let hash = bcrypt.hashSync(password, salt); */    
     const curso = await pool.query(`insert into usuario (nombres, apellidos, correo, contrasena) values (?, ?, ?, ?)`, [first,last,email,password],(err, rows, fields) => {
           
         if(!err){
@@ -160,6 +110,7 @@ router.post('/register', async(req, res) => {
     });
     console.log("sale del post");
 });
+/**Fin consultas para pag registtro */
 
 router.post('/login',async (req,res)=>{
     //los datos que se cargan en postman 
