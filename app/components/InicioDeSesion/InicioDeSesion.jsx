@@ -75,11 +75,13 @@ class InicioDeSesion extends Component{
                     .then(data =>{ console.log(data.contrasena)
                         console.log(this.state.campoContra);
                         
-                        if(this.state.campoCorreo== data.correo && ( bcrypt.compare(this.state.campoContra,data.contrasena))){
+                        if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
                             console.log("buen inicio");
                             
                         }else{
                             console.log("ALGO MAL");
+                            this.setState({vacioContra:true});
+                            this.setState({vacioCorr:true});
                         }
                     }
                   )
