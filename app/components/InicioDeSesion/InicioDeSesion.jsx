@@ -74,16 +74,10 @@ class InicioDeSesion extends Component{
                     .then(res => res.json())
                     .then(data =>{ console.log(data.contrasena)
                         console.log(this.state.campoContra);
-                        var vale=await bcrypt.compare(data.contrasena,this.state.campoContra);
-                        console.log(vale);
-                        return new Promise(async(resolve,reject) => {
-                            const val=await bcrypt.compare(data.contrasena,this.state.campoContra);
-                            const resp=resolve(true);
-                            /* return reject(); */
-                        });
-                        console.log("fgfç");
-                        if(this.state.campoCorreo== data.correo && (await bcrypt.compare(this.state.campoContra,data.contrasena))){
+                        
+                        if(this.state.campoCorreo== data.correo && ( bcrypt.compare(this.state.campoContra,data.contrasena))){
                             console.log("buen inicio");
+                            
                         }else{
                             console.log("ALGO MAL");
                         }
