@@ -369,8 +369,8 @@ class Registro extends Component{
     }
 
     componentDidMount() {
-        //this.correoExiste();
-        this.sacarId();
+        this.correoExiste();
+        //this.sacarId();
     }
 
     render(){
