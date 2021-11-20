@@ -7,7 +7,7 @@ class Registro extends Component{
         this.state  ={
             campoNombre             : "", 
             campoApellido           : "", 
-            campoCorreo             : "evito33@gmail.com", 
+            campoCorreo             : "", 
             campoContraseña         : "", 
             campoConfirContraseña   : "", 
 
@@ -40,7 +40,7 @@ class Registro extends Component{
 
             regisExitoso            : false,
             hayCorreo               :[],
-            idUs                    :[],
+            idUs                    :[] ,
         
         }
     
@@ -61,8 +61,9 @@ class Registro extends Component{
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
         this.correoExiste         = this.correoExiste.bind(this);
-        this.mandarAsuVista       = this.mandarAsuVista.bind(this); 
-        this.fetchTags            = this.fetchTags.bind(this); 
+        this.mandarAsuVista       = this.mandarAsuVista.bind(this);
+        this.sacarId              = this.sacarId.bind(this); 
+        
     }
 
     devolverValoresState(){
@@ -119,10 +120,9 @@ class Registro extends Component{
         var todoBienTodoCorrecto = false;
             todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
-          this.mandarBD(); 
-          //y presiona aceptar,donde es llevado a su perfil.
+            this.mandarBD(); 
+            this.setState({regisExitoso : true});          
         }
-        this.setState({regisExitoso : true});
     }
     
     mandarBD(){
@@ -333,59 +333,44 @@ class Registro extends Component{
             var res = false;   
         }
         return res;
-        this.fetchTags(); 
+         
     }
-/*
-    fetch(`/api/cursos/${this.state.curso}/etiquetas`)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({
-                  etiquetas: data
-                });
-            });
-*/ 
+
     sacarId(){        
-        var restorno = -1;
-        var ids = [];
         fetch(`/api/cursos/${this.state.campoCorreo}/usuarioid`)
         .then(res => res.json())
         .then(data => {
-            ids = data;
-        });   
-        //restorno = parseInt(ids[0]); 
-        console.log(ids)            
-        return restorno;
+            this.setState({idUs : data});
+        });           
+        console.log(this.state.idUs)            
     }
 
-    correoExiste(correoIn){    
-        var opRows = [];  
-         
-        fetch(`/api/cursos/${correoIn}/usuario`)
+    correoExiste(){     
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
             .then(res => res.json())
             .then(data => {
-                opRows = data;
+                this.setState({hayCorreo : data});
             });
-        if(opRows.size >= 0){           
+        console.log(this.state.hayCorreo);
+        if(this.state.hayCorreo.length == 0){           
             return false;            
         }
-        console.log(opRows);
+        
         return true;
     }
 
-    fetchTags(){
-        fetch('/api/cursos/cursos')
-        .then(res => res.json())
-        .then(data => {
-            this.setState({hayCorreo:data});
-        });
-        console.log(this.state.hayCorreo);
+    mandarAsuVista(){        
+        this.sacarId();
+        console.log(this.state.idUs[0]);
+        var ids = this.state.idUs[0];
+        var id = ids.id_usuario;               
+        this.props.history.push(`/Estudiante/${id}`);
+        window.location.href = window.location.href;
     }
 
-    mandarAsuVista(){        
-        this.fetchTags();
-        var idUsuario = this.sacarId();
-       // this.props.history.push(`/Estudiante/${idUsuario}`);
-       // window.location.href = window.location.href;                          
+    componentDidMount() {
+        //this.correoExiste();
+        this.sacarId();
     }
 
     render(){
