@@ -1,9 +1,17 @@
+/*
+* El this.setState no asigna valores al primer intento, debes de hacer llamas de una vez para que realize
+dicho cambio, si utiliza el componentdidMont() con la consulta previa, este si funciona,
+si no va a usar el componentDidMount(), trate de hacer las funciones que necesite dentro del fech de la consulta.
+*/ 
+
 import React, {Component} from "react";
 import { withRouter } from "react-router-dom";
 import './Registro.css'
 class Registro extends Component{
     constructor(props){
         super(props);
+        this.idddd = -1;
+        this.idParaRedi = -1;
         this.state  ={
             campoNombre             : "", 
             campoApellido           : "", 
@@ -40,7 +48,7 @@ class Registro extends Component{
 
             regisExitoso            : false,
             hayCorreo               :[],
-            idUs                    :[] ,
+            idUs                    :-1,
         
         }
     
@@ -60,8 +68,11 @@ class Registro extends Component{
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
-        this.correoExiste         = this.correoExiste.bind(this);
+        this.validarCorreo1       = this.validarCorreo1.bind(this);
+        
+       this.correoExiste         = this.correoExiste.bind(this);
         this.mandarAsuVista       = this.mandarAsuVista.bind(this);
+
         this.sacarId              = this.sacarId.bind(this); 
         
     }
@@ -245,9 +256,8 @@ class Registro extends Component{
             res = false;
           
         }
-        
-        if(this.correoExiste(llenadoCor)){
-            this.setState({correoExistente:true});
+        if(this.correoExiste()){      
+            console.log("poneFalso");      
             res = false;
         }
         
@@ -263,6 +273,20 @@ class Registro extends Component{
         }
         
         return res;
+    }
+
+    correoExiste (){                  
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.correo.length == 0 ){                    
+                    return true
+                }else{
+                    this.setState({correoExistente : true});
+                    return false;
+                    
+                }                                               
+            });      
     }
 
     esCorreo(cadVericacion){
@@ -335,42 +359,37 @@ class Registro extends Component{
         return res;
          
     }
-
-    sacarId(){        
+    
+    sacarId(){   
+        var idddd=-1;         
         fetch(`/api/cursos/${this.state.campoCorreo}/usuarioid`)
         .then(res => res.json())
         .then(data => {
-            this.setState({idUs : data});
-        });           
-        console.log(this.state.idUs)            
+            if(data.id_usuario >1){            
+                this.props.history.push(`/Estudiante/${data.id_usuario}`);
+                window.location.href = window.location.href;                
+            }else{
+                console.log("entra al else");
+            }
+            
+        });   
+             
+        this.idParaRedi = idddd;   
+        console.log(this.idParaRedi);
     }
 
-    correoExiste(){     
-        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
-            .then(res => res.json())
-            .then(data => {
-                this.setState({hayCorreo : data});
-            });
+
+    validarCorreo1(){
         console.log(this.state.hayCorreo);
         if(this.state.hayCorreo.length == 0){           
             return false;            
+        }else{
+            return true;
         }
-        
-        return true;
     }
 
     mandarAsuVista(){        
-        this.sacarId();
-        console.log(this.state.idUs[0]);
-        var ids = this.state.idUs[0];
-        var id = ids.id_usuario;               
-        this.props.history.push(`/Estudiante/${id}`);
-        window.location.href = window.location.href;
-    }
-
-    componentDidMount() {
-        this.correoExiste();
-        //this.sacarId();
+        this.sacarId();              
     }
 
     render(){

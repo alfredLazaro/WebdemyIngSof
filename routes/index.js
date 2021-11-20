@@ -83,7 +83,7 @@ router.get('/:correo/usuario', async (req,res)=>{
     console.log(correo);
     const idConCorreo= await pool.query(`SELECT usuario.correo FROM usuario  WHERE usuario.correo = ? `, [correo], (err,rows,fields) => {
         if(!err){
-            res.json(rows);
+            res.json(rows[0]);
         }else{
             console.log(err);
         }
@@ -97,7 +97,7 @@ router.get('/:correo/usuarioid', async (req,res)=>{
     console.log(correo);
     const repetidos= await pool.query(`SELECT usuario.id_usuario FROM usuario WHERE usuario.correo = ? `, [correo], (err,rows,fields) => {
         if(!err){
-            res.json(rows);
+            res.json(rows[0]);
         }else{
             console.log(err);
         }
