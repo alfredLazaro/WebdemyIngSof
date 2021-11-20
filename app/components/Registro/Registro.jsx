@@ -1,9 +1,17 @@
+/*
+* El this.setState no asigna valores al primer intento, debes de hacer llamas de una vez para que realize
+dicho cambio, si utiliza el componentdidMont() con la consulta previa, este si funciona,
+si no va a usar el componentDidMount(), trate de hacer las funciones que necesite dentro del fech de la consulta.
+*/ 
+
 import React, {Component} from "react";
 import { withRouter } from "react-router-dom";
 import './Registro.css'
 class Registro extends Component{
     constructor(props){
         super(props);
+        this.idddd = -1;
+        this.idParaRedi = -1;
         this.state  ={
             campoNombre             : "", 
             campoApellido           : "", 
@@ -36,7 +44,11 @@ class Registro extends Component{
             cadContraseIdenticas    : false,
             almenosDosNumContrase   : false,
             confirmarContrase       : false,
-            veriCorreo              :false,
+            veriCorreo              : false,
+
+            regisExitoso            : false,
+            hayCorreo               :[],
+            idUs                    :-1,
         
         }
     
@@ -47,7 +59,6 @@ class Registro extends Component{
         this.passwordChange      = this.passwordChange.bind(this);
         this.passwordConfirChang = this.passwordConfirChang.bind(this);
         this.validarAllCampos    = this.validarAllCampos.bind(this);
-        this.validarAllCampos    = this.validarAllCampos.bind(this);
         this.devolverValoresState= this.devolverValoresState.bind(this);
 
         this.validarNombre        = this.validarNombre.bind(this);
@@ -56,8 +67,14 @@ class Registro extends Component{
         this.validarConfirContrase= this.validarConfirContrase.bind(this);
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
-      
+        this.mandarBD             = this.mandarBD.bind(this);
+        this.validarCorreo1       = this.validarCorreo1.bind(this);
+        
+       this.correoExiste         = this.correoExiste.bind(this);
+        this.mandarAsuVista       = this.mandarAsuVista.bind(this);
 
+        this.sacarId              = this.sacarId.bind(this); 
+        
     }
 
     devolverValoresState(){
@@ -111,26 +128,57 @@ class Registro extends Component{
     }
 
     validarRegistro(event){
-        var todoBienTodoCorrecto = this.validarAllCampos();
+        var todoBienTodoCorrecto = false;
+            todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
-            // se sube ala base de datos .
-            //se debe de aver con los encargados de backend.
-        }else{
-            // no se hace nada.
+            this.mandarBD(); 
+            this.setState({regisExitoso : true});          
+        }
+    }
+    
+    mandarBD(){
+        console.log("trata de mandar la BD");        
+        try{            
+            var data ={
+                first: this.state.campoNombre,
+                last: this.state.campoApellido,
+                email: this.state.campoCorreo,
+                password: this.state.campoContraseña
+            };
+            fetch('/api/cursos/register',{
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            }).then(res => res.json())
+            .catch(error => console.error('Error:', error))
+            .then(response => console.log('Success:', response));                    
+        }
+        catch(eer){
+            console.log(eer);
+            console.log('no manda');
         }
     }
 
     validarAllCampos(){
         var res = false;
         this.devolverValoresState();
+        var contrase = false;
+        var confirCon= false;
+        var firsName = false;
+        var lastName = false;
+        var emailVal = false;
         var contrase = this.validarContrase();
         var confirCon= this.validarConfirContrase();
         var firsName = this.validarApellido();
         var lastName = this.validarNombre();
-        var emailVal = this.validarCorreo();
+        var emailVal = this.validarCorreo();        
+        
         if(firsName && lastName && emailVal && contrase && confirCon){                
-                res = true;
-        }        
+            res = true;
+        }     
+           
         return res;
     }
 
@@ -185,11 +233,6 @@ class Registro extends Component{
         return res;
     }
 
-    correoExiste(){
-        //esto se hace con la base de datos .
-        return true;
-    }
-
     validarCorreo(){
         var res = true;
         var llenadoCor = this.state.campoCorreo;
@@ -197,34 +240,53 @@ class Registro extends Component{
             this.setState({maximoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length <= 5){
             this.setState({minimoCaraCorreo:true});
             res = false;
         }
+        
         if(llenadoCor.length == 0){
             this.setState({cadVacioCorreo:true});
             res = false;
         }
+        
         if(!this.esCorreo(llenadoCor)){
             this.setState({dominioFalCorreo:true});
             res = false;
-            //investigar sobre el dominio.
-            //falta eso creo
+          
         }
-        if(!this.correoExiste(llenadoCor)){
-            this.setState({correoExistente:true});
-            //validar con la BD
+        if(this.correoExiste()){      
+            console.log("poneFalso");      
             res = false;
         }
-        if(nombreLlenado.includes("..")){
+        
+        /* var dosPuntosSeg = '';
+        if(nombreLlenado.includes(dosPuntosSeg)){
             this.setState({puntosContinuosCorreo:true});
             res = false;
-        }
+        } */
+        
         if(llenadoCor.includes("  ")){
             this.setState({cadVaciasCorreo:true});
             res = false;
         }
+        
         return res;
+    }
+
+    correoExiste (){                  
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.correo.length == 0 ){                    
+                    return true
+                }else{
+                    this.setState({correoExistente : true});
+                    return false;
+                    
+                }                                               
+            });      
     }
 
     esCorreo(cadVericacion){
@@ -232,7 +294,6 @@ class Registro extends Component{
         var numArro = 0;
         for(var i = 0 ; i< cadVericacion.length;i++){
             if(cadVericacion[i] == '@'){
-                console.log("verificaCorreo")
                 numArro++;
             }
         }
@@ -296,10 +357,41 @@ class Registro extends Component{
             var res = false;   
         }
         return res;
-
+         
+    }
+    
+    sacarId(){   
+        var idddd=-1;         
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuarioid`)
+        .then(res => res.json())
+        .then(data => {
+            if(data.id_usuario >1){            
+                this.props.history.push(`/Estudiante/${data.id_usuario}`);
+                window.location.href = window.location.href;                
+            }else{
+                console.log("entra al else");
+            }
+            
+        });   
+             
+        this.idParaRedi = idddd;   
+        console.log(this.idParaRedi);
     }
 
-    
+
+    validarCorreo1(){
+        console.log(this.state.hayCorreo);
+        if(this.state.hayCorreo.length == 0){           
+            return false;            
+        }else{
+            return true;
+        }
+    }
+
+    mandarAsuVista(){        
+        this.sacarId();              
+    }
+
     render(){
         return(
             <html lang="en">
@@ -311,6 +403,16 @@ class Registro extends Component{
                 <title>Document</title>
             </head>
             <body>
+
+                {this.state.regisExitoso?
+                 <div className='popup'>
+                     <div className='popup_inner'>
+                        <p className='textoPopup'>Registro exitoso!</p>           
+                        <button className='btnOk' onClick={this.mandarAsuVista}>Aceptar</button>        
+                    </div>
+                </div>
+                : null}
+
                 <div id='formResgistro' class="w3-container w3-card-4 w3-light-grey "  onSubmit={this.validarRegistro}> 
                     <h1 id='TituloPrin' className="w3-center">Registrate en Wdemy</h1>
                     <div className="w3-row w3-section">
@@ -364,8 +466,8 @@ class Registro extends Component{
                                 {this.state.veriCorreo?            <p>Verifique su correo                                    </p> : null }                         
                             </div>
 
-                        </div>
-
+                    </div>
+                    
                         <div id='campContrasenias' >
                             <i id='iconCor' class="fa fa-lock"></i>
                                 <div className="contenierNomApe" > 
@@ -415,4 +517,3 @@ class Registro extends Component{
 
 
 export default withRouter(Registro);
-

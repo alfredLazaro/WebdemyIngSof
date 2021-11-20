@@ -1,13 +1,8 @@
-//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
-
 import React, { Component } from 'react';
 import Popup from './Popup.jsx';
-//import curso from '../../../../public/';
 import {
   Link, withRouter
 } from "react-router-dom";
-
-/* let cursos = []; */
 
 class Filtro extends Component {
   constructor(props){
@@ -37,9 +32,9 @@ class Filtro extends Component {
 
   }
 
-  
   componentDidMount(){
     this.fetchCourse();
+    console.log(this.state.cursos);
   }
 
   fetchCourse(){
@@ -124,7 +119,7 @@ class Filtro extends Component {
     
     var filtracion0= this.state.cursos.filter(curso =>curso.nombreEtiqueta.includes(this.nombreAbuscar) ||
     this.nombreAbuscar === "" );
-
+    console.log(this.state.cursos);
     let hash = {};
     var filtracion = filtracion0.filter(curso=>hash[curso.id_curso]? false : hash[curso.id_curso]=true);
 
@@ -275,7 +270,7 @@ class Filtro extends Component {
                               Tutor: {curso.nomT} {curso.apellT}
                             </div>
                         </div>
-                        </Link> 
+                    </Link> 
                         </button>
                   </div>                  
                   )

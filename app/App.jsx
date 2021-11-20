@@ -40,10 +40,11 @@ function VistaCurso(){
 }
 
 function VistaEstudiante(){
+  const params = useParams();
   return(
     <Router>
         <AppBar showButtRegis='false' showButtLogin='false'/>
-        <VistaEst/>
+        <VistaEst id_user = {params.idUser}/>
       </Router>
   );
 }
@@ -88,7 +89,7 @@ function App() {
               <VistaCurso/>
             </Route>
 
-            <Route exact path="/estudiante">
+            <Route exact path="/estudiante/:idUser">
               <VistaEstudiante/>
             </Route>
 

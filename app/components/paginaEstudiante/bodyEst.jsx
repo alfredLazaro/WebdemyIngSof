@@ -8,12 +8,13 @@ class VistaEst extends Component{
         super(props);
         this.state = {
             value: "",
-            usuario: props.id_usuario,
+            usuario: props.id_user,
             cursos: [],
             showPopup: false,
             textPopup: ""
         }
-        this.fetchCourse = this.fetchCourse.bind(this);
+        this.fetchCourseAlf = this.fetchCourseAlf.bind(this);
+        this.fetchCourseFech = this.fetchCourseFech.bind(this);
         this.cortar = this.cortar.bind(this);
         this.refrescarPagina = this.refrescarPagina.bind(this);
         this.listOrd = this.listOrd.bind(this);
@@ -33,11 +34,19 @@ class VistaEst extends Component{
     }
 
     componentDidMount(){
-        this.fetchCourse();
+        this.fetchCourseAlf();
     }
 
-    fetchCourse(){
-        fetch('/api/cursos/cursos') //Se cargan los datos de todos los cursos, para pruebas
+    fetchCourseAlf(){
+        fetch(`/api/cursos/cursosEst/${this.state.usuario}`) //Se cargan los datos de todos los cursos, para pruebas
+            .then(res => res.json())
+            .then(data => {
+                this.setState({cursos: data});
+            });
+    }
+
+    fetchCourseFech(){
+        fetch(`/api/cursos/cursosEstFech/${this.state.usuario}`) //Se cargan los datos de todos los cursos, para pruebas
             .then(res => res.json())
             .then(data => {
                 this.setState({cursos: data});
@@ -81,11 +90,11 @@ class VistaEst extends Component{
     }
 
     ordAlf(){
-        this.fetchCourse();
+        this.fetchCourseAlf();
     }
 
     ordFecha(){
-        this.setState({cursos: []}); /* Ejemplo de funcionamiento */
+        this.fetchCourseFech(); /* Ejemplo de funcionamiento */
     }
 
       handleChange(event) {
@@ -195,10 +204,10 @@ class VistaEst extends Component{
                                                                 Actualizacion: {this.cortar(curso.created_at) }
                                                             </div>
                                                             <div className="w3-cell">
-                                                                Tutor: {curso.nomT} {curso.apellT}
+                                                                Tutor: {curso.tutorNombre} {curso.tutorApellido}
                                                             </div>
                                                         </div>
-                                                        <p> Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam, nisi non ad odit mollitia sunt assumenda modi reprehenderit quo, iste, itaque deleniti. Repellat, molestiae quaerat! Illum modi totam velit facere. </p>
+                                                        <p> {curso.litle_descripcion} </p>
                                                     </div>
                                                 </div>
                                             </div>
