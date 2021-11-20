@@ -69,15 +69,26 @@ class InicioDeSesion extends Component{
         console.log(estaBien);
         if(estaBien){
             try {
-                fetch(`/api/cursos/${this.state.campoCorreo}/login`) 
+                var data ={
+                    user: this.state.campoCorreo,
+                    pass: this.state.campoContra
+                };
+                fetch(`/api/cursos/login`,{
                     
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }                
+                })
                     .then(res => res.json())
-                    .then(data =>{ console.log(data.contrasena)
+                    .then(dato =>{ 
+                        console.log(dato.contra)
                         console.log(this.state.campoContra);
                         
-                        if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
+                        if(dato.mensaj=='correcto' ){
                             console.log("buen inicio");
-                            this.props.history.push("/estudiante/"+data.id_usuario);
+                            this.props.history.push("/estudiante/"+dato.id_usuario);
                             window.location.href = window.location.href;
                         }else{
                             console.log("ALGO MAL");
@@ -86,15 +97,10 @@ class InicioDeSesion extends Component{
                         }
                     }
                   )
-                  /* .then(function(response) {
-                    return response.json()
-                  }).then(function(body) {
-                    console.log(body);
-                  }); */
+                  
             } catch (error) {
                 
             }
-            /**capturar de la BD */
 
         }else{
             this.setState({vacioContra:true});

@@ -110,9 +110,9 @@ router.post('/register', async(req, res) => {
     console.log("entra al post");
     const {first,last , email, password} = req.body;
     console.log(req.body);
-    /* let salt = bcrypt.genSaltSync();
-    let hash = bcrypt.hashSync(password, salt); */    
-    const curso = await pool.query(`insert into usuario (nombres, apellidos, correo, contrasena) values (?, ?, ?, ?)`, [first,last,email,password],(err, rows, fields) => {
+    /* let salt = bcrypt.genSaltSync();*/ 
+    const hash = await bcrypt.hash(password, 8);  
+    const curso = await pool.query(`insert into usuario (nombres, apellidos, correo, contrasena) values (?, ?, ?, ?)`, [first,last,email,hash],(err, rows, fields) => {
           
         if(!err){
             res.json(rows);
@@ -196,6 +196,37 @@ router.get('/cursosEstFech/:idEst', async (req, res) => {
     });
     console.log(cursos);
     res.send(cursos);
+});
+
+/*este es el que se usara ahora*/
+router.post('/login', async (req,res)=>{
+    console.log("cuenta");
+    const {user,pass} = req.body;
+    /* const pass = req.body.pass; */
+    
+    const cuenta= await pool.query(`SELECT * FROM usuario where correo=?`, user);
+    if(user && pass){ //si existen 
+        if(user== cuenta[0].correo && ( bcrypt.compareSync(pass,cuenta[0].contrasena))){
+            let passwordHash= await bcrypt.hash(pass,8);
+            console.log(cuenta); //ESTO SE IMPRIME EN CONSOLA
+            res.json({
+                mensaj : "correcto",
+                contra: cuenta[0].contrasena,
+                id_usuario: cuenta[0].id_usuario,
+                
+                contraEnt : pass,
+                passwordHash: passwordHash
+            });
+        }else{
+            console.log(cuenta);
+            res.json({
+                mensaj : "incorrecto MAL",
+                contra: cuenta[0].contrasena,
+                contraEnt : pass
+            });
+        }
+    }
+    
 });
 
 module.exports = router;
