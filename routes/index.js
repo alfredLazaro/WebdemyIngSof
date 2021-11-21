@@ -206,6 +206,8 @@ router.post('/login', async (req,res)=>{
     
     const cuenta= await pool.query(`SELECT * FROM usuario where correo=?`, user);
     if(user && pass){ //si existen 
+        console.log(cuenta);
+      if(cuenta.length!=0){
         if(user== cuenta[0].correo && ( bcrypt.compareSync(pass,cuenta[0].contrasena))){
             let passwordHash= await bcrypt.hash(pass,8);
             console.log(cuenta); //ESTO SE IMPRIME EN CONSOLA
@@ -225,6 +227,13 @@ router.post('/login', async (req,res)=>{
                 contraEnt : pass
             });
         }
+       }else{  //debo aumentar este if para el bug que viene
+        res.json({
+            mensaj : "incorrecto MAL",
+            
+            contraEnt : pass
+        });
+       }
     }
     
 });

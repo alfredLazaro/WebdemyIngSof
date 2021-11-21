@@ -45,10 +45,11 @@ class InicioDeSesion extends Component{
     }
 
     validarCorreo(){
-        var res = true;
+        var res = true; //esta variable res no me confio 
         var estadoCor = this.state.campoCorreo;
         if(estadoCor==""){
             this.setState({vacioCorr:true});
+            this.setState({vacioContra:true}); //este es bug de que deberian mostrarse ambos
             res =false;
         }else{}
         return res;
@@ -58,6 +59,7 @@ class InicioDeSesion extends Component{
         var estadoCont = this.state.campoContra;
         if(estadoCont==""){
             this.setState({vacioContra:true});
+            this.setState({vacioCorr:true});  //este es bug de que deberian mostrarse ambos x2
             res =false;
         }else{}
         return res;
