@@ -138,11 +138,7 @@
     Width:55%;       
     height: auto;
     margin-bottom: 10%;
-    /* position:absolute;
-    top: 75%;
-    left: 30%;     
-    transform: translate(-50%,-50%); */
-    
+    margin-top: 5%;    
 }
 
 body{
