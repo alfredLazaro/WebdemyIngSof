@@ -132,7 +132,7 @@ class Registro extends Component{
             todoBienTodoCorrecto = this.validarAllCampos();
         if(todoBienTodoCorrecto){
             this.mandarBD(); 
-            this.setState({regisExitoso : true});          
+                     
         }
     }
     
@@ -152,8 +152,15 @@ class Registro extends Component{
                     'Content-Type': 'application/json'
                 }                
             }).then(res => res.json())
+            
             .catch(error => console.error('Error:', error))
-            .then(response => console.log('Success:', response));                    
+            .then(response => {
+                if(response.mensaj=='incorrecto MAL'){
+
+                }else{
+                    this.setState({regisExitoso : true}); 
+                }
+            });                    
         }
         catch(eer){
             console.log(eer);
@@ -275,7 +282,7 @@ class Registro extends Component{
         return res;
     }
 
-    correoExiste (){                  
+    correoExiste(){                  
         fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
             .then(res => res.json())
             .then(data => {
