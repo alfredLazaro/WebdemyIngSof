@@ -38,6 +38,7 @@ class Registro extends Component{
             minimoCaraCorreo        : false,
             cadVacioCorreo          : false,
             cadVaciasCorreo         : false,
+            errorCaraEspeciCorreo   : false,
 
             minimoCaraContrase      : false,
             cadVacioContrase        : false,
@@ -68,9 +69,6 @@ class Registro extends Component{
         this.validarContrase      = this.validarContrase.bind(this); 
         this.esCorreo             = this.esCorreo.bind(this);
         this.mandarBD             = this.mandarBD.bind(this);
-        this.validarCorreo1       = this.validarCorreo1.bind(this);
-        
-       this.correoExiste         = this.correoExiste.bind(this);
         this.mandarAsuVista       = this.mandarAsuVista.bind(this);
 
         this.sacarId              = this.sacarId.bind(this); 
@@ -136,8 +134,7 @@ class Registro extends Component{
         }
     }
     
-    mandarBD(){
-        console.log("trata de mandar la BD");        
+    mandarBD(){            
         try{            
             var data ={
                 first: this.state.campoNombre,
@@ -215,7 +212,7 @@ class Registro extends Component{
         }
         if(llenadoContr.length == 0){
             this.setState({cadVacioContrase : true});
-            res = false;
+            return false;
         }
         if(llenadoContr.length < 8){
             this.setState({minimoCaraContrase : true});
@@ -234,8 +231,24 @@ class Registro extends Component{
     }
 
     validarCorreo(){
-        var res = true;
+        var res = true;        
         var llenadoCor = this.state.campoCorreo;
+
+        if(llenadoCor.length == 0){
+            this.setState({cadVacioCorreo:true});
+            return false;
+        }
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.correo.length != 0 ){                                                       
+                    this.setState({correoExistente : true});
+                    res = false;
+                    console.log('La primer verz');                    
+                    console.log(res);
+                }                                               
+            });     
+
         if(llenadoCor.length >= 50){
             this.setState({maximoCaraCorreo:true});
             res = false;
@@ -244,49 +257,42 @@ class Registro extends Component{
         if(llenadoCor.length <= 5){
             this.setState({minimoCaraCorreo:true});
             res = false;
-        }
-        
-        if(llenadoCor.length == 0){
-            this.setState({cadVacioCorreo:true});
-            res = false;
-        }
+        }                
         
         if(!this.esCorreo(llenadoCor)){
             this.setState({dominioFalCorreo:true});
             res = false;
           
         }
-        if(this.correoExiste()){      
-            console.log("poneFalso");      
-            res = false;
-        }
-        
+
+        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+            .then(res => res.json())
+            .then(data => {
+                if(data.correo.length != 0 ){                                                       
+                    this.setState({correoExistente : true});
+                    res = false;    
+                    console.log("segunda consulta"+res);  
+                    console.table(data.correo);              
+                }                                               
+            });
+            console.log("saliendo del fetch" +res);           
         /* var dosPuntosSeg = '';
         if(nombreLlenado.includes(dosPuntosSeg)){
             this.setState({puntosContinuosCorreo:true});
             res = false;
         } */
         
-        if(llenadoCor.includes("  ")){
+        if(llenadoCor.includes(" ")){
             this.setState({cadVaciasCorreo:true});
             res = false;
         }
-        
-        return res;
-    }
+        if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9@.\sd]/.test(llenadoCor)){            
+            this.setState({errorCaraEspeciCorreo : true});
+                res = false;
+        }
 
-    correoExiste (){                  
-        fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
-            .then(res => res.json())
-            .then(data => {
-                if(data.correo.length == 0 ){                    
-                    return true
-                }else{
-                    this.setState({correoExistente : true});
-                    return false;
-                    
-                }                                               
-            });      
+        console.log("asi terminara el res"+res);
+        return res;
     }
 
     esCorreo(cadVericacion){
@@ -310,17 +316,17 @@ class Registro extends Component{
         var nombreLlenado = this.state.campoApellido;
         if(nombreLlenado.length == 0){
             this.setState({errorVacioApellido:true});  
-            var res = false;
+            return false;
         }
         if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9\sd]/.test(nombreLlenado)){            
             this.setState({errorCaraEspeciApellido : true});
             var res = false;
         }
-        if(nombreLlenado.length > 25){
+        if(nombreLlenado.length >= 25){
             this.setState({maximoCaraApellido : true});
             var res = false;
         }
-        if(nombreLlenado.length < 2){
+        if(nombreLlenado.length < 6){
             this.setState({minimoCaraApellido : true});
             var res = false;
         }
@@ -337,7 +343,7 @@ class Registro extends Component{
         var nombreLlenado = this.state.campoNombre;
         if(nombreLlenado.length === 0){
             this.setState({errorVacioNombre:true});  
-            var res = false;
+            return false;
         }
         if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9\sd]/.test(nombreLlenado)){
             //no estamos validando el "/"
@@ -368,25 +374,14 @@ class Registro extends Component{
             if(data.id_usuario >1){            
                 this.props.history.push(`/Estudiante/${data.id_usuario}`);
                 window.location.href = window.location.href;                
-            }else{
-                console.log("entra al else");
             }
-            
         });   
              
         this.idParaRedi = idddd;   
-        console.log(this.idParaRedi);
     }
 
 
-    validarCorreo1(){
-        console.log(this.state.hayCorreo);
-        if(this.state.hayCorreo.length == 0){           
-            return false;            
-        }else{
-            return true;
-        }
-    }
+  
 
     mandarAsuVista(){        
         this.sacarId();              
@@ -414,7 +409,7 @@ class Registro extends Component{
                 : null}
 
                 <div id='formResgistro' class="w3-container w3-card-4 w3-light-grey "  onSubmit={this.validarRegistro}> 
-                    <h1 id='TituloPrin' className="w3-center">Registrate en Wdemy</h1>
+                    <h1 id='TituloPrin' className="w3-center">Regístrate en Wdemy</h1>
                     <div className="w3-row w3-section">
                         
                         <div id='campNomApe' className="w3-rest">
@@ -456,14 +451,15 @@ class Registro extends Component{
                             </div>
 
                             <div className='alersCorreo'>
-                                {this.state.maximoCaraCorreo?     <p>El correo debe contener como maximo 50 caracteres.</p>       : null }
-                                {this.state.dominioFalCorreo?     <p>El correo debe contener un dominio</p>                       : null }
-                                {this.state.correoExistente?      <p>El correo que ingresó ya está registrado</p>                 : null }
-                                {this.state.puntosContinuosCorreo?<p>El correo que ingresó tiene más de dos puntos continuos</p>  : null }
-                                {this.state.minimoCaraCorreo?     <p>El correo que ingrese debe contener más de 5 caracteres</p>  : null }                            
-                                {this.state.cadVacioCorreo?       <p>El campo correo no debe estar vacio</p>                      : null }
-                                {this.state.cadVaciasCorreo?      <p>El correo no debe contener cadenas de caracteres vacias</p>  : null }   
-                                {this.state.veriCorreo?            <p>Verifique su correo                                    </p> : null }                         
+                                {this.state.maximoCaraCorreo?      <p>El correo debe contener como maximo 50 caracteres.</p>        : null }
+                                {this.state.dominioFalCorreo?      <p>El correo debe contener un dominio</p>                        : null }
+                                {this.state.correoExistente?       <p>El correo que ingresó ya está registrado</p>                  : null }
+                                {this.state.puntosContinuosCorreo? <p>El correo que ingresó tiene más de dos puntos continuos</p>   : null }
+                                {this.state.minimoCaraCorreo?      <p>El correo que ingrese debe contener más de 5 caracteres</p>   : null }                            
+                                {this.state.cadVacioCorreo?        <p>El campo correo no debe estar vacio</p>                       : null }
+                                {this.state.cadVaciasCorreo?       <p>El correo no debe contener cadenas de caracteres vacias</p>   : null }   
+                                {this.state.veriCorreo?            <p>Verifique su correo                                    </p>   : null }   
+                                {this.state.errorCaraEspeciCorreo? <p>Solo debe contener (a-z),(A-Z),una @ y puntos no seguidos</p> : null }                      
                             </div>
 
                     </div>
