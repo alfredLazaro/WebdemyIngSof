@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import AppBar from './components/appBarComponents/AppBar.jsx';
 import Body from './components/body-components/Body.jsx';
 import Inicio from './components/VistaInfoCurso/Inicio.jsx';
@@ -39,12 +39,12 @@ function VistaCurso(){
 
 }
 
-function VistaEstudiante(){
+function VistaEstudiante(props){
   const params = useParams();
   return(
     <Router>
         <AppBar showButtRegis='false' showButtLogin='false'/>
-        <VistaEst id_user = {params.idUser}/>
+        <VistaEst id_user = {params.idUser} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
       </Router>
   );
 }
@@ -74,43 +74,77 @@ function VistaLogin(){
 }
 
 
-function App() {
-  return(
-    <Router>
-        <Switch>
-            <Route exact path='/' >
-              <VistaGeneral>
-                
-              </VistaGeneral>
-            </Route>
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      idUsuario: -1,
+      estaSesionIni: false
+    };
+
+    this.sesionIniciada = this.sesionIniciada.bind(this);
+    this.iniciarSesion = this.iniciarSesion.bind(this);
+    this.cerrarSesion = this.cerrarSesion.bind(this);
+  }
+
+  sesionIniciada(e) {
+    return this.state.estaSesionIni;
+  }
+
+  iniciarSesion(idIniciado){
+    this.setState({
+      idUsuario: idIniciado,
+      estaSesionIni: true
+    });
+  }
+
+  cerrarSesion(valor) { //Prueba para paso de valores en funcion
+    console.log("Se ejecuta cerrar sesion")
+    console.log(valor)
+    this.setState({
+      estaSesionIni: valor,
+    });
+    console.log(this.state.estaSesionIni)
+  }
+
+  render(){
+    return(
+      <Router>
+          <Switch>
+              <Route exact path='/' >
+                <VistaGeneral>
+                  
+                </VistaGeneral>
+              </Route>
+    
+              {/* path="/blog/:slug" */}
+              <Route exact path="/Inicio/:entrada">  
+                <VistaCurso/>
+              </Route>
   
-            {/* path="/blog/:slug" */}
-            <Route exact path="/Inicio/:entrada">  
-              <VistaCurso/>
-            </Route>
-
-            <Route exact path="/estudiante/:idUser">
-              <VistaEstudiante/>
-            </Route>
-
-            <Route exact path="/register" >
-             <VistaRegistro>
-
-             </VistaRegistro>
-            </Route>
-
-          {/* esta de modificarPara que revisa, us y contra */}
-            <Route exact path="/login">
-
-              <VistaLogin/>
-
-            </Route>
-
-            <Route component={NotFound} /> 
-
-        </Switch>
-      </Router>
-  );
+              <Route exact path="/estudiante/:idUser">
+                <VistaEstudiante sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+              </Route>
+  
+              <Route exact path="/register" >
+               <VistaRegistro>
+  
+               </VistaRegistro>
+              </Route>
+  
+            {/* esta de modificarPara que revisa, us y contra */}
+              <Route exact path="/login">
+  
+                <VistaLogin/>
+  
+              </Route>
+  
+              <Route component={NotFound} /> 
+  
+          </Switch>
+        </Router>
+    );
+  }
   
 }
 
