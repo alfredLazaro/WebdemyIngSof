@@ -12,6 +12,7 @@ class Registro extends Component {
     super(props);
     this.idddd = -1;
     this.idParaRedi = -1;
+    
     this.iniciarSesion = props.iniciarSesion;
     this.state = {
       campoNombre: "",
