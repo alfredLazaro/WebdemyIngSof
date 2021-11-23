@@ -12,6 +12,7 @@ class Registro extends Component {
     super(props);
     this.idddd = -1;
     this.idParaRedi = -1;
+    this.iniciarSesion = props.iniciarSesion;
     this.state = {
       campoNombre: "",
       campoApellido: "",
@@ -213,9 +214,9 @@ class Registro extends Component {
     var res = true;
     var llenadoContr = this.state.campoContraseña;
     if (llenadoContr.length == 0) {
-        this.setState({ cadVacioContrase: true });
-        return false;
-      }
+      this.setState({ cadVacioContrase: true });
+      return false;
+    }
     if (llenadoContr != this.state.campoConfirContraseña) {
       this.setState({ cadContraseIdenticas: true });
       res = false;
@@ -239,9 +240,9 @@ class Registro extends Component {
     var res = true;
     var llenadoCor = this.state.campoCorreo;
     if (llenadoCor.length == 0) {
-        this.setState({ cadVacioCorreo: true });
-        return false;
-      }
+      this.setState({ cadVacioCorreo: true });
+      return false;
+    }
     if (llenadoCor.length >= 50) {
       this.setState({ maximoCaraCorreo: true });
       res = false;
@@ -250,7 +251,7 @@ class Registro extends Component {
     if (llenadoCor.length <= 5) {
       this.setState({ minimoCaraCorreo: true });
       res = false;
-    }    
+    }
     if (!this.esCorreo(llenadoCor)) {
       this.setState({ dominioFalCorreo: true });
       res = false;
@@ -260,11 +261,11 @@ class Registro extends Component {
       res = false;
     }
 
-    /* var dosPuntosSeg = '';
-        if(nombreLlenado.includes(dosPuntosSeg)){
-            this.setState({puntosContinuosCorreo:true});
-            res = false;
-        } */
+    var dosPuntosSeg = "..";
+    if (llenadoCor.includes(dosPuntosSeg)) {
+      this.setState({ puntosContinuosCorreo: true });
+      res = false;
+    }
 
     if (llenadoCor.includes(" ")) {
       this.setState({ cadVaciasCorreo: true });
@@ -366,7 +367,8 @@ class Registro extends Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.id_usuario > 1) {
-          this.props.history.push(`/Estudiante/${data.id_usuario}`);
+          //this.props.history.push(`/Estudiante/${data.id_usuario}`);
+          this.props.iniciarSesion = data.id_usuario;
           window.location.href = window.location.href;
         } else {
           console.log("entra al else");
@@ -426,7 +428,7 @@ class Registro extends Component {
             class="w3-container w3-card-4 w3-light-grey "
             onSubmit={this.validarRegistro}
           >
-            <h1 id="TituloPrin" className="w3-  center">
+            <h1 id="TituloPrin" className="w3-center">
               Regístrate en Wdemy
             </h1>
             <div className="w3-row w3-section">
