@@ -99,7 +99,6 @@ class VistaEst extends Component{
     }
 
     pruebaBtn(){
-        console.log("Se ejecuta boton en vista est")
         this.props.iniciarSesion(10);
         //this.props.cerrarSesion(!this.props.sesionIniciada());
         this.fetchCourseAlf();
