@@ -10,7 +10,7 @@
     float: left;
     padding: 15px;
     margin-left: 3%;
-    margin-top: 2%;
+    margin-top: 2%;   
 }
 #campNombre{
     width: 90%;
@@ -66,7 +66,7 @@
 
 #campoCorreo{
     margin-top: 5%;
-    width: 90%;
+    width: 95%;
     height: 26px;
     float: left;
     padding: 15px;   
@@ -145,5 +145,5 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 #iconCor{
-    margin-left: 5%;
+    margin-left: 7%;
 }

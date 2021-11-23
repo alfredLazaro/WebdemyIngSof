@@ -426,8 +426,8 @@ class Registro extends Component {
             class="w3-container w3-card-4 w3-light-grey "
             onSubmit={this.validarRegistro}
           >
-            <h1 id="TituloPrin" className="w3-center">
-              Registrate en Wdemy
+            <h1 id="TituloPrin" className="w3-  center">
+              Regístrate en Wdemy
             </h1>
             <div className="w3-row w3-section">
               <div id="campNomApe" className="w3-rest">
