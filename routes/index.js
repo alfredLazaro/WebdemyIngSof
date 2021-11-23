@@ -111,7 +111,9 @@ router.post('/register', async(req, res) => {
     const {first,last , email, password} = req.body;
     console.log(req.body);
     /* let salt = bcrypt.genSaltSync();*/ 
-    const hash = await bcrypt.hash(password, 8);  
+    const hash = await bcrypt.hash(password, 8); 
+    const idUs = await pool.query(`SELECT * FROM usuario where correo=?`, email);
+    if(idUs.length==0){
     const curso = await pool.query(`insert into usuario (nombres, apellidos, correo, contrasena) values (?, ?, ?, ?)`, [first,last,email,hash],(err, rows, fields) => {
           
         if(!err){
@@ -120,6 +122,13 @@ router.post('/register', async(req, res) => {
             console.log(err);
         }
     });
+
+    }else{
+        console.log("ya hay cuenta con el gmail");
+        res.json({
+            mensaj : "incorrecto MAL"
+        });
+    }
     console.log("sale del post");
 });
 /**Fin consultas para pag registtro 
