@@ -15,24 +15,22 @@ import { useParams } from 'react-router';
     Route,
   } from "react-router-dom";
 
-function VistaGeneral(){
+function VistaGeneral(props){
   return(
     <Router>
-        <AppBar showOptOthers='false' showButtonUser='false'/>
-        <Body
-          
-        />
+        <AppBar showButtRegis={true} showButtLogin={true} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada}/>
+        <Body/>
       </Router>
   );
 
 }
 
-function VistaCurso(){
+function VistaCurso(props){
   const params = useParams();
 
  return(   
   <Router>
-      <AppBar showOptOthers='false' showButtonUser='false'/>
+      <AppBar showOptOthers={false} showButtonUser={false} showButtRegis={true} showButtLogin={true} sesionIniciada={props.sesionIniciada}/>
       <Inicio id_curso = {params.entrada} />
   </Router>
   );
@@ -43,13 +41,13 @@ function VistaEstudiante(props){
   const params = useParams();
   return(
     <Router>
-        <AppBar showButtRegis='false' showButtLogin='false'/>
+        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={true} showButtonUser={true} sesionIniciada={props.sesionIniciada}/>
         <VistaEst id_user = {params.idUser} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
       </Router>
   );
 }
 
-function VistaRegistro(){
+function VistaRegistro(props){
   return(
     <Router>      
         <AppBar showButtRegis='false' showButtLogin='false' showOptOthers='false' showButtonUser='false'/>
@@ -59,7 +57,7 @@ function VistaRegistro(){
   );
 }
 
-function VistaLogin(){
+function VistaLogin(props){
   return(
     <Router>      
         <AppBar showButtRegis='false' showButtLogin='false' showOptOthers='false' showButtonUser='false'/>
@@ -77,7 +75,7 @@ function VistaLogin(){
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = this.state = JSON.parse(window.localStorage.getItem('state')) || { 
       idUsuario: -1,
       estaSesionIni: false
     };
@@ -85,6 +83,11 @@ class App extends Component {
     this.sesionIniciada = this.sesionIniciada.bind(this);
     this.iniciarSesion = this.iniciarSesion.bind(this);
     this.cerrarSesion = this.cerrarSesion.bind(this);
+  }
+
+  setState(state) {
+    window.localStorage.setItem('state', JSON.stringify(state));
+    super.setState(state);
   }
 
   sesionIniciada(e) {
@@ -112,14 +115,13 @@ class App extends Component {
       <Router>
           <Switch>
               <Route exact path='/' >
-                <VistaGeneral>
+                <VistaGeneral sesionIniciada={this.sesionIniciada}/>
                   
-                </VistaGeneral>
               </Route>
     
               {/* path="/blog/:slug" */}
               <Route exact path="/Inicio/:entrada">  
-                <VistaCurso/>
+                <VistaCurso sesionIniciada={this.sesionIniciada}/>
               </Route>
   
               <Route exact path="/estudiante/:idUser">
@@ -127,7 +129,7 @@ class App extends Component {
               </Route>
   
               <Route exact path="/register" >
-               <VistaRegistro>
+               <VistaRegistro sesionIniciada={this.sesionIniciada}>
   
                </VistaRegistro>
               </Route>
@@ -135,7 +137,7 @@ class App extends Component {
             {/* esta de modificarPara que revisa, us y contra */}
               <Route exact path="/login">
   
-                <VistaLogin/>
+                <VistaLogin sesionIniciada={this.sesionIniciada}/>
   
               </Route>
   

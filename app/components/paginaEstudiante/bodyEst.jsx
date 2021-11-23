@@ -102,7 +102,7 @@ class VistaEst extends Component{
 
     pruebaBtn(){
         console.log("Se ejecuta boton en vista est")
-        this.props.cerrarSesion(true);
+        this.props.cerrarSesion(!this.props.sesionIniciada());
         
     }
       handleChange(event) {
