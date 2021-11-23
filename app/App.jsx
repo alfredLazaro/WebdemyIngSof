@@ -30,7 +30,7 @@ function VistaCurso(props){
 
  return(   
   <Router>
-      <AppBar showOptOthers={false} showButtonUser={false} showButtRegis={true} showButtLogin={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+      <AppBar showOptOthers={false} showButtonUser={false} showButtRegis={true} showButtLogin={true} sesionIniciada={props.sesionIniciada} />
       <Inicio id_curso = {params.entrada} />
   </Router>
   );
@@ -49,7 +49,7 @@ function VistaEstudiante(props){
 function VistaRegistro(props){
   return(
     <Router>      
-        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />
         <Registro>
         </Registro>
     </Router>
@@ -59,7 +59,7 @@ function VistaRegistro(props){
 function VistaLogin(props){
   return(
     <Router>      
-        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />
 
         <InicioDeSesion>
 
@@ -107,7 +107,10 @@ class App extends Component {
   }
 
   cerrarSesion() { //Prueba para paso de valores en funcion
-    return this.setState({ estaSesionIni: false});
+    return this.setState({ 
+      idUsuario: 0,
+      estaSesionIni: false
+    });
   }
 
   render(){
@@ -115,13 +118,13 @@ class App extends Component {
       <Router>
           <Switch>
               <Route exact path='/' >
-                <VistaGeneral sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+                <VistaGeneral sesionIniciada={this.sesionIniciada}/>
                   
               </Route>
     
               {/* path="/blog/:slug" */}
               <Route exact path="/Inicio/:entrada">  
-                <VistaCurso sesionIniciada={this.sesionIniciada } cerrarSesion={this.cerrarSesion}/>
+                <VistaCurso sesionIniciada={this.sesionIniciada }/>
               </Route>
   
               <Route exact path="/estudiante">
@@ -129,7 +132,7 @@ class App extends Component {
               </Route>
   
               <Route exact path="/register" >
-               <VistaRegistro sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}>
+               <VistaRegistro sesionIniciada={this.sesionIniciada} >
   
                </VistaRegistro>
               </Route>
@@ -137,7 +140,7 @@ class App extends Component {
             {/* esta de modificarPara que revisa, us y contra */}
               <Route exact path="/login">
   
-                <VistaLogin sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+                <VistaLogin sesionIniciada={this.sesionIniciada} />
   
               </Route>
   

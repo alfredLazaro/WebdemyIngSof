@@ -55,6 +55,8 @@ class AppBar extends Component {
     cerrarSes(){
         /* Metodo para cerrar la sesion */
         this.props.cerrarSesion();
+        this.props.history.push("/");
+        window.location.href = window.location.href;
     }
 
     render(){ 

@@ -103,7 +103,7 @@ class VistaEst extends Component{
         this.props.iniciarSesion(10);
         //this.props.cerrarSesion(!this.props.sesionIniciada());
         this.fetchCourseAlf();
-        
+        window.location.href = window.location.href;
     }
       handleChange(event) {
         this.setState({value: event.target.value});  
@@ -186,6 +186,8 @@ class VistaEst extends Component{
                             <div id="listaOrden" className="w3-dropdown-content w3-bar-block w3-border">
                                 <button onClick={this.ordAlf} className="w3-bar-item w3-border opcionDropd">Alfabeticamente</button>
                                 <button onClick={this.ordFecha} className="w3-bar-item w3-border opcionDropd">Por fecha creac.</button>
+                                
+                                {/*Eliminar Boton, solo esta para realizar pruebas de inicio de sesion*/}
                                 <button onClick={this.pruebaBtn} className="w3-bar-item w3-border opcionDropd">Cambiar valor iniSes</button>
                             </div>
                         </div>
