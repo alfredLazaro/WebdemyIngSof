@@ -503,7 +503,12 @@ body{
   outline: none;
 }
 
-
+.contendNomCurso{
+  border-color: white;
+  /* display:flex; */
+  height: 18%;
+  /* word-break:break-all; */
+}
 
 
 
