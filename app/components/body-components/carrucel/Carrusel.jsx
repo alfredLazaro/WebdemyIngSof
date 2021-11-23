@@ -267,7 +267,7 @@ class Filtro extends Component {
                               <br />
                               Inscritos: { curso.inscritos }
                               <br />
-                              Tutor: {curso.nomT} {curso.apellT}
+                              <div className="contendNomCurso">Tutor: {curso.nomT} {curso.apellT}</div>
                             </div>
                         </div>
                     </Link> 
