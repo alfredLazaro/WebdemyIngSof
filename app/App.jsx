@@ -41,7 +41,7 @@ function VistaEstudiante(props){
   return(
     <Router>
         <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={true} showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
-        <VistaEst sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion} idenUsuario={props.idenUsuario} iniciarSesion={props.iniciarSesion}/>
+        <VistaEst sesionIniciada={props.sesionIniciada} idenUsuario={props.idenUsuario} iniciarSesion={props.iniciarSesion}/>
       </Router>
   );
 }
@@ -49,8 +49,8 @@ function VistaEstudiante(props){
 function VistaRegistro(props){
   return(
     <Router>      
-        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />
-        <Registro>
+        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada}/>
+        <Registro iniciarSesion={props.iniciarSesion}>
         </Registro>
     </Router>
   );
@@ -61,7 +61,7 @@ function VistaLogin(props){
     <Router>      
         <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />
 
-        <InicioDeSesion>
+        <InicioDeSesion iniciarSesion={props.iniciarSesion}>
 
         </InicioDeSesion>
         
@@ -132,7 +132,7 @@ class App extends Component {
               </Route>
   
               <Route exact path="/register" >
-               <VistaRegistro sesionIniciada={this.sesionIniciada} >
+               <VistaRegistro sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} >
   
                </VistaRegistro>
               </Route>
@@ -140,7 +140,7 @@ class App extends Component {
             {/* esta de modificarPara que revisa, us y contra */}
               <Route exact path="/login">
   
-                <VistaLogin sesionIniciada={this.sesionIniciada} />
+                <VistaLogin sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} />
   
               </Route>
   
