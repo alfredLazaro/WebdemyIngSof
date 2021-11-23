@@ -403,14 +403,16 @@ body{
 }
 
 #btnVolver{
-  background-color: #2F5D62;
+  background-color: #192d30;
   font-size: 20px;
+  width: 5e;
   color: #FFFFFF;
   cursor: pointer;
-  position: absolute;
   right: 0px;
   margin-right: 50px;
   padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 10px;
   position: absolute;
   top:67%;

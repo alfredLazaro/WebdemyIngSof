@@ -8,13 +8,11 @@ class VistaEst extends Component{
         super(props);
         this.state = {
             value: "",
-            usuario: props.id_user,
+            usuario: props.idenUsuario(),
             cursos: [],
             showPopup: false,
-            textPopup: "",
-            sesionIni: props.sesionIniciada()
+            textPopup: ""
         }
-        this.cerrarSesion = props.cerrarSesion;
         this.fetchCourseAlf = this.fetchCourseAlf.bind(this);
         this.fetchCourseFech = this.fetchCourseFech.bind(this);
         this.cortar = this.cortar.bind(this);
@@ -102,7 +100,9 @@ class VistaEst extends Component{
 
     pruebaBtn(){
         console.log("Se ejecuta boton en vista est")
-        this.props.cerrarSesion(!this.props.sesionIniciada());
+        this.props.iniciarSesion(10);
+        //this.props.cerrarSesion(!this.props.sesionIniciada());
+        this.fetchCourseAlf();
         
     }
       handleChange(event) {

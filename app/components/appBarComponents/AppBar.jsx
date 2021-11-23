@@ -54,6 +54,7 @@ class AppBar extends Component {
 
     cerrarSes(){
         /* Metodo para cerrar la sesion */
+        this.props.cerrarSesion();
     }
 
     render(){ 
@@ -79,7 +80,7 @@ class AppBar extends Component {
                         </button>                        
                         }
                         {(!this.showButtonLogin) || (this.props.sesionIniciada()) ? null:
-                        <button id="ButtonLogin" className="w3-button " onClick={this.openPagLogin}>
+                        <button id="ButtonLogin" className="w3-button" onClick={this.openPagLogin}>
                              iniciar sesion
                         </button> 
                         }
