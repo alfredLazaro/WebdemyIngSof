@@ -260,7 +260,7 @@ class Filtro extends Component {
                     <button className="elementos-carrusel" onClick={this.refrescarPagina}>
                     <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > 
                         <div key={curso.id_curso} className="linkCurso">
-                            <h3 className="contendNomCurso">{curso.nombreCurso}</h3>                  
+                            <h3>{curso.nombreCurso}</h3>                  
                             <img id="imagenCursoRed" src={`/assets/imagenes/${curso.imagen}`}></img>
                             <div className="curseDescription">
                               Actualizacion: {this.cortar(curso.created_at) }
