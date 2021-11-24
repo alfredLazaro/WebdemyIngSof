@@ -545,7 +545,7 @@ class Registro extends Component {
               </div>
 
               <div id="campContrasenias">
-                <i id="iconCor" class="fa fa-lock"></i>
+                <i id="iconContra" class="fa fa-lock"></i>
                 <div className="contenierNomApe">
                   <div className="alertsIzq">
                     <input
