@@ -10,10 +10,8 @@ import "./Registro.css";
 class Registro extends Component {
   constructor(props) {
     super(props);
-    this.idddd = -1;
-    this.idParaRedi = -1;
-    
-    this.iniciarSesion = props.iniciarSesion;
+    //this.idenUsuario = 
+    this.iniciarSesion = false;
     this.state = {
       campoNombre: "",
       campoApellido: "",
@@ -368,16 +366,14 @@ class Registro extends Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.id_usuario > 1) {
-          //this.props.history.push(`/Estudiante/${data.id_usuario}`);
-          this.props.iniciarSesion = data.id_usuario;
+          this.props.history.push(`/Estudiante/`);
+          this.props.iniciarSesion(data.id_usuario);         
           window.location.href = window.location.href;
         } else {
           console.log("entra al else");
         }
       });
-
-    this.idParaRedi = idddd;
-    console.log(this.idParaRedi);
+    console.log(this.idenUsuario);
   }
 
   validarCorreo1() {
