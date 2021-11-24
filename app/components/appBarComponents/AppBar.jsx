@@ -54,6 +54,9 @@ class AppBar extends Component {
 
     cerrarSes(){
         /* Metodo para cerrar la sesion */
+        this.props.cerrarSesion();
+        this.props.history.push("/");
+        window.location.href = window.location.href;
     }
 
     render(){ 
@@ -65,7 +68,7 @@ class AppBar extends Component {
                         <Link className='linkAppBar' to='/' onClick={this.refrescar}>
                             <p className='titulo' >Wdemy</p>
                         </Link>
-                        { this.showOptOthers? null :
+                        { !this.showOptOthers? null :
                         <Link className='linkAppBar' to='/' onClick={this.refrescar}>
                             <p className='pestanaOp' >Otros Cursos</p>
                         </Link>
@@ -73,17 +76,17 @@ class AppBar extends Component {
                     </div>
 
                     <div className="w3-container w3-cell w3-cell-middle botones">
-                       { this.showButtonRegister? null :
+                       { (!this.showButtonRegister) || (this.props.sesionIniciada()) ? null :
                         <button id="ButtonRegister" className="w3-button" onClick={this.openPagRegister}>
                             Registrarse
                         </button>                        
                         }
-                        {this.showButtonLogin? null:
-                        <button id="ButtonLogin" className="w3-button " onClick={this.openPagLogin}>
+                        {(!this.showButtonLogin) || (this.props.sesionIniciada()) ? null:
+                        <button id="ButtonLogin" className="w3-button" onClick={this.openPagLogin}>
                              iniciar sesion
                         </button> 
                         }
-                        {this.showButtonUser? null:
+                        {!this.showButtonUser? null:
                         <div className="w3-container w3-cell w3-cell-middle">
                             <button className="btnIconAppBar w3-button" onClick={this.listUser}>
                                 <i className="fa fa-user w3-xxlarge" ></i>

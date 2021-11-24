@@ -10,8 +10,8 @@ import "./Registro.css";
 class Registro extends Component {
   constructor(props) {
     super(props);
-    this.idddd = -1;
-    this.idParaRedi = -1;
+    //this.idenUsuario = 
+    this.iniciarSesion = false;
     this.state = {
       campoNombre: "",
       campoApellido: "",
@@ -68,6 +68,9 @@ class Registro extends Component {
     this.validarContrase = this.validarContrase.bind(this);
     this.esCorreo = this.esCorreo.bind(this);
     this.mandarBD = this.mandarBD.bind(this);
+    this.validarCorreo1 = this.validarCorreo1.bind(this);
+
+    this.correoExiste = this.correoExiste.bind(this);
     this.mandarAsuVista = this.mandarAsuVista.bind(this);
 
     this.sacarId = this.sacarId.bind(this);
@@ -127,11 +130,11 @@ class Registro extends Component {
     todoBienTodoCorrecto = this.validarAllCampos();
     if (todoBienTodoCorrecto) {
       this.mandarBD();
-      this.setState({ regisExitoso: true });
     }
   }
 
   mandarBD() {
+    console.log("trata de mandar la BD");
     try {
       var data = {
         first: this.state.campoNombre,
@@ -147,8 +150,14 @@ class Registro extends Component {
         },
       })
         .then((res) => res.json())
+
         .catch((error) => console.error("Error:", error))
-        .then((response) => console.log("Success:", response));
+        .then((response) => {
+          if (response.mensaj == "incorrecto MAL") {
+          } else {
+            this.setState({ regisExitoso: true });
+          }
+        });
     } catch (eer) {
       console.log(eer);
       console.log("no manda");
@@ -203,13 +212,13 @@ class Registro extends Component {
   validarContrase() {
     var res = true;
     var llenadoContr = this.state.campoContraseña;
-    if (llenadoContr != this.state.campoConfirContraseña) {
-      this.setState({ cadContraseIdenticas: true });
-      res = false;
-    }
     if (llenadoContr.length == 0) {
       this.setState({ cadVacioContrase: true });
       return false;
+    }
+    if (llenadoContr != this.state.campoConfirContraseña) {
+      this.setState({ cadContraseIdenticas: true });
+      res = false;
     }
     if (llenadoContr.length < 8) {
       this.setState({ minimoCaraContrase: true });
@@ -229,22 +238,10 @@ class Registro extends Component {
   validarCorreo() {
     var res = true;
     var llenadoCor = this.state.campoCorreo;
-
     if (llenadoCor.length == 0) {
       this.setState({ cadVacioCorreo: true });
       return false;
     }
-    fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.correo.length != 0) {
-          this.setState({ correoExistente: true });
-          res = false;
-          console.log("La primer verz");
-          console.log(res);
-        }
-      });
-
     if (llenadoCor.length >= 50) {
       this.setState({ maximoCaraCorreo: true });
       res = false;
@@ -254,29 +251,20 @@ class Registro extends Component {
       this.setState({ minimoCaraCorreo: true });
       res = false;
     }
-
     if (!this.esCorreo(llenadoCor)) {
       this.setState({ dominioFalCorreo: true });
       res = false;
     }
+    if (this.correoExiste()) {
+      console.log("poneFalso");
+      res = false;
+    }
 
-    fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.correo.length != 0) {
-          this.setState({ correoExistente: true });
-          res = false;
-          console.log("segunda consulta" + res);
-          console.table(data.correo);
-        }
-      });
-    console.log("saliendo del fetch" + res);
-
-    /* var dosPuntosSeg = '';
-        if(nombreLlenado.includes(dosPuntosSeg)){
-            this.setState({puntosContinuosCorreo:true});
-            res = false;
-        } */
+    var dosPuntosSeg = "..";
+    if (llenadoCor.includes(dosPuntosSeg)) {
+      this.setState({ puntosContinuosCorreo: true });
+      res = false;
+    }
 
     if (llenadoCor.includes(" ")) {
       this.setState({ cadVaciasCorreo: true });
@@ -286,9 +274,20 @@ class Registro extends Component {
       this.setState({ errorCaraEspeciCorreo: true });
       res = false;
     }
-
-    console.log("asi terminara el res" + res);
     return res;
+  }
+
+  correoExiste() {
+    fetch(`/api/cursos/${this.state.campoCorreo}/usuario`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.correo.length == 0) {
+          return true;
+        } else {
+          this.setState({ correoExistente: true });
+          return false;
+        }
+      });
   }
 
   esCorreo(cadVericacion) {
@@ -318,7 +317,7 @@ class Registro extends Component {
       this.setState({ errorCaraEspeciApellido: true });
       var res = false;
     }
-    if (nombreLlenado.length >= 25) {
+    if (nombreLlenado.length > 25) {
       this.setState({ maximoCaraApellido: true });
       var res = false;
     }
@@ -367,12 +366,23 @@ class Registro extends Component {
       .then((res) => res.json())
       .then((data) => {
         if (data.id_usuario > 1) {
-          this.props.history.push(`/Estudiante/${data.id_usuario}`);
+          this.props.history.push(`/Estudiante/`);
+          this.props.iniciarSesion(data.id_usuario);         
           window.location.href = window.location.href;
+        } else {
+          console.log("entra al else");
         }
       });
+    console.log(this.idenUsuario);
+  }
 
-    this.idParaRedi = idddd;
+  validarCorreo1() {
+    console.log(this.state.hayCorreo);
+    if (this.state.hayCorreo.length == 0) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   mandarAsuVista() {
@@ -484,7 +494,7 @@ class Registro extends Component {
                 </div>
               </div>
               <div id="campCorr" class="w3-row w3-section">
-                <i id="logoCorreo" class="w3-xxlarge fa fa-envelope-o"></i>
+                <i id="logoCorreo" class="fa fa-envelope"></i>
                 <div className="w3-rest">
                   <input
                     id="campoCorreo"
@@ -535,7 +545,7 @@ class Registro extends Component {
               </div>
 
               <div id="campContrasenias">
-                <i id="iconCor" class="fa fa-lock"></i>
+                <i id="iconContra" class="fa fa-lock"></i>
                 <div className="contenierNomApe">
                   <div className="alertsIzq">
                     <input

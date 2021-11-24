@@ -45,10 +45,11 @@ class InicioDeSesion extends Component{
     }
 
     validarCorreo(){
-        var res = true;
+        var res = true; //esta variable res no me confio 
         var estadoCor = this.state.campoCorreo;
         if(estadoCor==""){
             this.setState({vacioCorr:true});
+            this.setState({vacioContra:true}); //este es bug de que deberian mostrarse ambos
             res =false;
         }else{}
         return res;
@@ -58,6 +59,7 @@ class InicioDeSesion extends Component{
         var estadoCont = this.state.campoContra;
         if(estadoCont==""){
             this.setState({vacioContra:true});
+            this.setState({vacioCorr:true});  //este es bug de que deberian mostrarse ambos x2
             res =false;
         }else{}
         return res;
@@ -69,15 +71,27 @@ class InicioDeSesion extends Component{
         console.log(estaBien);
         if(estaBien){
             try {
-                fetch(`/api/cursos/${this.state.campoCorreo}/login`) 
+                var data ={
+                    user: this.state.campoCorreo,
+                    pass: this.state.campoContra
+                };
+                fetch(`/api/cursos/login`,{
                     
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers:{
+                        'Content-Type': 'application/json'
+                    }                
+                })
                     .then(res => res.json())
-                    .then(data =>{ console.log(data.contrasena)
+                    .then(dato =>{ 
+                        console.log(dato.contra)
                         console.log(this.state.campoContra);
                         
-                        if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
+                        if(dato.mensaj=='correcto' ){
                             console.log("buen inicio");
-                            this.props.history.push("/estudiante/"+data.id_usuario);
+                            this.props.history.push('/Estudiante/');
+                            this.props.iniciarSesion(dato.id_usuario);
                             window.location.href = window.location.href;
                         }else{
                             console.log("ALGO MAL");
@@ -86,15 +100,10 @@ class InicioDeSesion extends Component{
                         }
                     }
                   )
-                  /* .then(function(response) {
-                    return response.json()
-                  }).then(function(body) {
-                    console.log(body);
-                  }); */
+                  
             } catch (error) {
                 
             }
-            /**capturar de la BD */
 
         }else{
             this.setState({vacioContra:true});

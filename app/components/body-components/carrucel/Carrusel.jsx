@@ -272,18 +272,15 @@ class Filtro extends Component {
                         to={`/Inicio/${curso.id_curso}`}
                       >
                         <div key={curso.id_curso} className="linkCurso">
-                          <h3>{curso.nombreCurso}</h3>
-                          <img
-                            id="imagenCursoRed"
-                            src={`/assets/imagenes/${curso.imagen}`}
-                          ></img>
-                          <div className="curseDescription">
-                            Actualizacion: {this.cortar(curso.created_at)}
-                            <br />
-                            Inscritos: {curso.inscritos}
-                            <br />
-                            Tutor: {curso.nomT} {curso.apellT}
-                          </div>
+                            <h3 className="contendNomCurso">{curso.nombreCurso}</h3>                  
+                            <img id="imagenCursoRed" src={`/assets/imagenes/${curso.imagen}`}></img>
+                            <div className="curseDescription">
+                              Actualizacion: {this.cortar(curso.created_at) }
+                              <br />
+                              Inscritos: { curso.inscritos }
+                              <br />
+                              <div className="contendNomTut">Tutor: {curso.nomT} {curso.apellT}</div>
+                            </div>
                         </div>
                       </Link>
                     </button>
