@@ -1,9 +1,9 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 
-class Inicio extends Component{
-    constructor(props){
+class Inicio extends Component {
+    constructor(props) {
         super(props);
         this.state = {
             curso: props.id_curso,
@@ -24,56 +24,57 @@ class Inicio extends Component{
         this.fetchTags();
     }
 
-    fetchCourse(){   /**/ 
+    fetchCourse() {   /**/
         fetch(`/api/cursos/${this.state.curso}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                  objCurso: data,
-                  fecha: data.created_at,
-                  nombreTut: data.nombres + " " + data.apellidos
+                    objCurso: data,
+                    fecha: data.created_at,
+                    nombreTut: data.nombres + " " + data.apellidos
                 });
             });
     }
 
-    fetchModules(){
+    fetchModules() {
         fetch(`/api/cursos/${this.state.curso}/modulos`)
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                  modulos: data
+                    modulos: data
                 });
             });
         console.log(this.state.modulos);
     }
 
-    fetchTags(){
+    fetchTags() {
         fetch(`/api/cursos/${this.state.curso}/etiquetas`)
             .then(res => res.json())
             .then(data => {
                 this.setState({
-                  etiquetas: data
+                    etiquetas: data
                 });
             });
     }
 
-    cortarFecha(obj){
+    cortarFecha(obj) {
         var text = JSON.stringify(obj);
-        text = text.replace(/-/g,"/");
-        return text.slice(1,11);
+        text = text.replace(/-/g, "/");
+        return text.slice(1, 11);
     }
 
-    volver() {        
+    volver() {
         history.back();
     }
 
-    
+
 
     render() {
-        return(
-            <div className="fondoCurso"> 
+        return (
+            <div className="fondoCurso">
                 <div className="deDebajoDeBody">
                     <img id="imagenCurso" src={`${process.env.PUBLIC_URL}/assets/imagenes/${this.state.objCurso.imagen}`}></img>
+                    
                     <div className="contenedor">
                         <div>
                             <div id="nombreCurso"> {this.state.objCurso.nombre} </div>
@@ -81,9 +82,9 @@ class Inicio extends Component{
                         <div>
                             <button id="btnVolver" className="w3-button" onClick={this.volver}>
                                 Volver
-                            </button> 
+                            </button>
                         </div>
-                    </div>   
+                    </div>
                 </div>
 
                 <div className="container-flulid">
@@ -91,32 +92,32 @@ class Inicio extends Component{
                         <div>
                             <p className="tituloCursos">Descripcion del curso</p>
                             <div className='contenidoCaja'>
-                                    {this.state.objCurso.descripcion}
+                                {this.state.objCurso.descripcion}
                             </div>
 
                             <p className="tituloCursos">Requisitos</p>
                             <div className='contenidoCaja'>
-                                    {this.state.objCurso.requisitos}
+                                {this.state.objCurso.requisitos}
                             </div>
 
                             <p className="tituloCursos">Tutor del curso</p>
                             <div className='contenidoCaja'>
                                 {this.state.nombreTut}
-                                <br/>
+                                <br />
                                 {this.state.objCurso.bibliografia}
                             </div>
                             <div className="infoCursos">
                                 Duracion del curso: {this.state.objCurso.duracion} dias
-                                <br/>
-                                Actualizacion: {this.cortarFecha(this.state.fecha) }
+                                <br />
+                                Actualizacion: {this.cortarFecha(this.state.fecha)}
                             </div>
                             <div className="tituloCursos">Palabras Clave</div>
                             <div className="contEtiquetas">
                                 <div>
                                     {
                                         this.state.etiquetas.map((etiqueta) => {
-                                            return(
-                                                <div className="etiqueta"> {etiqueta.nombre} </div>                 
+                                            return (
+                                                <div className="etiqueta"> {etiqueta.nombre} </div>
                                             )
                                         })
                                     }
@@ -129,10 +130,10 @@ class Inicio extends Component{
                                 <ul>
                                     {
                                         this.state.modulos.map((modulo) => {
-                                            return(
-                                                <div className="modulo"> {modulo.nombre} </div>                 
+                                            return (
+                                                <div className="modulo"> {modulo.nombre} </div>
                                             )
-                                            })
+                                        })
                                     }
                                 </ul>
                             </div>
@@ -140,7 +141,7 @@ class Inicio extends Component{
                     </div>
                 </div>
             </div>
-        
+
         )
     }
 }
