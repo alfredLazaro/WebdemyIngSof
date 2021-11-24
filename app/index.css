@@ -506,13 +506,22 @@ body{
 }
 
 .contendNomCurso{
-  border-color: white;
+  /* border-color: white; */
   /* display:flex; */   
-  height: 18%;
+  height: 20%;
+  width:100%; 
+  overflow: hidden;
+  /* word-wrap:break-word; */
   /* word-break:break-all; */
+  text-overflow: ellipsis;
 }
 
-
+.contendNomTut{
+  height: 30px;
+   width:100%; 
+   
+   overflow: hidden;
+}
 
 
 /* .filtro input[type='submit']{} */
