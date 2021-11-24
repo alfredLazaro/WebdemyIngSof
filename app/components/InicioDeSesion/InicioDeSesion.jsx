@@ -133,10 +133,10 @@ class InicioDeSesion extends Component{
                         
                         <div >
                             <div  class="w3-rest" >
-                            <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i>
                             {/* <i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i> */}
+                            <i id='iconCor' class="w3-email"></i>
+                             <i id='iconCor' class="w3-email"></i>
+                            <i id='iconCor' class="w3-email"></i>  */}
                                 <i id='iconCor' class="fa fa-envelope"></i>
                                 <div >
                                     <input  id='prinPar'  class="w3-input w3-border" name="email" type="text" placeholder="correo electronico" 
@@ -156,10 +156,10 @@ class InicioDeSesion extends Component{
                         <br />
                         <div >
                             <div>
-                             <i id='iconCor' class="w3-email"></i>
+                             {/* <i id='iconCor' class="w3-email"></i>
                             <i id='iconCor' class="w3-email"></i>
-                            {/*<i id='iconCor' class="w3-email"></i>
-                            <i id='iconCor' class="w3-email"></i> */}
+                            <i id='iconCor' class="w3-email"></i>
+                            <i id='iconCor' class="w3-email"></i>  */}
                                 <i id='iconCor' class="fa fa-lock"></i>
                                 
                                 <input id='prinPar'  class="w3-input w3-border" name="campoContra" type="Password" placeholder="contraseña" 

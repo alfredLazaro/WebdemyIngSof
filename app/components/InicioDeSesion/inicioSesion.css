@@ -68,6 +68,8 @@
 #iconCor{
     float: left;
      /* position: absolute; */
+     margin-left: 21%;
+     margin-right: 3%;
     top: 40px;
     left: 370px; 
     width: 45px;
