@@ -494,7 +494,7 @@ class Registro extends Component {
                 </div>
               </div>
               <div id="campCorr" class="w3-row w3-section">
-                <i id="logoCorreo" class="w3-xxlarge fa fa-envelope-o"></i>
+                <i id="logoCorreo" class="fa fa-envelope"></i>
                 <div className="w3-rest">
                   <input
                     id="campoCorreo"
