@@ -18,7 +18,7 @@ import { useParams } from 'react-router';
 function VistaGeneral(props){
   return(
     <Router>
-        <AppBar showButtRegis={true} showButtLogin={true} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada}/>
+        <AppBar showButtRegis={true} showButtLogin={true} showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
         <Body/>
       </Router>
   );
@@ -30,7 +30,7 @@ function VistaCurso(props){
 
  return(   
   <Router>
-      <AppBar showOptOthers={false} showButtonUser={false} showButtRegis={true} showButtLogin={true} sesionIniciada={props.sesionIniciada} />
+      <AppBar showButtRegis={true} showButtLogin={true} sesionIniciada={props.sesionIniciada} />
       <Inicio id_curso = {params.entrada} />
   </Router>
   );
@@ -40,7 +40,7 @@ function VistaCurso(props){
 function VistaEstudiante(props){
   return(
     <Router>
-        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={true} showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+        <AppBar showOptOthers={true} showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
         <VistaEst sesionIniciada={props.sesionIniciada} idenUsuario={props.idenUsuario} iniciarSesion={props.iniciarSesion}/>
       </Router>
   );
@@ -49,7 +49,7 @@ function VistaEstudiante(props){
 function VistaRegistro(props){
   return(
     <Router>      
-        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada}/>
+        <AppBar sesionIniciada={props.sesionIniciada}/>
         <Registro iniciarSesion={props.iniciarSesion}  >
         </Registro>
     </Router>
@@ -118,7 +118,7 @@ class App extends Component {
       <Router>
           <Switch>
               <Route exact path='/' >
-                <VistaGeneral sesionIniciada={this.sesionIniciada}/>
+                <VistaGeneral sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
                   
               </Route>
     
