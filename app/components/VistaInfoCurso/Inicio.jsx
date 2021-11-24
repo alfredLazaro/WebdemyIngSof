@@ -14,7 +14,7 @@ class Inicio extends Component{
             etiquetas: []
         }
         this.cortarFecha = this.cortarFecha.bind(this);
-        this.refrescar = this.refrescar.bind(this);
+        this.volver = this.volver.bind(this);
     }
 
 
@@ -63,9 +63,8 @@ class Inicio extends Component{
         return text.slice(1,11);
     }
 
-    refrescar() {        
-        this.props.history.push("/");
-        window.location.href = window.location.href;   
+    volver() {        
+        history.back();
     }
 
     
@@ -80,7 +79,7 @@ class Inicio extends Component{
                             <div id="nombreCurso"> {this.state.objCurso.nombre} </div>
                         </div>
                         <div>
-                            <button id="btnVolver" onClick={this.refrescar}>
+                            <button id="btnVolver" className="w3-button" onClick={this.volver}>
                                 Volver
                             </button> 
                         </div>
