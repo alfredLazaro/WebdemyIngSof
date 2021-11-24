@@ -78,8 +78,17 @@ h1{
   margin-left: 3%;
   width: 10%;
   height: 10px;
+  font-size: 35px;
   float: left;
   padding: 15px;
+/* 
+  float: left;
+     
+    top: 40px;
+    left: 370px; 
+    width: 45px;
+    height: 45px;
+    font-size: 40px; */
 }
 .alersCorreo {
   color: red;
