@@ -1,149 +1,158 @@
-#TituloPrin{
-    margin-top: 5%;
-    color: black;
-    font-family: 'Times New Roman', Times, serif;
-    
+#TituloPrin {
+  margin-top: 5%;
+  font-family: "Roboto";
+}
+h1 {
+  color: black;
+  -webkit-text-stroke: 0.9px rgba(60, 96, 223, 0.8);
 }
 /*El input de nombres y apellidos nas sus alertas*/
-#logNomApe{
-    width: 10%;
-    float: left;
-    padding: 15px;
-    margin-left: 3%;
-    margin-top: 2%;
+#logNomApe {
+  margin-left: 3%;
+  margin-top: 4%;
+  margin-left: 5%;
+  margin-right: 2%;
+  float: left;
+  top: 40px;
+  left: 370px;
+  width: 45px;
+  height: 45px;
+  font-size: 40px;
 }
-#campNombre{
-    width: 90%;
-    height: 15%;
-    float: left;
-    padding: 15px;
-    border-radius: 10px;
-    margin-right: 10%;
-    font-size: 14px;
-}
-
-#campApelli{
-    width: 90%;
-    height: 34px;
-    float: left;
-    padding: 15px;
-    border-radius: 10px;
-    margin-right: 20%;
-    font-size: 14px;
+#campNombre {
+  width: 90%;
+  height: 15%;
+  float: left;
+  padding: 15px;
+  border-radius: 10px;
+  margin-right: 10%;
+  font-size: 14px;
 }
 
-#campNomApe{
-    margin-top: 4%;
+#campApelli {
+  width: 90%;
+  height: 34px;
+  float: left;
+  padding: 15px;
+  border-radius: 10px;
+  margin-right: 20%;
+  font-size: 14px;
 }
 
-
-.contenierNomApe{
-    margin-top: 5%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+#campNomApe {
+  margin-top: 4%;
 }
 
-.alertsIzq{
-    margin-right:15%;;
-    position: static;
-    color: red;
-    font-size: 10px;
+.contenierNomApe {
+  margin-top: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
 }
 
-.alertsDere{ 
-    color: red;
-    font-size: 10px;    
+.alertsIzq {
+  margin-right: 15%;
+  position: static;
+  color: red;
+  font-size: 10px;
 }
 
-
+.alertsDere {
+  color: red;
+  font-size: 10px;
+}
 
 /*fin El input de nombres y apellidos nas sus alertas*/
 
 /*El input de correo nas sus alertas*/
-#campCorr{
-    margin-top: 50px;
+#campCorr {
+  margin-top: 50px;
 }
 
-#campoCorreo{
-    margin-top: 5%;
-    width: 90%;
-    height: 26px;
-    float: left;
-    padding: 15px;   
-    border-radius: 10px;
+#campoCorreo {
+  margin-top: 5%;
+  width: 95%;
+  height: 26px;
+  float: left;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-#logoCorreo{
-    margin-top: 2%;
-    margin-left: 3%;
-    width: 10%;
-    height: 10px;
-    float: left;
-    padding: 15px;  
+#logoCorreo {
+  margin-top: 4%;
+  margin-left: 5%;
+  margin-right: 2%;
+  float: left;
+  top: 40px;
+  left: 370px;
+  width: 45px;
+  height: 45px;
+  font-size: 30px;
 }
-.alersCorreo{
-    color: red;
-    margin-left: 30%;
-    font-size: 10px;
+.alersCorreo {
+  color: red;
+  margin-left: 30%;
+  font-size: 10px;
 }
 
 /* fin El input de nombres y apellidos nas sus alertas*/
 
 /*El input de contrase;a y confirmarContrase;a nas sus alertas*/
-#campContrasenias{
-    margin-top: 9%;
-
+#campContrasenias {
+  margin-top: 9%;
 }
 
-#logoContras{    
-    margin-bottom: 10%;
-    margin-left: 3%;
-    width: 10%;
-    float: left;
-    padding: 15px;
-
+#logoContras {
+  margin-bottom: 10%;
+  margin-left: 3%;
+  width: 10%;
+  float: left;
+  padding: 15px;
 }
 
 /*El input de nombres y apellidos nas sus alertas*/
 /*a revisar*/
 
-
-#botonRegis{
-    width: 25%;; 
-    height: 50px;
-    background: rgba(94, 139, 126, 0.65);
-    border: 1px solid #000000;
-    box-sizing: border-box;
-    border-radius: 12px;
-    margin-left: 35%;
-    
+#botonRegis {
+  width: 25%;
+  height: 50px;
+  background: rgba(94, 139, 126, 0.65);
+  border: 1px solid #000000;
+  box-sizing: border-box;
+  border-radius: 12px;
+  margin-left: 35%;
 }
 
-#enlace{
-    width:50%;
-    float: left;
-    padding: 15px;
-    color:blue;
+#enlace {
+  width: 50%;
+  float: left;
+  padding: 15px;
+  color: blue;
 }
 
-.enlacePre{
-    display: flex;
-    margin-left: 35%;
-    margin-bottom: 10%;
+.enlacePre {
+  display: flex;
+  margin-left: 35%;
+  margin-bottom: 10%;
 }
 
-
-#formResgistro{
-    margin-left: 20%;
-    Width:55%;       
-    height: auto;
-    margin-bottom: 10%;
-    margin-top: 5%;    
+#formResgistro {
+  margin-left: 20%;
+  width: 55%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-top: 5%;
 }
 
-body{
-    font-family: 'Roboto', sans-serif;
+body {
+  font-family: "Roboto", sans-serif;
 }
-#iconCor{
-    margin-left: 5%;
+#iconContra {
+  margin-left: 5%;
+  margin-right: 2%;
+  float: left;
+  top: 40px;
+  left: 370px;
+  width: 45px;
+  height: 45px;
+  font-size: 40px;
 }

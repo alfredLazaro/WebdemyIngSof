@@ -50,7 +50,7 @@ function VistaRegistro(props){
   return(
     <Router>      
         <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada}/>
-        <Registro iniciarSesion={props.iniciarSesion}>
+        <Registro iniciarSesion={props.iniciarSesion}  >
         </Registro>
     </Router>
   );

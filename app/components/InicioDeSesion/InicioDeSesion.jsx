@@ -90,7 +90,8 @@ class InicioDeSesion extends Component{
                         
                         if(dato.mensaj=='correcto' ){
                             console.log("buen inicio");
-                            this.props.history.push("/estudiante/"+dato.id_usuario);
+                            this.props.history.push('/Estudiante/');
+                            this.props.iniciarSesion(dato.id_usuario);
                             window.location.href = window.location.href;
                         }else{
                             console.log("ALGO MAL");
