@@ -77,7 +77,7 @@ class Inicio extends Component {
                     
                     <div className="contenedor">
                         <div>
-                            <div id="nombreCurso"> {this.state.objCurso.nombre} </div>
+                            <div className="nombreCurso"> {this.state.objCurso.nombre} </div>
                         </div>
                         <div>
                             <button id="btnVolver" className="w3-button" onClick={this.volver}>

@@ -363,13 +363,13 @@ body{
   font-size: 1.4em;
 }
 
-#nombreCurso{
+.nombreCurso{
   font-size: 45px;
   -webkit-text-stroke: 1px black;
   font-family: Arial;
   color: white;
   position: absolute;
-  top:65%;
+  top:85%;
 }
 
 .tituloCursos{
@@ -417,7 +417,7 @@ body{
   padding-right: 10px;
   border-radius: 10px;
   position: absolute;
-  top:67%;
+  top:85%;
 }
 
 .etiqueta{
@@ -524,6 +524,12 @@ body{
    
    overflow: hidden;
 }
-
+.deDebajoDeBody{
+  height: 400px;
+   width: 100%;
+  position:relative;
+  left: 0%;
+  top: 0%;
+}
 
 /* .filtro input[type='submit']{} */
