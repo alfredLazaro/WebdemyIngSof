@@ -26,9 +26,40 @@ class CreacionCurso extends Component{
         </head>
 
         <body>
-            <div id='fondoCurso'>
-                <div>
+            <div id='fondoCursoCol'>
+                <div className='vistaColumnas'>
+                    <div>
+                        <p>Nombre de curso:</p>
+                        <input  class="w3-input w3-border" name="email" type="text" placeholder="Inserte un nombre al curso" 
+                                    /* value={this.state.campoCorreo} onChange={this.mailChange} */  />
+                    </div>
+                        <p>Descripcion:</p>
+                        <input name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
+                    <div>
+                        <p>Objetivo:</p>
+                        <input name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" />
+                    </div>
+                    <div>
+                        <p>Requisitos previos:</p>
+                        <input name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" />
+
+                    </div>
                     
+                </div>
+
+                <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
+                        <div>
+                            <input name="volver" type="button"  />
+                        </div>
+                        <div>
+                            <p>Imagen:</p>
+                            <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
+                        </div>
+                        <div>
+                            <p>Palabras clave:</p>
+                            <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
+                            <input type="text" placeholder="Inserte palabra clave"/>
+                        </div>
                 </div>
             </div>
         </body>
