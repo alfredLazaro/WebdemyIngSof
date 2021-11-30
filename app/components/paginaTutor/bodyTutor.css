@@ -1,0 +1,56 @@
+.fondoTut{
+    background-color: #DFEEEA;  /*que es esto?*/
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 101.2%;
+    min-height: 40em;
+    margin: -0.6%;
+    padding-left: 2em;
+    padding-right: 2em;
+    margin-top: -0.5%;
+    margin-left: -1%;
+    margin-right: -1%;
+    margin-bottom: -1%;
+}
+
+.fondIconos{
+    font-size: 4em;
+    align-self: center;
+    display: flex;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.btnIconos{
+    border:none;
+    background-color: #DFEEEA;
+    align-content: center;
+    height: 5em;
+    width: 5em;
+    cursor: pointer;
+  }
+
+.seccTitulo{
+    width: 75%;
+}
+
+.seccNotaNuevo{
+    width: 20%;
+    text-align: right;
+}
+
+.contCursosTutor{
+    align-content: center;
+    padding-left: 10em;
+    padding-right: 10em;
+}
+
+.circRojo{
+     width: 1em;
+     height: 1em;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     background: #FF2525;
+}
