@@ -6,7 +6,7 @@ import NotFound from './components/NotFound.jsx';
 import VistaEst from './components/paginaEstudiante/bodyEst.jsx';
 import Registro from './components/Registro/Registro.jsx';
 import InicioDeSesion from './components/InicioDeSesion/InicioDeSesion.jsx';
-
+import RegistroTutor from './components/RegistroTutor/RegistroTutor.jsx';
 
 import { useParams } from 'react-router';
   import {
@@ -69,7 +69,17 @@ function VistaLogin(props){
   );
 
 }
+function VistaRegistroTutor(props){
+  return(
+    <Router>      
+        <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />    
+        <RegistroTutor>
 
+        </RegistroTutor>
+    </Router>
+  );
+
+}
 
 class App extends Component {
   constructor(props) {
@@ -135,6 +145,12 @@ class App extends Component {
                <VistaRegistro sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} >
   
                </VistaRegistro>
+              </Route>
+
+              <Route exact path="/registertutor" >
+               <VistaRegistroTutor sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} >
+  
+               </VistaRegistroTutor>
               </Route>
   
             {/* esta de modificarPara que revisa, us y contra */}

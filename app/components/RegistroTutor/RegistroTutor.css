@@ -1,0 +1,30 @@
+#formResgistroTutor {
+  margin-left: 5%;
+  width: 90%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-top: 5%;
+}
+
+#formRegisInfoPer {
+  margin-left: 5%;
+  width: 20%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-top: 5%;
+}
+#formRegisLinks {
+  margin-left: 5%;
+  width: 20%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-top: 50%;
+}
+
+#formRegisTrab {
+  /* margin-left: 60%;
+  width: 20%;
+  height: auto;
+  margin-bottom: 10%;
+  margin-top: 5%; */
+}
