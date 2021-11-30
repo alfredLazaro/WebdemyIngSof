@@ -73,8 +73,8 @@ function VistaLogin(props){
 function VistaCrearCurso(props){
   return(
     <Router>
-      <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} />
-      <CreacionCurso ></CreacionCurso>
+      <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+      <CreacionCurso sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}></CreacionCurso>
     </Router>
   );
 }

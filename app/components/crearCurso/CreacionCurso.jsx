@@ -4,7 +4,7 @@ import "./creacionCurso.css";
 class CreacionCurso extends Component{
 
     render(){
-        
+        return(
         <html lang="en">
         <head>
             <meta charset="UTF-8" />
@@ -28,28 +28,33 @@ class CreacionCurso extends Component{
         <body>
             <div id='fondoCursoCol'>
                 <div className='vistaColumnas'>
-                    <div>
-                        <p>Nombre de curso:</p>
-                        <input  class="w3-input w3-border" name="email" type="text" placeholder="Inserte un nombre al curso" 
+                    <div className='enfilar'>
+                        <div>
+                            <p>Nombre de curso:</p>
+                            <input   name="nombreCurso" type="text" placeholder="Inserte un nombre al curso" 
                                     /* value={this.state.campoCorreo} onChange={this.mailChange} */  />
-                    </div>
-                        <p>Descripcion:</p>
-                        <input name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
-                    <div>
-                        <p>Objetivo:</p>
-                        <input name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" />
-                    </div>
-                    <div>
-                        <p>Requisitos previos:</p>
-                        <input name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" />
+                        </div>
+                        <div>
+                            <p>Descripcion:</p>
+                            <input name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
+                        </div>
+                            
+                        <div>
+                            <p>Objetivo:</p>
+                            <input name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" />
+                        </div>
 
+                        <div>
+                            <p>Requisitos previos:</p>
+                            <input name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" />
+                        </div>
                     </div>
                     
                 </div>
 
                 <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         <div>
-                            <input name="volver" type="button"  />
+                            <input name="volver" type="button"  placeholder="volver"/>
                         </div>
                         <div>
                             <p>Imagen:</p>
@@ -64,6 +69,7 @@ class CreacionCurso extends Component{
             </div>
         </body>
         </html>
+        );
     }
 }
 export default withRouter(CreacionCurso);
