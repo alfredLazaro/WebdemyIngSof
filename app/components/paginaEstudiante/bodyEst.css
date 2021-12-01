@@ -1,0 +1,154 @@
+.fondoEst{
+    background-color: #DFEEEA;  /*que es esto?*/
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    height: 100%;
+    width: 101.2%;
+    min-height: 600px;
+    margin: -0.6%;
+    padding-left: 2.5em;
+    padding-right: 2.5em;
+    margin-top: -0.5%;
+    margin-left: -1%;
+    margin-right: -1%;
+    margin-bottom: -1%;
+  }
+
+  .inputPagEst{
+    text-align: center;
+    font-size: 20px;
+    width: 80%;
+    height: 3.5em;
+    background: #FFFFFF;
+    border: 1px solid #A88F8F;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    box-sizing: border-box;
+
+  }
+
+  .contCursosEst{
+    align-content: center;
+    padding-left: 8em;
+    padding-right: 8em;
+  }
+  
+  .linkCursoEst{
+    width: 100%;
+    height: 100%;
+    background-color: #A7C4BC;
+   /* box-sizing: border-box; */
+    border-radius: 10px;
+    justify-content: center;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .btnIconos{
+    border:none;
+    background-color: #DFEEEA;
+    height: 5em;
+    width: 5em;
+    cursor: pointer;
+  }
+
+  .iconoBtn{
+    height: 100%;
+    width: 100%;
+  }
+
+  .buscador{
+    width: 75%;
+  }
+
+  .txtOrden{
+    width: 20%;
+    text-align: right;
+  }
+
+
+
+  .elementosLista{
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #DFEEEA; /* Boton se camufla con fondo*/
+    border:none;
+    color: #004A52;
+    padding: 0px;
+    font-size: 1.5em;
+    font-size: 18px;
+    /* outline: inherit; */
+    
+    /*Cambio fred*/
+    padding: 10px 0;  /*esto hace que la imagen ocupe todo el ancho*/
+    
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+  .imagenCur{
+    width: 30%;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  #imagenCursoCard{
+    height: 11em;
+    width: 100%;
+    object-fit: cover; 
+  }
+
+  .infoCur{
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: left;
+    font-size: 18px;
+  }
+  .tituloCurs{
+    font-size: 24px;
+  }
+
+  #textMisCursos{
+    font-size: 36px;
+    color: #2F564B;
+    font-weight: bold;
+  }
+
+  #txtOrdCursos{
+    font-size: 24px;
+    color: #5E8B7E;
+  }
+  
+  .dropdownOrd{
+    align-content: middle; /*no afecta en nada*/
+  }
+
+  #listaOrden{
+    margin-left: -2em;
+  }
+
+  .opcionDropd{
+    text-align: center;
+    background-color: #13383C;
+    color: white;
+    cursor: pointer;
+  }
+
+  #contNoEncont{
+    align-items: center;
+    align-content: center;
+    margin:auto;
+    text-align:center;
+    vertical-align: middle;
+  }
+
+  #imagenError{
+    height: 15em;
+    height: 15em;
+  }

@@ -1,0 +1,1 @@
+Todo lo que debe  estar en el lado del cliente (navegador)
