@@ -4,6 +4,7 @@ import Body from './components/body-components/Body.jsx';
 import Inicio from './components/VistaInfoCurso/Inicio.jsx';
 import NotFound from './components/NotFound.jsx';
 import VistaEst from './components/paginaEstudiante/bodyEst.jsx';
+import VistaTut from './components/paginaTutor/bodyTutor.jsx';
 import Registro from './components/Registro/Registro.jsx';
 import CreacionCurso from './components/crearCurso/CreacionCurso.jsx';
 import InicioDeSesion from './components/InicioDeSesion/InicioDeSesion.jsx';
@@ -43,6 +44,15 @@ function VistaEstudiante(props){
     <Router>
         <AppBar showOptOthers={true} showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
         <VistaEst sesionIniciada={props.sesionIniciada} idenUsuario={props.idenUsuario} iniciarSesion={props.iniciarSesion}/>
+      </Router>
+  );
+}
+
+function VistaTutor(props){
+  return(
+    <Router>
+        <AppBar showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+        <VistaTut/>
       </Router>
   );
 }
@@ -156,6 +166,10 @@ class App extends Component {
               <Route exact path="/crearCurso">
                 <VistaCrearCurso sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}></VistaCrearCurso>
               </Route>
+              <Route exact path="/tutor">
+                <VistaTutor sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+              </Route>
+  
               <Route component={NotFound} /> 
   
           </Switch>
