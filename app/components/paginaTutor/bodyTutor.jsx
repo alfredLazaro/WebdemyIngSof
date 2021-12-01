@@ -12,6 +12,9 @@ class VistaTutor extends Component{
         this.fetchCourse = this.fetchCourse.bind(this);
         this.cortar = this.cortar.bind(this);
         this.sacar = this.sacar.bind(this);
+        this.refrescarPagina = this.refrescarPagina.bind(this);
+        this.borrarCurso = this.borrarCurso.bind(this);
+        this.modificar = this.modificar.bind(this);
     }
 
     componentDidMount() {
@@ -39,6 +42,28 @@ class VistaTutor extends Component{
         return text.slice(1,11);
     }
 
+    refrescarPagina(){
+        window.location.href = window.location.href;
+    }
+
+    borrarCurso(idCurso){
+        console.log("Ejecutar borrar");
+        console.log(idCurso);
+        var listCursos = this.state.cursos;
+        console.log(listCursos);
+        listCursos = listCursos.filter(function(curso) {
+            return curso.id_curso !== idCurso; 
+        });
+        console.log(listCursos);
+        this.setState({
+            cursos: listCursos
+        });
+    }
+
+    modificar(){
+        console.log("Ejecuta modificar");
+    }
+
     render() {
         return(
             <div className="fondoTut">
@@ -61,10 +86,10 @@ class VistaTutor extends Component{
                 {
                         this.sacar().map(curso => {
                             return(
-                            <div>
+                            <div key={curso.id_curso}>
                                 <button className="elementosLista" onClick={this.refrescarPagina}>
                                     <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > 
-                                        <div key={curso.id_curso} className="linkCursoEst">
+                                        <div className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCur">
                                                     <img id="imagenCursoCard" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
@@ -84,11 +109,6 @@ class VistaTutor extends Component{
                                                             <div className="w3-container w3-cell w3-cell-middle">
                                                                 <div className="circRojo"/>
                                                             </div>
-                                                            <div className="w3-container w3-cell w3-cell-middle">
-                                                                <button> Modificar </button>
-                                                                <button> Eliminar </button>
-                                                            </div>
-                                                            
                                                         </div>
                                                         
                                                     </div>
@@ -97,6 +117,8 @@ class VistaTutor extends Component{
                                         </div>
                                     </Link> 
                                 </button>
+                                <button onClick={this.modificar}> Modificar </button>
+                                <button onClick={() => this.borrarCurso(curso.id_curso)}> Eliminar </button>
                             </div>                  
                             )
                             })
