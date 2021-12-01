@@ -13,7 +13,7 @@
 
 #formRegisInfoPer {
   position: absolute;
-  height: 40%;
+  height: auto;
   left: 10%;
   right: 65.04%;
   top: 22.2%;
@@ -45,7 +45,7 @@
   position:relative; 
   left: 55.49%;
   right: 31.67%;
-  top: 5%;
+  top: 8%;
   bottom: 42.77%;
   background: #ffffff;
   border: 2px solid #000000;
@@ -80,4 +80,7 @@ input {
   border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 19px;
+}
+.alertas{
+  font-size: 10px;
 }
