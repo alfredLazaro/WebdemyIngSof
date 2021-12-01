@@ -1,4 +1,0 @@
---todas las utilidades de la bd como consultas
--- DELETE ALL ROWS
---DELETE FROM nombre de la tabla; --filas
---DROP table --nombre de la tabla; --tabla

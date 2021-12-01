@@ -123,7 +123,7 @@ body{
   carrusel,descripcion, filtro.
 */
 .fondo {
-  background-image: url(./imagenes/chicaCompu.jpeg); 
+  background-image: url(../public/assets/imagenes/chicaCompu.jpeg); 
   background-size: 100% 100%;
   margin-top: -1.5%;
   margin-left: -1%;
@@ -154,15 +154,17 @@ body{
 
 .descripcion{  /*descripcion general*/
   width: 60%;
-  height: 120px;
+  height: auto;
   background-color: #DFEEEA;
   border-radius: 20px;
   text-align: center;
+  vertical-align: middle;
   opacity: 0.8 ;
   font-size: 24px;
   margin-left: auto;
   margin-right: auto;
   font-family: Arial, Helvetica, sans-serif;
+  padding: 0.5%;
 }
 .letraDescrip{
   padding: 2px;
@@ -361,13 +363,13 @@ body{
   font-size: 1.4em;
 }
 
-#nombreCurso{
+.nombreCurso{
   font-size: 45px;
   -webkit-text-stroke: 1px black;
   font-family: Arial;
   color: white;
   position: absolute;
-  top:65%;
+  top:85%;
 }
 
 .tituloCursos{
@@ -415,7 +417,7 @@ body{
   padding-right: 10px;
   border-radius: 10px;
   position: absolute;
-  top:67%;
+  top:85%;
 }
 
 .etiqueta{
@@ -522,6 +524,12 @@ body{
    
    overflow: hidden;
 }
-
+.deDebajoDeBody{
+  height: 400px;
+   width: 100%;
+  position:relative;
+  left: 0%;
+  top: 0%;
+}
 
 /* .filtro input[type='submit']{} */

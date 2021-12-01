@@ -13,10 +13,10 @@ class AppBar extends Component {
     constructor(props){
         super(props);
         //pueden reusar eso para que esos botones desaparezcan
-        this.showButtonRegister = this.props.showButtRegis;
-        this.showButtonLogin    = this.props.showButtLogin;
-        this.showOptOthers      = this.props.showOptOthers;
-        this.showButtonUser     = this.props.showButtonUser;
+        this.showButtonRegister = this.props.showButtRegis || false;
+        this.showButtonLogin    = this.props.showButtLogin || false;
+        this.showOptOthers      = this.props.showOptOthers || false;
+        this.showButtonUser     = this.props.showButtonUser || false;
         //desaparecen o persisten los botones, esta en App.jsx lo llama y manda como parametro que lo
         //inabilite.
         this.refrescar = this.refrescar.bind(this);
@@ -24,6 +24,7 @@ class AppBar extends Component {
         this.openPagRegister=this.openPagRegister.bind(this);   
         this.listUser = this.listUser.bind(this);
         this.cerrarSes = this.cerrarSes.bind(this);
+        this.redirigirPagEst = this.redirigirPagEst.bind(this);
     }
 
 
@@ -59,6 +60,11 @@ class AppBar extends Component {
         window.location.href = window.location.href;
     }
 
+    redirigirPagEst(){
+        this.props.history.push("/estudiante");
+        window.location.href = window.location.href;
+    }
+
     render(){ 
         
         return (
@@ -86,13 +92,14 @@ class AppBar extends Component {
                              iniciar sesion
                         </button> 
                         }
-                        {!this.showButtonUser? null:
+                        {(!this.showButtonUser) || (!this.props.sesionIniciada()) ? null:
                         <div className="w3-container w3-cell w3-cell-middle">
                             <button className="btnIconAppBar w3-button" onClick={this.listUser}>
                                 <i className="fa fa-user w3-xxlarge" ></i>
                             </button>
                             <div id="listaUser" className="w3-dropdown-content w3-bar-block w3-border">
                                 <button onClick={this.cerrarSes} className="w3-bar-item w3-border opcionDropd">Cerrar Sesion</button>
+                                <button onClick={this.redirigirPagEst} className="w3-bar-item w3-border opcionDropd">Pagina Estudiante</button>
                             </div>
                         </div>
                         }
