@@ -24,7 +24,7 @@ class Inicio extends Component{
         this.fetchTags();
     }
 
-    fetchCourse(){   /**/ 
+    fetchCourse(){   /**/
         fetch(`/api/cursos/${this.state.curso}`)
             .then(res => res.json())
             .then(data => {
@@ -63,16 +63,16 @@ class Inicio extends Component{
         return text.slice(1,11);
     }
 
-    refrescar() {        
+    refrescar() {
         this.props.history.push("/");
-        window.location.href = window.location.href;   
+        window.location.href = window.location.href;
     }
 
-    
+
 
     render() {
         return(
-            <div className="fondoCurso"> 
+            <div className="fondoCurso">
                 <div className="deDebajoDeBody">
                     <img id="imagenCurso" src={`${process.env.PUBLIC_URL}/assets/imagenes/${this.state.objCurso.imagen}`}></img>
                     <div className="contenedor">
@@ -82,9 +82,9 @@ class Inicio extends Component{
                         <div>
                             <button id="btnVolver" onClick={this.refrescar}>
                                 Volver
-                            </button> 
+                            </button>
                         </div>
-                    </div>   
+                    </div>
                 </div>
 
                 <div className="container-flulid">
@@ -117,7 +117,7 @@ class Inicio extends Component{
                                     {
                                         this.state.etiquetas.map((etiqueta) => {
                                             return(
-                                                <div className="etiqueta"> {etiqueta.nombre} </div>                 
+                                                <div className="etiqueta"> {etiqueta.nombre} </div>
                                             )
                                         })
                                     }
@@ -131,7 +131,7 @@ class Inicio extends Component{
                                     {
                                         this.state.modulos.map((modulo) => {
                                             return(
-                                                <div className="modulo"> {modulo.nombre} </div>                 
+                                                <div className="modulo"> {modulo.nombre} </div>
                                             )
                                             })
                                     }
@@ -141,7 +141,7 @@ class Inicio extends Component{
                     </div>
                 </div>
             </div>
-        
+
         )
     }
 }
