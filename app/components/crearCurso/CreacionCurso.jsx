@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import "./creacionCurso.css";
+import "./CreacionCurso.css";
 class CreacionCurso extends Component{
 
     render(){
