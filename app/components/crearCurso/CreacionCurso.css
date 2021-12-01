@@ -1,21 +1,59 @@
 #fondoCursoCol{
-  
+    
     margin:0%;  /* no esta mostrando las modificaciones que hago */
     background-color: #DFEEEA;
     background-size: 100% 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
+    
 }
 
-.enfilar{
+/* .body {
+    background-color: lightblue;
+  } */
+.primFil{
     
+}
+.segColum{
+
 }
 .alinearCamp{
     display: flex;
+    
 }
 .textoLinea{
     width: 45%;
     height: 20%;
 }
+#btnInsertarPal{
+    background-color: #192d30;
+    font-size: 20px;
+    width: 5e;
+    height: 2%;
+    color: #FFFFFF;
+    cursor: pointer;
+    right: 0px;
+    margin-right: 50px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    margin-left: 2%;
+    
+}
 
+#btnGuardCla{
+    background-color: #192d30;
+    font-size: 20px;
+    width: 5e;
+    color: #FFFFFF;
+    cursor: pointer;
+    right: 0px;
+    margin-right: 50px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 10px;
+    position: absolute;
+}

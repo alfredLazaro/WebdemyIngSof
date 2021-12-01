@@ -28,7 +28,7 @@ class CreacionCurso extends Component{
         <body>
             <div id='fondoCursoCol'>
                 
-                    <div className='enfilar'>
+                    <div className='primFil'>
                         <h1>CrearCurso</h1>
                         <div className='alinearCamp'>
                             <p>Nombre de curso:</p>
@@ -54,7 +54,7 @@ class CreacionCurso extends Component{
                     <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         {/* boton para volver */}
                         <button className='btnVolverUs'>volver</button>
-                        <div>
+                        <div className='alinearCamp'>
                             <p>Imagen:</p>
                             <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
                         </div>
