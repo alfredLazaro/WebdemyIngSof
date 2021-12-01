@@ -31,19 +31,27 @@ class RegistroTutor extends Component {
               id="formRegisInfoPer"
               class="w3-padding w3-left  w3-card-4 w3-white"
             >
-              <h2>  Informacion personal</h2>
+              <h3>  Informacion personal</h3>
+              <ul><input type="checkbox" /></ul>
+              <ul><input type="checkbox" /></ul>
+              <ul><input type="checkbox" /></ul>
+              <ul><input type="checkbox" /></ul>
+              <ul><input type="checkbox" /></ul>
+              <ul><input type="checkbox" /></ul>
             </form>
             <form
               id="formRegisLinks"
               class="w3-padding w3-right  w3-card-4 w3-white"
             >
-              <h2>Links</h2>
+              <h3>Links</h3>
+              <input type="text" />
+              
             </form>
             <form
               id="formRegisTrab"
               class="w3-padding w3-center  w3-card-4 w3-white"
             >
-              <h2>Trabajo</h2>
+              <h3>Trabajo</h3>
               <input type="text" />
               <input type="text" />
               <input type="text" />
