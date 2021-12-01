@@ -42,10 +42,10 @@
 #formRegisTrab {  
   width: 35%;
   height: auto; 
-  position:relative; 
+  position:absolute; 
   left: 55.49%;
   right: 31.67%;
-  top: 8%;
+  top: 22%;
   bottom: 42.77%;
   background: #ffffff;
   border: 2px solid #000000;
@@ -67,6 +67,7 @@ input {
 
 #inputTrabajo {
   width: 80%;
+  margin-top:8%
 }
 #btnRegistroTutor {
   position: absolute;
@@ -80,7 +81,4 @@ input {
   border: 2px solid #000000;
   box-sizing: border-box;
   border-radius: 19px;
-}
-.alertas{
-  font-size: 10px;
 }

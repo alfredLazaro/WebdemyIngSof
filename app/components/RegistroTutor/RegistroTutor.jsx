@@ -37,9 +37,15 @@ class RegistroTutor extends Component {
     this.changeTrabAnteri = this.changeTrabAnteri.bind(this);
     this.changeTrabExtra = this.changeTrabExtra.bind(this);
   }
-  changeTrabActual() {}
-  changeTrabAnteri() {}
-  changeTrabExtra() {}
+  changeTrabActual(event) {
+    this.setState({texTrabActual:event.target.value});
+  }
+  changeTrabAnteri(event) {
+    this.setState({textTrabAnter: event.target.value});
+  }
+  changeTrabExtra(event) {
+    this.setState({textTrabExtra:event.target.value});
+  }
 
   render() {
     return (
