@@ -123,7 +123,7 @@ body{
   carrusel,descripcion, filtro.
 */
 .fondo {
-  background-image: url(./imagenes/chicaCompu.jpeg); 
+  background-image: url(../public/assets/imagenes/chicaCompu.jpeg); 
   background-size: 100% 100%;
   margin-top: -1.5%;
   margin-left: -1%;
