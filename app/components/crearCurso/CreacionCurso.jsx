@@ -27,45 +27,51 @@ class CreacionCurso extends Component{
 
         <body>
             <div id='fondoCursoCol'>
-                <div className='vistaColumnas'>
+                
                     <div className='enfilar'>
-                        <div>
+                        <h1>CrearCurso</h1>
+                        <div className='alinearCamp'>
                             <p>Nombre de curso:</p>
-                            <input   name="nombreCurso" type="text" placeholder="Inserte un nombre al curso" 
+                            <input className='textoLinea'  name="nombreCurso" type="text" placeholder="Inserte un nombre al curso" 
                                     /* value={this.state.campoCorreo} onChange={this.mailChange} */  />
                         </div>
-                        <div>
+                        <div className='alinearCamp'>
                             <p>Descripcion:</p>
-                            <input name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
+                            <input className='textoArea' name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
                         </div>
                             
-                        <div>
+                        <div className='alinearCamp'>
                             <p>Objetivo:</p>
                             <input name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" />
                         </div>
 
-                        <div>
+                        <div className='alinearCamp'>
                             <p>Requisitos previos:</p>
                             <input name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" />
                         </div>
                     </div>
-                    
-                </div>
 
-                <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
-                        <div>
-                            <input name="volver" type="button"  placeholder="volver"/>
-                        </div>
+                    <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
+                        {/* boton para volver */}
+                        <button className='btnVolverUs'>volver</button>
                         <div>
                             <p>Imagen:</p>
                             <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
                         </div>
-                        <div>
+                        <div className='alinearCamp'>
                             <p>Palabras clave:</p>
                             <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
-                            <input type="text" placeholder="Inserte palabra clave"/>
+                            <button  id='btnInsertarPal'  class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
                         </div>
-                </div>
+
+                        <div>
+                            <button  id='btnGuardCla'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar</button>
+                        </div>
+                    </div>
+
+                
+
+                
             </div>
         </body>
         </html>

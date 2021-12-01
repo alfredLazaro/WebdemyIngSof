@@ -1,5 +1,21 @@
 #fondoCursoCol{
-    margin:0%;
+  
+    margin:0%;  /* no esta mostrando las modificaciones que hago */
     background-color: #DFEEEA;
     background-size: 100% 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
+
+.enfilar{
+    
+}
+.alinearCamp{
+    display: flex;
+}
+.textoLinea{
+    width: 45%;
+    height: 20%;
+}
+
