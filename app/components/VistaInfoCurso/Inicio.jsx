@@ -24,7 +24,7 @@ class Inicio extends Component {
         this.fetchTags();
     }
 
-    fetchCourse() {   /**/
+    fetchCourse(){   /**/
         fetch(`/api/cursos/${this.state.curso}`)
             .then(res => res.json())
             .then(data => {

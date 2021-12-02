@@ -31,20 +31,24 @@ insert into `usuario` (`nombres`, `apellidos`, `correo`, `contrasena`) values
 create table `tutor` (
   `id_tutor` integer(11) not null AUTO_INCREMENT,
   `USUARIO_id_usuario` integer(11) not null,
-  `bibliografia` varchar(4096) not null,
+  `academicTraining` varchar(24) not null,
+  `lastJob` varchar (64) not null,
+  `currentJob` varchar (64) default null,
+  `extraJob`varchar (64) default null,
+  `profileLink`varchar (128) not null default null,
   `created_at` timestamp not null default current_timestamp(),
   `updated_at` timestamp not null default current_timestamp(),
   primary key(id_tutor),
   constraint TUTOR_USUARIO_id_fk foreign key(USUARIO_id_usuario) references usuario(id_usuario)
 ) ENGINE=InnoDB default CHARset=utf8mb4;
 
-insert into `tutor` (`bibliografia`, `USUARIO_id_usuario`) values
-('Ingeniero en informatica de Jala, docente de la UMSS', 1),
-('Linux System Engineer', 2),
-('Integrante de la sociedad científica de estudiantes de la carrera de Informática', 3),
-('Fundador de la empresa de software Kunza', 4),
-('Director de carrera de informática de la UMSS', 5),
-('Primer ejecutivo de centro de estudiantes de la carrera de informática en la UMSS', 6);
+insert into `tutor` (`academicTraining`, `lastJob`, `USUARIO_id_usuario`) values
+('Doctorado', 'Ingeniero en informática de Jala', 'Cátedra de clases online', 1),
+('Posgrado', 'Linux System Engineer', 'Cátedra de clases Facebook', 2),
+('Maestria', 'Integrante de la sociedad científica de estudiantes de la carrera de Informática', 'Cátedra de clases Youtube', 3),
+('Doctorado', 'Fundador de la empresa de software Kunza', 'Cátedra de clases Udemy', 4),
+('Maestria', 'Director de carrera de informática de la UMSS', 'Cátedra de clases Udabol', 5),
+('Maestria', 'Primer ejecutivo de centro de estudiantes de la carrera de informática en la UMSS', 'Cátedra de clases Umss', 6);
 
 create table `curso` (
   `id_curso` integer(11) not null AUTO_INCREMENT,
@@ -56,6 +60,7 @@ create table `curso` (
   `litle_descripcion` varchar(128) not null,
   `requisitos` varchar(255) not null,
   `duracion` integer(11) not null,
+  `state` boolean default null,
   `created_at` timestamp not null default current_timestamp(),
   `updated_at` timestamp not null default current_timestamp(),
   primary key(id_curso),

@@ -412,7 +412,7 @@ class Registro extends Component {
           {this.state.regisExitoso ? (
             <div className="popup">
               <div className="popup_inner">
-                <p className="textoPopup">Registro exitoso!</p>
+                <p className="textoPopup">!Registro Exitoso!</p>
                 <button className="btnOk" onClick={this.mandarAsuVista}>
                   Aceptar
                 </button>
@@ -444,7 +444,7 @@ class Registro extends Component {
                       onChange={this.nameChange}
                     />
                     {this.state.errorVacioNombre ? (
-                      <p>El campo nombre(s) no debe estar vacio</p>
+                      <p>El campo nombre(s) no debe estar vacío</p>
                     ) : null}
                     {this.state.errorCaraEspeciNombre ? (
                       <p>No debe contener caracteres especiales</p>
@@ -457,7 +457,7 @@ class Registro extends Component {
                     ) : null}
                     {this.state.cadVaciasNombre ? (
                       <p>
-                        El nombre no debe contener cadenas de caracteres vacias
+                        El nombre no debe contener cadenas de caracteres vacías
                       </p>
                     ) : null}
                   </div>
@@ -473,7 +473,7 @@ class Registro extends Component {
                       onChange={this.firstNameChange}
                     />
                     {this.state.errorVacioApellido ? (
-                      <p>El campo apellidos no debe estar vacio</p>
+                      <p>El campo apellidos no debe estar vacío</p>
                     ) : null}
                     {this.state.errorCaraEspeciApellido ? (
                       <p>No debe contener caracteres especiales</p>
@@ -487,7 +487,7 @@ class Registro extends Component {
                     {this.state.cadVaciasApellido ? (
                       <p>
                         Los apellidos no debe contener cadenas de caracteres
-                        vacias
+                        vacías
                       </p>
                     ) : null}
                   </div>
@@ -528,11 +528,11 @@ class Registro extends Component {
                     </p>
                   ) : null}
                   {this.state.cadVacioCorreo ? (
-                    <p>El campo correo no debe estar vacio</p>
+                    <p>El campo correo no debe estar vacío</p>
                   ) : null}
                   {this.state.cadVaciasCorreo ? (
                     <p>
-                      El correo no debe contener cadenas de caracteres vacias
+                      El correo no debe contener cadenas de caracteres vacías
                     </p>
                   ) : null}
                   {this.state.veriCorreo ? <p>Verifique su correo </p> : null}
@@ -561,14 +561,14 @@ class Registro extends Component {
                       <p>Debe tener por lo menos 8 caracteres</p>
                     ) : null}
                     {this.state.cadVacioContrase ? (
-                      <p>El campo contraseña no debe estar vacio</p>
+                      <p>El campo contraseña no debe estar vacía</p>
                     ) : null}
                     {this.state.cadContraseIdenticas ? (
                       <p>Las contraseñas deben de ser idénticas</p>
                     ) : null}
                     {this.state.almenosDosNumContrase ? (
                       <p>
-                        Debes introducir al menos 2 numeros en tu contraseña
+                        Debe introducir al menos 2 números en su contraseña
                       </p>
                     ) : null}
                     {this.state.confirmarContrase ? (
@@ -586,7 +586,7 @@ class Registro extends Component {
                       onChange={this.passwordConfirChang}
                     />
                     {this.state.confirmarContrase ? (
-                      <p>Las contraseñas deben de ser idénticas</p>
+                      <p>Las contraseñas deben ser idénticas</p>
                     ) : null}
                   </div>
                 </div>
@@ -603,9 +603,9 @@ class Registro extends Component {
             </div>
 
             <div className="enlacePre">
-              <p>¿ya tienes cuenta?</p>
+              <p>¿Ya tiene cuenta?</p>
               <a id="enlace" href="/login">
-                iniciar sesion
+                Iniciar Sesión
               </a>
             </div>
           </div>
