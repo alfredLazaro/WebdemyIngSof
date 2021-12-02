@@ -34,15 +34,15 @@ create table `tutor` (
   `academicTraining` varchar(24) not null,
   `lastJob` varchar (64) not null,
   `currentJob` varchar (64) default null,
-  `extraJob`varchar (64) default null,
-  `profileLink`varchar (128) not null default null,
+  `extraJob` varchar (64) default null,
+  `profileLink` varchar (128) not null default(''),
   `created_at` timestamp not null default current_timestamp(),
   `updated_at` timestamp not null default current_timestamp(),
   primary key(id_tutor),
   constraint TUTOR_USUARIO_id_fk foreign key(USUARIO_id_usuario) references usuario(id_usuario)
 ) ENGINE=InnoDB default CHARset=utf8mb4;
 
-insert into `tutor` (`academicTraining`, `lastJob`, `USUARIO_id_usuario`) values
+insert into `tutor` (`academicTraining`, `lastJob`, `extraJob`, `USUARIO_id_usuario`) values
 ('Doctorado', 'Ingeniero en informática de Jala', 'Cátedra de clases online', 1),
 ('Posgrado', 'Linux System Engineer', 'Cátedra de clases Facebook', 2),
 ('Maestria', 'Integrante de la sociedad científica de estudiantes de la carrera de Informática', 'Cátedra de clases Youtube', 3),
