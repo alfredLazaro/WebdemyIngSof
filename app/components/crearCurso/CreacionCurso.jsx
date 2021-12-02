@@ -31,29 +31,33 @@ class CreacionCurso extends Component{
                     <div className='primFil'>
                         <h1>CrearCurso</h1>
                         <div className='alinearCamp'>
-                            <p>Nombre de curso:</p>
-                            <input className='textoLinea'  name="nombreCurso" type="text" placeholder="Inserte un nombre al curso" 
-                                    /* value={this.state.campoCorreo} onChange={this.mailChange} */  />
+                            <p className='unalinea'>Nombre de curso:</p>
+                            {/* <input className='textoLinea'  name="nombreCurso" type="text" placeholder="Inserte un nombre al curso" 
+                                     value={this.state.campoCorreo} onChange={this.mailChange}   /> */}
+                            <textarea name="nombreCurso" id="" cols="30" rows="2" placeholder="Inserte un nombre al curso"></textarea>
                         </div>
                         <div className='alinearCamp'>
-                            <p>Descripcion:</p>
-                            <input className='textoArea' name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" />
+                            <p className='nombrEtiquet'>Descripcion:</p>
+                            {/* <input className='textoArea' name="descripcion" type="text"  placeholder="Describa las caracteristicas del curso" /> */}
+                            <textarea name="descrip"  cols="30" rows="5" placeholder="Describa las caracteristicas del curso"></textarea>
                         </div>
                             
                         <div className='alinearCamp'>
-                            <p>Objetivo:</p>
-                            <input name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" />
+                            <p className='etiqObjet'>Objetivo:</p>
+                            {/* <input className='textoArea' name="objetivo" type="text" placeholder="Describa las capacidades que tendra el estudiante" /> */}
+                            <textarea name="objetivo" id="" cols="30" rows="5" placeholder="Describa las capacidades que tendra el estudiante"></textarea>
                         </div>
 
                         <div className='alinearCamp'>
-                            <p>Requisitos previos:</p>
-                            <input name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" />
+                            <p className='unalinea'>Requisitos previos:</p>
+                            {/* <input className='textoArea' name="requisitos" type="text" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso" /> */}
+                            <textarea name="requisitos" id="" cols="30" rows="5" placeholder="Ingrese las habilidades o conocimientos previos para tomar el curso"></textarea>
                         </div>
                     </div>
 
                     <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         {/* boton para volver */}
-                        <button className='btnVolverUs'>volver</button>
+                        <button id='EstiloBnt'className='btnVolv'>volver</button>
                         <div className='alinearCamp'>
                             <p>Imagen:</p>
                             <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
@@ -61,11 +65,11 @@ class CreacionCurso extends Component{
                         <div className='alinearCamp'>
                             <p>Palabras clave:</p>
                             <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
-                            <button  id='btnInsertarPal'  class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
+                            <button  id='EstiloBnt' className='posBtnG' class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
                         </div>
 
-                        <div>
-                            <button  id='btnGuardCla'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar</button>
+                        <div className='posBtnG'>
+                            <button  id='EstiloBnt'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar</button>
                         </div>
                     </div>
 
