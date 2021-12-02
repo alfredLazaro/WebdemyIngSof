@@ -54,15 +54,18 @@
 }
 
 .posBtnG{
-    position: absolute;
-    left: 80%;
-    top: 80%;
+    position: relative;
+    left: 35%;
+    top: 30%;
+    text-align: center;
 }
 
 .btnVolv{
+    
     height: 5%;
-    top: 10%;
-    left: 80%;
+
+    left: 70%;
+    text-align: center;
 }
 
 .nombrEtiquet{

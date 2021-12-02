@@ -69,7 +69,7 @@ class CreacionCurso extends Component{
                         </div>
 
                         <div className='posBtnG'>
-                            <button  id='EstiloBnt'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar</button>
+                            <button  id='EstiloBnt'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar Curso</button>
                         </div>
                     </div>
 
