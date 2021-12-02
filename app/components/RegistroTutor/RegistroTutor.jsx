@@ -13,6 +13,13 @@ class RegistroTutor extends Component {
       link3: "",
       link4: "",
 
+      infoPersonal1 :"Auto didacta",
+      infoPersonal2 :"Tecnico",
+      infoPersonal3 :"Grado",
+      infoPersonal4 :"Posgrado",
+      infoPersonal5 :"Maestria",
+      infoPersonal6 :"Doctorado",
+
       noSeleccionado: false,
 
       anteriorDebeRell: true,
@@ -76,24 +83,24 @@ class RegistroTutor extends Component {
               id="formRegisInfoPer"
               class="w3-padding w3-left  w3-card-4 w3-white"
             >
-              <h3> Informacion personal</h3>
+              <h3> Información personal</h3>
               <ul>
-                <input type="checkbox" />
+                <input type="checkbox" /> <h7 id="inpInf" >{this.state.infoPersonal1}</h7>
               </ul>
               <ul>
-                <input type="checkbox" />
+              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal2}</h7>
               </ul>
               <ul>
-                <input type="checkbox" />
+              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal3}</h7>
               </ul>
               <ul>
-                <input type="checkbox" />
+              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal4}</h7>
               </ul>
               <ul>
-                <input type="checkbox" />
+              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal5}</h7>
               </ul>
               <ul>
-                <input type="checkbox" />
+              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal6}</h7>
               </ul>
               <div className="alertas">
                 {this.state.noSeleccionado ? (
@@ -107,7 +114,7 @@ class RegistroTutor extends Component {
             >
               <h3>Links</h3>
               <ul>
-                <input type="text" value={this.state.link1} />
+                <input id='inputLink' type="text" value={this.state.link1} />
               </ul>
               <div className="alertas">
                 {this.state.linkMaximo ? (

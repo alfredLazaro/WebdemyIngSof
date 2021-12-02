@@ -67,7 +67,6 @@ input {
 
 #inputTrabajo {
   width: 80%;
-  margin-top:8%
 }
 #btnRegistroTutor {
   position: absolute;
@@ -83,6 +82,19 @@ input {
   border-radius: 19px;
 }
 
+#inputLink{
+  width: 90%;
+}
+
 .alertas{
   font-size: 10px;
+}
+
+#inpInf{
+  width: 50%;
+  margin-left: 5%;
+}
+
+#check{
+  margin-left: 50%;
 }
