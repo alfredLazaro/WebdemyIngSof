@@ -59,11 +59,11 @@ class CreacionCurso extends Component{
                         {/* boton para volver */}
                         <button id='EstiloBnt'className='btnVolv'>volver</button>
                         <div className='alinearCamp'>
-                            <p>Imagen:</p>
+                            <p className='alingImg'>Imagen:</p>
                             <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
                         </div>
                         <div className='alinearCamp'>
-                            <p>Palabras clave:</p>
+                            <p className='unaLin'>Palabras clave:</p>
                             <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
                             <button  id='EstiloBnt' className='posBtnG' class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
                         </div>
