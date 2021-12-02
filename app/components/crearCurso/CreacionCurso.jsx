@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./CreacionCurso.css";
 class CreacionCurso extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            cursos: []
+        }
+
+    }
+
 
     render(){
         return(
@@ -66,6 +74,28 @@ class CreacionCurso extends Component{
                             <p className='unaLin'>Palabras clave:</p>
                             <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
                             <button  id='EstiloBnt' className='posBtnG' class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
+                        </div>
+                        <div className='encolumnar'>
+                            <div className='card'>
+                                {/* en aqui debe existir lista de fichas */}
+                                <button className='btnCerrar'>x</button>
+                            </div>
+                            <div className='card'>
+                                {/* en aqui debe existir lista de fichas */}
+                                <button className='btnCerrar'>x</button>
+                            </div>
+                            <div className='card'>
+                                {/* en aqui debe existir lista de fichas */}
+                                <button className='btnCerrar'>x</button>
+                            </div>
+                            <div className='card'>
+                                {/* en aqui debe existir lista de fichas */}
+                                <button className='btnCerrar'>x</button>
+                            </div>
+                            <div className='card'>
+                                {/* en aqui debe existir lista de fichas */}
+                                <button className='btnCerrar'>x</button>
+                            </div>
                         </div>
 
                         <div className='posBtnG'>

@@ -31,7 +31,7 @@
     margin-bottom: 3%;
     text-align: left;
     align-items: baseline;
-    height: 8em;
+    
 }
 .textoLinea{
     width: 70%;
@@ -56,14 +56,12 @@
 .posBtnG{
     position: relative;
     left: 35%;
-    top: 30%;
+    top: 13%;
     text-align: center;
 }
 
 .btnVolv{
-    
     height: 5%;
-
     left: 70%;
     text-align: center;
 }
@@ -97,4 +95,14 @@
     margin-right: 8px;
     white-space: nowrap;
     overflow: hidden;
+}
+.encolumnar{
+    display: block;
+    height: 29%;
+}
+.card{
+    height: 40px;
+    width: 90px;
+    background-color: red;
+    margin-bottom: 1%;
 }
