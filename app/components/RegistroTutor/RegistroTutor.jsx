@@ -15,19 +15,19 @@ class RegistroTutor extends Component {
 
       noSeleccionado: false,
 
-      anteriorDebeRell: false,
-      anteriorMaximo: false,
-      anteriorMinimo: false,
-      anteriorCaracEspe: false,
+      anteriorDebeRell: true,
+      anteriorMaximo: true,
+      anteriorMinimo: true,
+      anteriorCaracEspe: true,
 
-      actualDebeRell: false,
-      actualMaximo: false,
-      actualMinimo: false,
-      actualCaraEspe: false,
+      actualDebeRell: true,
+      actualMaximo: true,
+      actualMinimo: true,
+      actualCaraEspe: true,
 
-      extraMaximo: false,
-      extraMinimo: false,
-      extraCaraEspe: false,
+      extraMaximo: true,
+      extraMinimo: true,
+      extraCaraEspe: true,
 
       linkMaximo: false,
       linkMinimo: false,
@@ -38,13 +38,13 @@ class RegistroTutor extends Component {
     this.changeTrabExtra = this.changeTrabExtra.bind(this);
   }
   changeTrabActual(event) {
-    this.setState({texTrabActual:event.target.value});
+    this.setState({ texTrabActual: event.target.value });
   }
   changeTrabAnteri(event) {
-    this.setState({textTrabAnter: event.target.value});
+    this.setState({ textTrabAnter: event.target.value });
   }
   changeTrabExtra(event) {
-    this.setState({textTrabExtra:event.target.value});
+    this.setState({ textTrabExtra: event.target.value });
   }
 
   render() {

@@ -82,3 +82,7 @@ input {
   box-sizing: border-box;
   border-radius: 19px;
 }
+
+.alertas{
+  font-size: 10px;
+}
