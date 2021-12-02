@@ -59,7 +59,7 @@ class CreacionCurso extends Component{
                         {/* boton para volver */}
                         <button id='EstiloBnt'className='btnVolv'>volver</button>
                         <div className='alinearCamp'>
-                            <p className='alingImg'>Imagen:</p>
+                            <p className='alingImg'>Insertar Imagen:</p>
                             <input name="imagen" type="text" placeholder="Inserte url de la imagen"/>
                         </div>
                         <div className='alinearCamp'>
