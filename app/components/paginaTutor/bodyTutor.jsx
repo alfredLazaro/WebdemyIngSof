@@ -49,6 +49,7 @@ class VistaTutor extends Component{
     borrarCurso(idCurso){
         console.log("Ejecutar borrar");
         console.log(idCurso);
+        
         var listCursos = this.state.cursos;
         console.log(listCursos);
         listCursos = listCursos.filter(function(curso) {
