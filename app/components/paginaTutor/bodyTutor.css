@@ -60,6 +60,15 @@
      background: #FF2525;
 }
 
+.circVerde{
+     width: 1em;
+     height: 1em;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     background: #0BAC1B;
+}
+
 .infoCurTutor{
     width: 70%;
     padding-top: 0;

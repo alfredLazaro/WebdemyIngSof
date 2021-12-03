@@ -12,6 +12,10 @@ class AppBar extends Component {
     
     constructor(props){
         super(props);
+        this.state = {
+            nombreUs: "",
+            idUs: this.props.idenUsuario()
+        }
         //pueden reusar eso para que esos botones desaparezcan
         this.showButtonRegister = this.props.showButtRegis || false;
         this.showButtonLogin    = this.props.showButtLogin || false;
@@ -29,6 +33,15 @@ class AppBar extends Component {
         this.redirigirRegTutor = this.redirigirRegTutor.bind(this);
     }
 
+    componentDidMount(){
+        if(this.props.sesionIniciada()){
+            fetch(`/api/cursos/${this.state.idUs}/info`) //Se cargan los datos de todos los cursos, para pruebas
+            .then((res) => res.json())
+            .then(data => {
+                this.setState({nombreUs: data.nombres + " " + data.apellidos});
+            });
+        }
+    }
 
     refrescar(params) {
         this.props.history.push("/");
@@ -92,7 +105,7 @@ class AppBar extends Component {
                         </Link>
                         }
                     </div>
-
+                    
                     <div className="w3-container w3-cell w3-cell-middle botones">
                        { (!this.showButtonRegister) || (this.props.sesionIniciada()) ? null :
                         <button id="ButtonRegister" className="w3-button" onClick={this.openPagRegister}>
@@ -103,6 +116,11 @@ class AppBar extends Component {
                         <button id="ButtonLogin" className="w3-button" onClick={this.openPagLogin}>
                              iniciar sesion
                         </button> 
+                        }
+                        {(!this.props.sesionIniciada()) ? null:
+                        <div className="w3-container w3-cell w3-cell-middle">
+                            <p id="nombreUs"> {this.state.nombreUs} </p>
+                        </div>
                         }
                         {(!this.showButtonUser) || (!this.props.sesionIniciada()) ? null:
                         <div className="w3-container w3-cell w3-cell-middle">

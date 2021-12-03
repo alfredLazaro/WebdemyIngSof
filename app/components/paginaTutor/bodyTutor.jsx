@@ -108,10 +108,10 @@ class VistaTutor extends Component{
                                                         </div>
                                                         <div className="w3-cell-row">
                                                             <div className="w3-container w3-cell ">
-                                                                Estado de Curso: Oculto
+                                                                {curso.state===1 ? <div>Estado de Curso: Publico</div> : <div>Estado de Curso: Oculto</div>}
                                                             </div>
                                                             <div className="w3-container w3-cell ">
-                                                                <div className="circRojo"/>
+                                                                {curso.state===1 ? <div className="circVerde"/> : <div className="circRojo"/>}
                                                             </div>
                                                         </div>
                                                 </div>
