@@ -14,7 +14,7 @@ class AppBar extends Component {
         super(props);
         this.state = {
             nombreUs: "",
-            idUs: this.props.idenUsuario()
+            /*idUs: this.props.idenUsuario()*/
         }
         //pueden reusar eso para que esos botones desaparezcan
         this.showButtonRegister = this.props.showButtRegis || false;
@@ -34,13 +34,13 @@ class AppBar extends Component {
     }
 
     componentDidMount(){
-        if(this.props.sesionIniciada()){
+        /*if(this.props.sesionIniciada()){
             fetch(`/api/cursos/${this.state.idUs}/info`) //Se cargan los datos de todos los cursos, para pruebas
             .then((res) => res.json())
             .then(data => {
                 this.setState({nombreUs: data.nombres + " " + data.apellidos});
             });
-        }
+        }*/
     }
 
     refrescar(params) {
@@ -117,11 +117,11 @@ class AppBar extends Component {
                              iniciar sesion
                         </button> 
                         }
-                        {(!this.props.sesionIniciada()) ? null:
+                        {/*{(!this.props.sesionIniciada()) ? null:
                         <div className="w3-container w3-cell w3-cell-middle">
                             <p id="nombreUs"> {this.state.nombreUs} </p>
                         </div>
-                        }
+                        }*/}
                         {(!this.showButtonUser) || (!this.props.sesionIniciada()) ? null:
                         <div className="w3-container w3-cell w3-cell-middle">
                             <button className="btnIconAppBar w3-button" onClick={this.listUser}>
