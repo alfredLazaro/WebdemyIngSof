@@ -90,11 +90,13 @@ input {
   font-size: 10px;
 }
 
-#inpInf{
-  width: 50%;
-  margin-left: 5%;
-}
-
 #check{
   margin-left: 50%;
+}
+
+#iconWorkRegis{
+  size: 10%;
+  font-size: 200%;
+  margin-right: 5%;
+  
 }

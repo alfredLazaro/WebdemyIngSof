@@ -13,28 +13,28 @@ class RegistroTutor extends Component {
       link3: "",
       link4: "",
 
-      infoPersonal1 :"Auto didacta",
-      infoPersonal2 :"Tecnico",
-      infoPersonal3 :"Grado",
-      infoPersonal4 :"Posgrado",
-      infoPersonal5 :"Maestria",
-      infoPersonal6 :"Doctorado",
+      infoPersonal1: "Auto didacta",
+      infoPersonal2: "Tecnico",
+      infoPersonal3: "Grado",
+      infoPersonal4: "Posgrado",
+      infoPersonal5: "Maestria",
+      infoPersonal6: "Doctorado",
 
       noSeleccionado: false,
 
-      anteriorDebeRell: true,
-      anteriorMaximo: true,
-      anteriorMinimo: true,
-      anteriorCaracEspe: true,
+      anteriorDebeRell: false,
+      anteriorMaximo: false,
+      anteriorMinimo: false,
+      anteriorCaracEspe: false,
 
-      actualDebeRell: true,
-      actualMaximo: true,
-      actualMinimo: true,
-      actualCaraEspe: true,
+      actualDebeRell: false,
+      actualMaximo: false,
+      actualMinimo: false,
+      actualCaraEspe: false,
 
-      extraMaximo: true,
-      extraMinimo: true,
-      extraCaraEspe: true,
+      extraMaximo: false,
+      extraMinimo: false,
+      extraCaraEspe: false,
 
       linkMaximo: false,
       linkMinimo: false,
@@ -43,6 +43,8 @@ class RegistroTutor extends Component {
     this.changeTrabActual = this.changeTrabActual.bind(this);
     this.changeTrabAnteri = this.changeTrabAnteri.bind(this);
     this.changeTrabExtra = this.changeTrabExtra.bind(this);
+    this.mostrarFormInfoPersonal = this.mostrarFormInfoPersonal.bind(this);
+    this.guardarLink = this.guardarLink.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -52,6 +54,62 @@ class RegistroTutor extends Component {
   }
   changeTrabExtra(event) {
     this.setState({ textTrabExtra: event.target.value });
+  }
+
+  validarAll() {
+    let cadVali = validarCadenasTexto();
+    let linkVali = validarLink();
+    let infoPer = validarInfoPer();
+    if(cadVali && linkVali && infoPer){
+      //mandamos ala BD
+    }
+  }
+  mostrarFormInfoPersonal() {
+    return (
+      <div
+        id="formRegisInfoPer"
+        class="w3-padding w3-left  w3-card-4 w3-white"
+        name="infoPersonal"
+      >
+        <h3> Información personal</h3>
+
+        <div>
+          <input type="radio" id="huey" name="drone" value="huey" />
+          <label for="huey">{this.state.infoPersonal1}</label>
+        </div>
+
+        <div>
+          <input type="radio" id="dewey" name="drone" value="dewey" />
+          <label for="dewey">{this.state.infoPersonal2}</label>
+        </div>
+
+        <div>
+          <input type="radio" id="louie" name="drone" value="louie" />
+          <label for="louie">{this.state.infoPersonal3}</label>
+        </div>
+
+        <div>
+          <input type="radio" id="louie" name="drone" value="louie" />
+          <label for="louie">{this.state.infoPersonal4}</label>
+        </div>
+        <div>
+          <input type="radio" id="louie" name="drone" value="louie" />
+          <label for="louie">{this.state.infoPersonal5}</label>
+        </div>
+        <div>
+          <input type="radio" id="louie" name="drone" value="louie" />
+          <label for="louie">{this.state.infoPersonal6}</label>
+        </div>
+        {this.state.noSeleccionado ? (
+          <p className="alertas">Debe selecionar un campo</p>
+        ) : null}
+      </div>
+    );
+  }
+  guardarLink() {
+    console.log(
+      "se guarda y borrar el texto XD, primero validas que sea menor a 4"
+    );
   }
 
   render() {
@@ -67,6 +125,12 @@ class RegistroTutor extends Component {
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
           />
+          <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+          />
           <script
             src="https://kit.fontawesome.com/a076d05399.js"
             crossorigin="anonymous"
@@ -79,42 +143,22 @@ class RegistroTutor extends Component {
             class="w3-container w3-card-4 w3-light-grey"
           >
             <h1 class="w3-center">Se un tutor de Wdemy</h1>
-            <form
-              id="formRegisInfoPer"
-              class="w3-padding w3-left  w3-card-4 w3-white"
-            >
-              <h3> Información personal</h3>
-              <ul>
-                <input type="checkbox" /> <h7 id="inpInf" >{this.state.infoPersonal1}</h7>
-              </ul>
-              <ul>
-              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal2}</h7>
-              </ul>
-              <ul>
-              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal3}</h7>
-              </ul>
-              <ul>
-              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal4}</h7>
-              </ul>
-              <ul>
-              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal5}</h7>
-              </ul>
-              <ul>
-              <input type="checkbox" /><h7 id="inpInf" >{this.state.infoPersonal6}</h7>
-              </ul>
-              <div className="alertas">
-                {this.state.noSeleccionado ? (
-                  <p>Debe seleccionar  un campo</p>
-                ) : null}
-              </div>
-            </form>
+            {this.mostrarFormInfoPersonal()}
             <form
               id="formRegisLinks"
               class="w3-padding w3-right  w3-card-4 w3-white"
             >
               <h3>Links</h3>
               <ul>
-                <input id='inputLink' type="text" value={this.state.link1} />
+                <input
+                  id="inputLink"
+                  type="text"
+                  placeholder="                                                                           Link a su informacion extra"
+                  value={this.state.link1}
+                />
+                <button className="w3-button" onClick={this.guardarLink}>
+                  <i className="fas fa-check-square" id="iconWorkRegis"></i>
+                </button>
               </ul>
               <div className="alertas">
                 {this.state.linkMaximo ? (
@@ -138,6 +182,7 @@ class RegistroTutor extends Component {
             >
               <h3>Trabajo</h3>
               <ul>
+                <i class="fas fa-briefcase" id="iconWorkRegis"></i>
                 <input
                   id="inputTrabajo"
                   type="text"
@@ -162,6 +207,7 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
               <ul>
+                <i class="fas fa-laptop-house" id="iconWorkRegis"></i>
                 <input
                   id="inputTrabajo"
                   type="text"
@@ -185,6 +231,7 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
               <ul>
+                <i class="fas fa-briefcase" id="iconWorkRegis"></i>
                 <input
                   id="inputTrabajo"
                   type="text"
@@ -205,7 +252,9 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
             </form>
-            <button id="btnRegistroTutor">Registrarse</button>
+            <button className="w3-button" id="btnRegistroTutor">
+              Registrarse
+            </button>
           </form>
         </body>
       </html>
