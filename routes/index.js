@@ -214,12 +214,15 @@ router.post('/login', async (req,res)=>{
     /* const pass = req.body.pass; */
     
     const cuenta= await pool.query(`SELECT * FROM usuario where correo=?`, user);
+    console.log("Prueba");
     if(user && pass){ //si existen 
         console.log(cuenta);
+        console.log("Pasa1");
       if(cuenta.length!=0){
-        if(user== cuenta[0].correo && ( bcrypt.compareSync(pass,cuenta[0].contrasena))){
+        if(user== cuenta[0].correo && pass == cuenta[0].contrasena){ //Cambiado para hacer pruebas ( bcrypt.compareSync(pass,cuenta[0].contrasena))
             let passwordHash= await bcrypt.hash(pass,8);
             console.log(cuenta); //ESTO SE IMPRIME EN CONSOLA
+            console.log("Pasa2");
             res.json({
                 mensaj : "correcto",
                 contra: cuenta[0].contrasena,

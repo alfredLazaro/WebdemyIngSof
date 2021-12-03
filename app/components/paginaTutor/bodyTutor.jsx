@@ -87,32 +87,33 @@ class VistaTutor extends Component{
                 {
                         this.sacar().map(curso => {
                             return(
-                            <div key={curso.id_curso}>
+                            <div key={curso.id_curso} className="cardCurso">
                                 <button className="elementosLista" onClick={this.refrescarPagina}>
                                     <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > 
                                         <div className="linkCursoEst">
                                             <div className="w3-cell-row">
-                                                <div className="w3-container w3-cell w3-cell-middle imagenCur">
-                                                    <img id="imagenCursoCard" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
+                                                <div className="w3-container w3-cell w3-cell-middle imagenCurTutor">
+                                                    <img id="imagenCursoCardTutor" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
                                                 </div>
-                                                <div className="w3-container w3-cell w3-cell-middle infoCur">
-                                                    <p className="tituloCurs">{curso.nombreCurso}</p>                  
-                                                    <div>
+                                                <div className="w3-container w3-cell w3-cell-middle infoCurTutor">
                                                         <div className="w3-cell-row">
-                                                            <div className="w3-cell">
+                                                            <div className="w3-container w3-cell">
+                                                                <p className="tituloCursTutor">{curso.nombreCurso}</p> 
+                                                            </div>
+                                                        </div>
+                                                        <div className="w3-cell-row">
+                                                            <div className="w3-container w3-cell">
                                                                 Actualizacion: {this.cortar(curso.created_at) }
                                                             </div>
                                                         </div>
                                                         <div className="w3-cell-row">
-                                                            <div className="w3-container w3-cell w3-cell-middle">
-                                                                Estado de Curso:
+                                                            <div className="w3-container w3-cell ">
+                                                                Estado de Curso: Oculto
                                                             </div>
-                                                            <div className="w3-container w3-cell w3-cell-middle">
+                                                            <div className="w3-container w3-cell ">
                                                                 <div className="circRojo"/>
                                                             </div>
                                                         </div>
-                                                        
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
