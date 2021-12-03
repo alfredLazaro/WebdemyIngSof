@@ -119,13 +119,21 @@ class VistaTutor extends Component{
                                         </div>
                                     </Link> 
                                 </button>
-                                <button onClick={this.modificar}> Modificar </button>
-                                <button onClick={() => this.borrarCurso(curso.id_curso)}> Eliminar </button>
+                                <div className="botonesCurso">
+                                    <button className="btnModificar" onClick={this.modificar}> Modificar </button>
+                                    <button className="btnEliminar" onClick={() => this.borrarCurso(curso.id_curso)}> Eliminar </button>
+                                </div>
                             </div>                  
                             )
                             })
                     }
                 </div>
+                {(this.state.cursos.length === 0) ? 
+                    <div id="contNoEncont">
+                        <h1> Aun no tienes curso creados </h1>
+                        <img id='imagenError' src={`/assets/imagenes/vacio.png`}></img>  
+                    </div> : null
+                }
             </div>
         )
     }

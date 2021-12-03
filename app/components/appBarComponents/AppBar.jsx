@@ -25,6 +25,8 @@ class AppBar extends Component {
         this.listUser = this.listUser.bind(this);
         this.cerrarSes = this.cerrarSes.bind(this);
         this.redirigirPagEst = this.redirigirPagEst.bind(this);
+        this.redirigirPagTutor = this.redirigirPagTutor.bind(this);
+        this.redirigirRegTutor = this.redirigirRegTutor.bind(this);
     }
 
 
@@ -65,6 +67,16 @@ class AppBar extends Component {
         window.location.href = window.location.href;
     }
 
+    redirigirPagTutor(){
+        this.props.history.push("/tutor");
+        window.location.href = window.location.href;
+    }
+
+    redirigirRegTutor(){
+        /* Agregar redireccion a pagina registro */
+        window.location.href = window.location.href;
+    }
+
     render(){ 
         
         return (
@@ -100,6 +112,8 @@ class AppBar extends Component {
                             <div id="listaUser" className="w3-dropdown-content w3-bar-block w3-border">
                                 <button onClick={this.cerrarSes} className="w3-bar-item w3-border opcionDropd">Cerrar Sesion</button>
                                 <button onClick={this.redirigirPagEst} className="w3-bar-item w3-border opcionDropd">Pagina Estudiante</button>
+                                <button onClick={this.redirigirPagTutor} className="w3-bar-item w3-border opcionDropd">Pagina Tutor</button>
+                                <button onClick={this.redirigirRegTutor} className="w3-bar-item w3-border opcionDropd">Convertirse Tutor</button>
                             </div>
                         </div>
                         }
