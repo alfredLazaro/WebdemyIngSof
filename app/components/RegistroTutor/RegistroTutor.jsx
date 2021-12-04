@@ -280,7 +280,9 @@ class RegistroTutor extends Component {
           id="formRegisLinks"
           class="w3-padding w3-right  w3-card-4 w3-white"
         >
-          <h3>Link a información extra de github,linkedin o canal de YouTube</h3>
+          <h3>
+            Link a información extra de github,linkedin o canal de YouTube
+          </h3>
           <ul>
             {this.state.ocultarCampoLink ? null : (
               <div>
@@ -309,7 +311,7 @@ class RegistroTutor extends Component {
             ) : null}
             {this.state.linkMinimo ? (
               <p>
-                mínimo de caracteres es de 5 Debe llenar con su información al
+                Mínimo de caracteres es de 5
               </p>
             ) : null}
             {this.state.linkAlmenosDo ? (
@@ -425,7 +427,7 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
               <ul>
-              <i class="fas fa-building" id="iconWorkRegis"></i>
+                <i class="fas fa-building" id="iconWorkRegis"></i>
                 <input
                   id="inputTrabajo"
                   type="text"
