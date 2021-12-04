@@ -5,11 +5,41 @@ class CreacionCurso extends Component{
     constructor(props){
         super(props);
         this.state = {
-            cursos: []
+            keywords: [],
+            keyword: '',
+            keyAv: 1
         }
-
+        this.validarInicio = this.validarInicio.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.borrarKWord = this.borrarKWord.bind(this);
     }
 
+    validarInicio(){
+        /*No valida por ahora, solo ingresa a la lista de keywords*/
+        console.log(this.state.keyword);
+        this.state.keywords.push(this.state.keyword); //Agrega a lista
+        this.setState({keyword: ''})
+        console.log(this.state.keywords);
+        this.forceUpdate() //grafica nuevos elementos
+    }
+
+    handleChange(event) {
+        this.setState({keyword: event.target.value});  
+        event.preventDefault();
+    }
+
+    borrarKWord(kword){
+        var arr = this.state.keywords
+        var i = arr.indexOf( kword );
+ 
+        if ( i !== -1 ) {
+            arr.splice( i, 1 );
+        }
+
+        this.setState({
+            keywords: arr
+        })
+    }
 
     render(){
         return(
@@ -72,34 +102,28 @@ class CreacionCurso extends Component{
                         </div>
                         <div className='alinearCamp'>
                             <p className='unaLin'>Palabras clave:</p>
-                            <input type="text" placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
-                            <button  id='EstiloBnt' className='posBtnG' class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
+                            <input type="text" value={this.state.keyword} onChange={this.handleChange} placeholder="Inserte palabra clave"/>{/* no estoy seguro de esto */}
+                            <button id='EstiloBnt' className='w3-button'  onClick={this.validarInicio} >Insertar</button> {/*posBtnG - no me aparece en pantalla cuando se define ese estilo*/}
                         </div>
                         <div className='encolumnar'>
                             <div className='card'>
                                 {/* en aqui debe existir lista de fichas */}
                                 <button className='btnCerrar'>x</button>
                             </div>
-                            <div className='card'>
-                                {/* en aqui debe existir lista de fichas */}
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                {/* en aqui debe existir lista de fichas */}
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                {/* en aqui debe existir lista de fichas */}
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                {/* en aqui debe existir lista de fichas */}
-                                <button className='btnCerrar'>x</button>
-                            </div>
+                            {
+                                this.state.keywords.map(keyw => {
+                                    return(
+                                        <div className='card' key = {this.state.keyAv++}>
+                                            {keyw}
+                                            <button className='btnCerrar'onClick={() => this.borrarKWord(keyw)} >x</button>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
 
                         <div className='posBtnG'>
-                            <button  id='EstiloBnt'  class="w3-button "  /* onClick={this.validarInicio} */ >Guardar Curso</button>
+                            <button  id='EstiloBnt'  className="w3-button "  /* onClick={this.validarInicio} */ >Guardar Curso</button>
                         </div>
                     </div>
 
