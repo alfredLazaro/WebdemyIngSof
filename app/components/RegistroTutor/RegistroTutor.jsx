@@ -47,6 +47,7 @@ class RegistroTutor extends Component {
     this.guardarLink = this.guardarLink.bind(this);
     this.changeLink = this.changeLink.bind(this);
     this.mostrarFormLinks = this.mostrarFormLinks.bind(this);
+    this.validarAll = this.validarAll.bind(this);
     this.validarErrores = this.validarErrores.bind(this);
     this.validarCadenasTexto1 = this.validarCadenasTexto1.bind(this);
     this.validarCadenasTexto2 = this.validarCadenasTexto2.bind(this);
@@ -235,7 +236,8 @@ class RegistroTutor extends Component {
       this.setState({ linkMaximo: true });
       res = false;
     }
-    if (exp.test(this.state.link) || this.state.link.includes(".")) {
+    //revisar eso ojo!!
+    if (exp.test(this.state.link) || !this.state.link.includes(".")) {
       this.setState({ debeSerLinkOurl: true });
       res = false;
     }
@@ -371,14 +373,13 @@ class RegistroTutor extends Component {
               </div>
             </form>
             <button
-            className="w3-button"
-            id="btnRegistroTutor"
-            onClick={this.validarAll}
-          >
-            Registrarse
-          </button>
+              className="w3-button"
+              id="btnRegistroTutor"
+              onClick={this.validarAll}
+            >
+              Registrarse
+            </button>
           </div>
-          
         </body>
       </html>
     );
