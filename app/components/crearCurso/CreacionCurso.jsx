@@ -115,7 +115,7 @@ class CreacionCurso extends Component{
                                     return(
                                         <div className='card' key = {this.state.keyAv++}>
                                             {keyw}
-                                            <button className='btnCerrar'onClick={() => this.borrarKWord(keyw)} >x</button>
+                                            <button className='btnCerrar' onClick={() => this.borrarKWord(keyw)} >x</button>
                                         </div>
                                     )
                                 })
