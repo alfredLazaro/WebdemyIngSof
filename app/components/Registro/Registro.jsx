@@ -273,7 +273,7 @@ class Registro extends Component {
     if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9@.\sd]/.test(llenadoCor)) {
       this.setState({ errorCaraEspeciCorreo: true });
       res = false;
-    }
+    } 
     return res;
   }
 

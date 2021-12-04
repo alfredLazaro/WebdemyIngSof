@@ -47,7 +47,10 @@ class RegistroTutor extends Component {
     this.guardarLink = this.guardarLink.bind(this);
     this.changeLink = this.changeLink.bind(this);
     this.mostrarFormLinks = this.mostrarFormLinks.bind(this);
-    this.validarErrores = this.validarErrores().bind(this);
+    this.validarErrores = this.validarErrores.bind(this);
+    this.validarCadenasTexto1 = this.validarCadenasTexto1.bind(this);
+    this.validarCadenasTexto2 = this.validarCadenasTexto2.bind(this);
+    this.validarCadenasTexto3 = this.validarCadenasTexto3.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -63,12 +66,74 @@ class RegistroTutor extends Component {
   }
 
   validarAll() {
-    let cadVali = validarCadenasTexto();
+    let cadVali1 = this.validarCadenasTexto1;
+    let cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
+    let cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
     let infoPer = validarInfoPer();
-    if (cadVali && linkVali && infoPer) {
+    if (cadVali1 && cadVali2 && cadVali3 && infoPer) {
       //mandamos ala BD
     }
   }
+
+  validarCadenasTexto1() {
+    var res = true;
+    var texto = this.state.textTrabAnter;
+    if (texto.length == 0) {
+      this.setState({ anteriorDebeRell: true });
+      return false;
+    }
+    if (texto.length <= 16) {
+      this.setState({ anteriorMinimo: true });
+      res = false;
+    }
+    if (texto.length > 50) {
+      this.setState({ anteriorMaximo: true });
+      res = false;
+    }
+    if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9\sd]/.test(texto)) {
+      this.setState({ anteriorCaracEspe: true });
+      res = false;
+    }
+    return res;
+  }
+  validarCadenasTexto2(texto) {
+    var res = true;
+    if (texto.length == 0) {
+      this.setState({ actualDebeRell: true });
+      return false;
+    }
+    if (texto.length <= 16) {
+      this.setState({ actualMinimo: true });
+      res = false;
+    }
+    if (texto.length > 50) {
+      this.setState({ actualMaximo: true });
+      res = false;
+    }
+    if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9\sd]/.test(texto)) {
+      this.setState({ actualCaraEspe: true });
+      res = false;
+    }
+    return res;
+  }
+  validarCadenasTexto3(texto) {
+    var res = true;
+    if (texto.length > 0) {
+      if (texto.length <= 16) {
+        this.setState({ extraMinimo: true });
+        res = false;
+      }
+      if (texto.length > 50) {
+        this.setState({ extraMaximo: true });
+        res = false;
+      }
+      if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9\sd]/.test(texto)) {
+        this.setState({ extraCaraEspe: true });
+      }
+    }
+    return res;
+  }
+
   mostrarFormInfoPersonal() {
     return (
       <div
@@ -158,28 +223,26 @@ class RegistroTutor extends Component {
     );
   }
   validarErrores() {
-    res = true;
+    var res = true;
     var exp =
       /(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
-      console.log("valida0")
+
     if (this.state.link.length < 6) {
       this.setState({ linkMinimo: true });
       res = false;
-      console.log("valida1")
     }
     if (this.state.link >= 3001) {
       this.setState({ linkMaximo: true });
       res = false;
-      console.log("valida2")
     }
-    if (!exp.test(this.state.link) || !this.state.link.includes(".")) {
-      this.setState({debeSerLinkOurl :true});
-      console.log("valida3")
+    if (exp.test(this.state.link) || this.state.link.includes(".")) {
+      this.setState({ debeSerLinkOurl: true });
+      res = false;
     }
     return res;
   }
   guardarLink() {
-    val = validarErrores();
+    var val = this.validarErrores();
     if (val) {
       if (this.links.length <= 4) {
         if (this.links.length <= 0) {
@@ -224,7 +287,7 @@ class RegistroTutor extends Component {
           <title>Document</title>
         </head>
         <body>
-          <form
+          <div
             id="formResgistroTutor"
             class="w3-container w3-card-4 w3-light-grey"
           >
@@ -307,10 +370,15 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
             </form>
-            <button className="w3-button" id="btnRegistroTutor">
-              Registrarse
-            </button>
-          </form>
+            <button
+            className="w3-button"
+            id="btnRegistroTutor"
+            onClick={this.validarAll}
+          >
+            Registrarse
+          </button>
+          </div>
+          
         </body>
       </html>
     );
