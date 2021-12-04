@@ -180,8 +180,8 @@ class InicioDeSesion extends Component{
                         <br />
                         
                         <div  className="enlaceComp" >
-                        <p id="letra" >¿aun no tienes cuenta?</p>
-                            <a id='enlace' href="/register">registrarse</a>
+                            <p >¿aun no tienes cuenta?</p>
+                            <a className='enlaceIni' href="/register">registrarse</a>
                         </div>
                     </div>
                         

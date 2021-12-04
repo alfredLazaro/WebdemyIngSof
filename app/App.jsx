@@ -6,6 +6,7 @@ import NotFound from './components/NotFound.jsx';
 import VistaEst from './components/paginaEstudiante/bodyEst.jsx';
 import VistaTut from './components/paginaTutor/bodyTutor.jsx';
 import Registro from './components/Registro/Registro.jsx';
+import CreacionCurso from './components/crearCurso/CreacionCurso.jsx';
 import InicioDeSesion from './components/InicioDeSesion/InicioDeSesion.jsx';
 
 
@@ -78,6 +79,14 @@ function VistaLogin(props){
     </Router>
   );
 
+}
+function VistaCrearCurso(props){
+  return(
+    <Router>
+      <AppBar showButtRegis={false} showButtLogin={false} showOptOthers={false} showButtonUser={false} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+      <CreacionCurso sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}></CreacionCurso>
+    </Router>
+  );
 }
 
 
@@ -154,6 +163,9 @@ class App extends Component {
   
               </Route>
 
+              <Route exact path="/crearCurso">
+                <VistaCrearCurso sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}></VistaCrearCurso>
+              </Route>
               <Route exact path="/tutor">
                 <VistaTutor sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion} idenUsuario={this.idenUsuario}/>
               </Route>
