@@ -18,6 +18,7 @@ class RegistroTutor extends Component {
       infoPersonal6: "Doctorado",
 
       noSeleccionado: false,
+      valorRadio :'',
 
       anteriorDebeRell: false,
       anteriorMaximo: false,
@@ -52,6 +53,8 @@ class RegistroTutor extends Component {
     this.validarCadenasTexto1 = this.validarCadenasTexto1.bind(this);
     this.validarCadenasTexto2 = this.validarCadenasTexto2.bind(this);
     this.validarCadenasTexto3 = this.validarCadenasTexto3.bind(this);
+    this.changeRadio = this.changeRadio.bind(this);
+    this.validarInfoPer = this.validarInfoPer.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -70,12 +73,18 @@ class RegistroTutor extends Component {
     var cadVali1 = this.validarCadenasTexto1();
     var cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
-    var infoPer = validarInfoPer();
+    var infoPer = this.validarInfoPer();
     if (cadVali1 && cadVali2 && cadVali3 && infoPer) {
-      //mandamos ala BD
+      console.log("todas");
     }
   }
-
+  validarInfoPer(){
+    var res = true;
+    if(this.state.valorRadio.length === 0){
+      this.setState({noSeleccionado:true});
+    }
+    return res;
+  }
   validarCadenasTexto1() {
     var res = true;
     var texto = this.state.textTrabAnter;
@@ -134,7 +143,9 @@ class RegistroTutor extends Component {
     }
     return res;
   }
-
+  changeRadio(event){
+    this.setState({valorRadio:event.target.value});
+  }
   mostrarFormInfoPersonal() {
     return (
       <div
@@ -145,31 +156,31 @@ class RegistroTutor extends Component {
         <h3> Información personal</h3>
 
         <div>
-          <input type="radio" id="huey" name="drone" value="huey" />
-          <label for="huey">{this.state.infoPersonal1}</label>
+          <input type="radio" id="huey" value={this.state.infoPersonal1}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal1}>{this.state.infoPersonal1}</label>
         </div>
 
         <div>
-          <input type="radio" id="dewey" name="drone" value="dewey" />
-          <label for="dewey">{this.state.infoPersonal2}</label>
+          <input type="radio" id="dewey" name="drone" value={this.state.infoPersonal2}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal2}>{this.state.infoPersonal2}</label>
         </div>
 
         <div>
-          <input type="radio" id="louie" name="drone" value="louie" />
-          <label for="louie">{this.state.infoPersonal3}</label>
+          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal3}>{this.state.infoPersonal3}</label>
         </div>
 
         <div>
-          <input type="radio" id="louie" name="drone" value="louie" />
-          <label for="louie">{this.state.infoPersonal4}</label>
+          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal4}>{this.state.infoPersonal4}</label>
         </div>
         <div>
-          <input type="radio" id="louie" name="drone" value="louie" />
-          <label for="louie">{this.state.infoPersonal5}</label>
+          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal5}>{this.state.infoPersonal5}</label>
         </div>
         <div>
-          <input type="radio" id="louie" name="drone" value="louie" />
-          <label for="louie">{this.state.infoPersonal6}</label>
+          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
+          <label for={this.state.infoPersonal6}>{this.state.infoPersonal6}</label>
         </div>
         {this.state.noSeleccionado ? (
           <p className="alertas">Debe selecionar un campo</p>
