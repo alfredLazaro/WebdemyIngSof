@@ -100,3 +100,8 @@ input {
   margin-right: 5%;
   
 }
+[type=checkbox], [type=radio] {
+  padding: 0;
+  margin-top: 7%;
+  margin-right: 5%;
+}

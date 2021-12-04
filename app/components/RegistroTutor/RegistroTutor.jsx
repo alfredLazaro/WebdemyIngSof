@@ -18,7 +18,7 @@ class RegistroTutor extends Component {
       infoPersonal6: "Doctorado",
 
       noSeleccionado: false,
-      valorRadio :'',
+      valorRadio: "",
 
       anteriorDebeRell: false,
       anteriorMaximo: false,
@@ -55,6 +55,7 @@ class RegistroTutor extends Component {
     this.validarCadenasTexto3 = this.validarCadenasTexto3.bind(this);
     this.changeRadio = this.changeRadio.bind(this);
     this.validarInfoPer = this.validarInfoPer.bind(this);
+    this.linksVad = this.linksVad.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -74,14 +75,21 @@ class RegistroTutor extends Component {
     var cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
     var infoPer = this.validarInfoPer();
+    var linksVad = this.linksVad();
     if (cadVali1 && cadVali2 && cadVali3 && infoPer) {
       console.log("todas");
     }
   }
-  validarInfoPer(){
+  linksVad() {
+    if (this.links.length === 0) {
+      this.setState({linkAlmenosDo:true});
+    }
+  }
+  validarInfoPer() {
     var res = true;
-    if(this.state.valorRadio.length === 0){
-      this.setState({noSeleccionado:true});
+    if (this.state.valorRadio.length === 0) {
+      this.setState({ noSeleccionado: true });
+      res = false;
     }
     return res;
   }
@@ -143,8 +151,8 @@ class RegistroTutor extends Component {
     }
     return res;
   }
-  changeRadio(event){
-    this.setState({valorRadio:event.target.value});
+  changeRadio(event) {
+    this.setState({ valorRadio: event.target.value });
   }
   mostrarFormInfoPersonal() {
     return (
@@ -156,31 +164,80 @@ class RegistroTutor extends Component {
         <h3> Información personal</h3>
 
         <div>
-          <input type="radio" id="huey" value={this.state.infoPersonal1}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal1}>{this.state.infoPersonal1}</label>
+          <input
+            className="inputs"
+            type="radio"
+            id="huey"
+            name="drone"
+            value={this.state.infoPersonal1}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal1}>
+            {this.state.infoPersonal1}
+          </label>
         </div>
 
         <div>
-          <input type="radio" id="dewey" name="drone" value={this.state.infoPersonal2}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal2}>{this.state.infoPersonal2}</label>
+          <input
+            type="radio"
+            id="dewey"
+            name="drone"
+            value={this.state.infoPersonal2}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal2}>
+            {this.state.infoPersonal2}
+          </label>
         </div>
 
         <div>
-          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal3}>{this.state.infoPersonal3}</label>
+          <input
+            type="radio"
+            id="louie"
+            name="drone"
+            value={this.state.infoPersonal3}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal3}>
+            {this.state.infoPersonal3}
+          </label>
         </div>
 
         <div>
-          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal4}>{this.state.infoPersonal4}</label>
+          <input
+            type="radio"
+            id="louie"
+            name="drone"
+            value={this.state.infoPersonal3}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal4}>
+            {this.state.infoPersonal4}
+          </label>
         </div>
         <div>
-          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal5}>{this.state.infoPersonal5}</label>
+          <input
+            type="radio"
+            id="louie"
+            name="drone"
+            value={this.state.infoPersonal3}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal5}>
+            {this.state.infoPersonal5}
+          </label>
         </div>
         <div>
-          <input type="radio" id="louie" name="drone" value={this.state.infoPersonal3}  onChange={this.changeRadio} />
-          <label for={this.state.infoPersonal6}>{this.state.infoPersonal6}</label>
+          <input
+            type="radio"
+            id="louie"
+            name="drone"
+            value={this.state.infoPersonal3}
+            onChange={this.changeRadio}
+          />
+          <label for={this.state.infoPersonal6}>
+            {this.state.infoPersonal6}
+          </label>
         </div>
         {this.state.noSeleccionado ? (
           <p className="alertas">Debe selecionar un campo</p>
@@ -227,7 +284,7 @@ class RegistroTutor extends Component {
                 mínimo de caracteres es de 5 Debe llenar con su información al
               </p>
             ) : null}
-            {this.state.linkAlmenosDo ? <p> almenos dos campos</p> : null}
+            {this.state.linkAlmenosDo ? <p>Debe llenar almenos dos campos</p> : null}
             {this.state.debeSerLinkOurl ? <p>Debe ser un link o url</p> : null}
           </div>
         </form>
