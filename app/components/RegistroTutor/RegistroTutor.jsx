@@ -66,10 +66,10 @@ class RegistroTutor extends Component {
   }
 
   validarAll() {
-    let cadVali1 = this.validarCadenasTexto1;
-    let cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
-    let cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
-    let infoPer = validarInfoPer();
+    var cadVali1 = this.validarCadenasTexto1();
+    var cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
+    var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
+    var infoPer = validarInfoPer();
     if (cadVali1 && cadVali2 && cadVali3 && infoPer) {
       //mandamos ala BD
     }
