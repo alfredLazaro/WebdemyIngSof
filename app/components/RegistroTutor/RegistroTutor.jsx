@@ -8,10 +8,7 @@ class RegistroTutor extends Component {
       texTrabActual: "",
       textTrabAnter: "",
       textTrabExtra: "",
-      link1: "",
-      link2: "",
-      link3: "",
-      link4: "",
+      link: "",
 
       infoPersonal1: "Auto didacta",
       infoPersonal2: "Tecnico",
@@ -39,12 +36,16 @@ class RegistroTutor extends Component {
       linkMaximo: false,
       linkMinimo: false,
       linkAlmenosDo: false,
+      ocultarCampoLink: false,
     };
+    this.links = [];
     this.changeTrabActual = this.changeTrabActual.bind(this);
     this.changeTrabAnteri = this.changeTrabAnteri.bind(this);
     this.changeTrabExtra = this.changeTrabExtra.bind(this);
     this.mostrarFormInfoPersonal = this.mostrarFormInfoPersonal.bind(this);
     this.guardarLink = this.guardarLink.bind(this);
+    this.changeLink = this.changeLink.bind(this);
+    this.mostrarFormLinks = this.mostrarFormLinks.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -55,12 +56,15 @@ class RegistroTutor extends Component {
   changeTrabExtra(event) {
     this.setState({ textTrabExtra: event.target.value });
   }
+  changeLink(event) {
+    this.setState({ link: event.target.value });
+  }
 
   validarAll() {
     let cadVali = validarCadenasTexto();
     let linkVali = validarLink();
     let infoPer = validarInfoPer();
-    if(cadVali && linkVali && infoPer){
+    if (cadVali && linkVali && infoPer) {
       //mandamos ala BD
     }
   }
@@ -106,10 +110,70 @@ class RegistroTutor extends Component {
       </div>
     );
   }
+  mostrarFormLinks() {
+    return (
+      <div>
+        <form
+          id="formRegisLinks"
+          class="w3-padding w3-right  w3-card-4 w3-white"
+        >
+          <h3>Links</h3>
+          <ul>
+            {this.state.ocultarCampoLink ? null : (
+              <div>
+                <input
+                  id="inputLink"
+                  type="text"
+                  placeholder="                                                                           Link a su informacion extra"
+                  value={this.state.link}
+                  onChange={this.changeLink}
+                />
+                <div className="w3-button">
+                  <i
+                    className="fas fa-check-square"
+                    id="iconWorkRegis"
+                    onClick={this.guardarLink}
+                  ></i>
+                </div>
+              </div>
+            )}
+          </ul>
+          <div className="alertas">
+            {this.state.linkMaximo ? (
+              <p>
+                El número máximo de caracteres permitidos es de 3000 El número
+              </p>
+            ) : null}
+            {this.state.linkMinimo ? (
+              <p>
+                mínimo de caracteres es de 5 Debe llenar con su información al
+              </p>
+            ) : null}
+            {this.state.linkAlmenosDo ? <p> almenos dos campos</p> : null}
+          </div>
+        </form>
+      </div>
+    );
+  }
   guardarLink() {
+    if (this.links.length <= 4) {
+      if (this.links.length <= 0) {
+        this.links.push(this.state.link);
+        this.setState({ link: "" });
+        this.setState({ linkAlmenosDo: true });
+      } else {
+        this.links.push(this.state.link);
+        this.setState({ link: "" });
+        this.setState({ linkAlmenosDo: false });
+      }
+    }
+    if (this.links.length == 4) {
+      this.setState({ ocultarCampoLink: true });
+    }
     console.log(
       "se guarda y borrar el texto XD, primero validas que sea menor a 4"
     );
+    console.log(this.state.link);
   }
 
   render() {
@@ -144,38 +208,7 @@ class RegistroTutor extends Component {
           >
             <h1 class="w3-center">Se un tutor de Wdemy</h1>
             {this.mostrarFormInfoPersonal()}
-            <form
-              id="formRegisLinks"
-              class="w3-padding w3-right  w3-card-4 w3-white"
-            >
-              <h3>Links</h3>
-              <ul>
-                <input
-                  id="inputLink"
-                  type="text"
-                  placeholder="                                                                           Link a su informacion extra"
-                  value={this.state.link1}
-                />
-                <button className="w3-button" onClick={this.guardarLink}>
-                  <i className="fas fa-check-square" id="iconWorkRegis"></i>
-                </button>
-              </ul>
-              <div className="alertas">
-                {this.state.linkMaximo ? (
-                  <p>
-                    El número máximo de caracteres permitidos es de 3000 El
-                    número
-                  </p>
-                ) : null}
-                {this.state.linkMinimo ? (
-                  <p>
-                    mínimo de caracteres es de 5 Debe llenar con su información
-                    al
-                  </p>
-                ) : null}
-                {this.state.linkAlmenosDo ? <p> almenos dos campos</p> : null}
-              </div>
-            </form>
+            {this.mostrarFormLinks()}
             <form
               id="formRegisTrab"
               class="w3-padding w3-center  w3-card-4 w3-white"
