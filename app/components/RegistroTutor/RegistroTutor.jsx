@@ -56,6 +56,7 @@ class RegistroTutor extends Component {
     this.changeRadio = this.changeRadio.bind(this);
     this.validarInfoPer = this.validarInfoPer.bind(this);
     this.linksVad = this.linksVad.bind(this);
+    this.devolverValoresState1 = this.devolverValoresState1.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -70,7 +71,34 @@ class RegistroTutor extends Component {
     this.setState({ link: event.target.value });
   }
 
+  devolverValoresState1() {
+    this.setState({
+      noSeleccionado: false,
+
+      anteriorDebeRell: false,
+      anteriorMaximo: false,
+      anteriorMinimo: false,
+      anteriorCaracEspe: false,
+
+      actualDebeRell: false,
+      actualMaximo: false,
+      actualMinimo: false,
+      actualCaraEspe: false,
+
+      extraMaximo: false,
+      extraMinimo: false,
+      extraCaraEspe: false,
+
+      linkMaximo: false,
+      linkMinimo: false,
+      linkAlmenosDo: false,
+      debeSerLinkOurl: false,
+      ocultarCampoLink: false,
+    });
+  }
+
   validarAll() {
+    this.devolverValoresState1();
     var cadVali1 = this.validarCadenasTexto1();
     var cadVali2 = this.validarCadenasTexto2(this.state.texTrabActual);
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
@@ -82,7 +110,7 @@ class RegistroTutor extends Component {
   }
   linksVad() {
     if (this.links.length === 0) {
-      this.setState({linkAlmenosDo:true});
+      this.setState({ linkAlmenosDo: true });
     }
   }
   validarInfoPer() {
@@ -252,14 +280,14 @@ class RegistroTutor extends Component {
           id="formRegisLinks"
           class="w3-padding w3-right  w3-card-4 w3-white"
         >
-          <h3>Links</h3>
+          <h3>Link a información extra de github,linkedin o canal de YouTube</h3>
           <ul>
             {this.state.ocultarCampoLink ? null : (
               <div>
                 <input
                   id="inputLink"
                   type="text"
-                  placeholder="                                                                           Link a su informacion extra"
+                  placeholder="Link a su informacion extra"
                   value={this.state.link}
                   onChange={this.changeLink}
                 />
@@ -273,7 +301,7 @@ class RegistroTutor extends Component {
               </div>
             )}
           </ul>
-          <div className="alertas">
+          <div className="alertas" id="alertsLinks">
             {this.state.linkMaximo ? (
               <p>
                 El número máximo de caracteres permitidos es de 3000 El número
@@ -284,7 +312,9 @@ class RegistroTutor extends Component {
                 mínimo de caracteres es de 5 Debe llenar con su información al
               </p>
             ) : null}
-            {this.state.linkAlmenosDo ? <p>Debe llenar almenos dos campos</p> : null}
+            {this.state.linkAlmenosDo ? (
+              <p>Debe llenar almenos dos campos</p>
+            ) : null}
             {this.state.debeSerLinkOurl ? <p>Debe ser un link o url</p> : null}
           </div>
         </form>
@@ -374,7 +404,7 @@ class RegistroTutor extends Component {
                 <input
                   id="inputTrabajo"
                   type="text"
-                  placeholder="            Trabajo anterior"
+                  placeholder="Trabajo anterior"
                   value={this.state.textTrabAnter}
                   onChange={this.changeTrabAnteri}
                 />
@@ -395,11 +425,11 @@ class RegistroTutor extends Component {
                 ) : null}
               </div>
               <ul>
-                <i class="fas fa-laptop-house" id="iconWorkRegis"></i>
+              <i class="fas fa-building" id="iconWorkRegis"></i>
                 <input
                   id="inputTrabajo"
                   type="text"
-                  placeholder="            Trabajo actual "
+                  placeholder="Trabajo actual "
                   value={this.state.texTrabActual}
                   onChange={this.changeTrabActual}
                 />
@@ -423,7 +453,7 @@ class RegistroTutor extends Component {
                 <input
                   id="inputTrabajo"
                   type="text"
-                  placeholder="            Trabajo extra( si lo hubiera)"
+                  placeholder="Trabajo extra( si lo hubiera)"
                   value={this.state.textTrabExtra}
                   onChange={this.changeTrabExtra}
                 />
