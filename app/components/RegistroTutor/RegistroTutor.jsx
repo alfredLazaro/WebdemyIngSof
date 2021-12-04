@@ -36,6 +36,7 @@ class RegistroTutor extends Component {
       linkMaximo: false,
       linkMinimo: false,
       linkAlmenosDo: false,
+      debeSerLinkOurl: false,
       ocultarCampoLink: false,
     };
     this.links = [];
@@ -46,6 +47,7 @@ class RegistroTutor extends Component {
     this.guardarLink = this.guardarLink.bind(this);
     this.changeLink = this.changeLink.bind(this);
     this.mostrarFormLinks = this.mostrarFormLinks.bind(this);
+    this.validarErrores = this.validarErrores().bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -62,7 +64,6 @@ class RegistroTutor extends Component {
 
   validarAll() {
     let cadVali = validarCadenasTexto();
-    let linkVali = validarLink();
     let infoPer = validarInfoPer();
     if (cadVali && linkVali && infoPer) {
       //mandamos ala BD
@@ -150,30 +151,51 @@ class RegistroTutor extends Component {
               </p>
             ) : null}
             {this.state.linkAlmenosDo ? <p> almenos dos campos</p> : null}
+            {this.state.debeSerLinkOurl ? <p>Debe ser un link o url</p> : null}
           </div>
         </form>
       </div>
     );
   }
+  validarErrores() {
+    res = true;
+    var exp =
+      /(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
+      console.log("valida0")
+    if (this.state.link.length < 6) {
+      this.setState({ linkMinimo: true });
+      res = false;
+      console.log("valida1")
+    }
+    if (this.state.link >= 3001) {
+      this.setState({ linkMaximo: true });
+      res = false;
+      console.log("valida2")
+    }
+    if (!exp.test(this.state.link) || !this.state.link.includes(".")) {
+      this.setState({debeSerLinkOurl :true});
+      console.log("valida3")
+    }
+    return res;
+  }
   guardarLink() {
-    if (this.links.length <= 4) {
-      if (this.links.length <= 0) {
-        this.links.push(this.state.link);
-        this.setState({ link: "" });
-        this.setState({ linkAlmenosDo: true });
-      } else {
-        this.links.push(this.state.link);
-        this.setState({ link: "" });
-        this.setState({ linkAlmenosDo: false });
+    val = validarErrores();
+    if (val) {
+      if (this.links.length <= 4) {
+        if (this.links.length <= 0) {
+          this.links.push(this.state.link);
+          this.setState({ link: "" });
+          this.setState({ linkAlmenosDo: true });
+        } else {
+          this.links.push(this.state.link);
+          this.setState({ link: "" });
+          this.setState({ linkAlmenosDo: false });
+        }
+      }
+      if (this.links.length == 4) {
+        this.setState({ ocultarCampoLink: true });
       }
     }
-    if (this.links.length == 4) {
-      this.setState({ ocultarCampoLink: true });
-    }
-    console.log(
-      "se guarda y borrar el texto XD, primero validas que sea menor a 4"
-    );
-    console.log(this.state.link);
   }
 
   render() {
