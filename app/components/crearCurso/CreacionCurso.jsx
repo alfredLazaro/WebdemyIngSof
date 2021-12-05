@@ -6,6 +6,9 @@ class CreacionCurso extends Component{
         super(props);
         this.state = {
             campEtq     : [],
+            keywords: [],
+            keyword: '',
+            keyAv: 1,
             campNmC     : "",
             campDesc    : "",
             campReq     : "",
@@ -28,6 +31,9 @@ class CreacionCurso extends Component{
             errImgNul   :false,
             errEtiqNul  :false
         }
+        this.validarInicio = this.validarInicio.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.borrarKWord = this.borrarKWord.bind(this);
         this.nomChange           =this.nomChange.bind(this);
         this.captDesc            =this.captDesc.bind(this);
         this.captObj             =this.captObj.bind(this);
@@ -45,6 +51,33 @@ class CreacionCurso extends Component{
         this.validarCurso        =this.validarCurso.bind(this);
         
     }   
+    validarInicio(){
+        /*No valida por ahora, solo ingresa a la lista de keywords*/
+        console.log(this.state.keyword);
+        this.state.keywords.push(this.state.keyword); //Agrega a lista
+        this.setState({keyword: ''})
+        console.log(this.state.keywords);
+        this.forceUpdate() //grafica nuevos elementos
+    }
+
+    handleChange(event) {
+        this.setState({keyword: event.target.value});  
+        event.preventDefault();
+    }
+
+    borrarKWord(kword){
+        var arr = this.state.keywords
+        var i = arr.indexOf( kword );
+ 
+        if ( i !== -1 ) {
+            arr.splice( i, 1 );
+        }
+
+        this.setState({
+            keywords: arr
+        })
+    }
+
         devolverEstado(){
             this.setState({
                 errNmLa     :false,
@@ -303,22 +336,20 @@ class CreacionCurso extends Component{
                             <div className='card'>
                                 <button className='btnCerrar'>x</button>
                             </div>
-                            <div className='card'>
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                <button className='btnCerrar'>x</button>
-                            </div>
-                            <div className='card'>
-                                <button className='btnCerrar'>x</button>
-                            </div>
+                            {
+                                this.state.keywords.map(keyw => {
+                                    return(
+                                        <div className='card' key = {this.state.keyAv++}>
+                                            {keyw}
+                                            <button className='btnCerrar' onClick={() => this.borrarKWord(keyw)} >x</button>
+                                        </div>
+                                    )
+                                })
+                            }
                         </div>
 
                         <div className='posBtnG'>
-                            <button  id='EstiloBnt'  class="w3-button "  onClick={this.validarCurso} >Guardar Curso</button>
+                            <button  id='EstiloBnt'  className="w3-button "  /* onClick={this.validarInicio} */ >Guardar Curso</button>
                         </div>
                     </div>
 

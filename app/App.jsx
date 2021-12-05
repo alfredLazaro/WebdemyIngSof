@@ -51,7 +51,7 @@ function VistaEstudiante(props){
 function VistaTutor(props){
   return(
     <Router>
-        <AppBar showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion}/>
+        <AppBar showButtonUser={true} sesionIniciada={props.sesionIniciada} cerrarSesion={props.cerrarSesion} idenUsuario={props.idenUsuario}/>
         <VistaTut/>
       </Router>
   );
@@ -137,13 +137,13 @@ class App extends Component {
       <Router>
           <Switch>
               <Route exact path='/' >
-                <VistaGeneral sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+                <VistaGeneral sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion} idenUsuario={this.idenUsuario}/>
                   
               </Route>
     
               {/* path="/blog/:slug" */}
               <Route exact path="/Inicio/:entrada">  
-                <VistaCurso sesionIniciada={this.sesionIniciada }/>
+                <VistaCurso sesionIniciada={this.sesionIniciada } idenUsuario={this.idenUsuario}/>
               </Route>
   
               <Route exact path="/estudiante">
@@ -151,7 +151,7 @@ class App extends Component {
               </Route>
   
               <Route exact path="/register" >
-               <VistaRegistro sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} >
+               <VistaRegistro sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} idenUsuario={this.idenUsuario}>
   
                </VistaRegistro>
               </Route>
@@ -159,7 +159,7 @@ class App extends Component {
             {/* esta de modificarPara que revisa, us y contra */}
               <Route exact path="/login">
   
-                <VistaLogin sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} />
+                <VistaLogin sesionIniciada={this.sesionIniciada} iniciarSesion={this.iniciarSesion} idenUsuario={this.idenUsuario}/>
   
               </Route>
 
@@ -167,7 +167,7 @@ class App extends Component {
                 <VistaCrearCurso sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}></VistaCrearCurso>
               </Route>
               <Route exact path="/tutor">
-                <VistaTutor sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion}/>
+                <VistaTutor sesionIniciada={this.sesionIniciada} cerrarSesion={this.cerrarSesion} idenUsuario={this.idenUsuario}/>
               </Route>
   
               <Route component={NotFound} /> 

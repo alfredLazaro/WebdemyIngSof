@@ -6,12 +6,17 @@
     width: 101.2%;
     min-height: 40em;
     margin: -0.6%;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 4em;
+    padding-right: 4em;
     margin-top: -0.5%;
     margin-left: -1%;
     margin-right: -1%;
     margin-bottom: -1%;
+}
+
+.cardCurso{
+    padding-top: 1em;
+    padding-bottom: 3em;
 }
 
 .fondIconos{
@@ -42,8 +47,8 @@
 
 .contCursosTutor{
     align-content: center;
-    padding-left: 10em;
-    padding-right: 10em;
+    padding-left: 15em;
+    padding-right: 15em;
 }
 
 .circRojo{
@@ -53,4 +58,68 @@
      -webkit-border-radius: 50%;
      border-radius: 50%;
      background: #FF2525;
+}
+
+.circVerde{
+     width: 1em;
+     height: 1em;
+     -moz-border-radius: 50%;
+     -webkit-border-radius: 50%;
+     border-radius: 50%;
+     background: #0BAC1B;
+}
+
+.infoCurTutor{
+    width: 70%;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+    padding-left: 0;
+    text-align: left;
+    font-size: 18px;
+}
+  
+.imagenCurTutor{
+    width: 40%;
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-right: 0;
+    padding-left: 0.3em;
+}
+
+#imagenCursoCardTutor{
+    height: 6em;
+    width: 100%;
+    object-fit: cover; 
+  }
+
+.tituloCursTutor{
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.botonesCurso{
+    float:right;
+}
+
+.btnModificar{
+    font-size: 1.2em;
+    color: #FFFFFF;
+    background-color: #243B66;
+    border-radius: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
+}
+
+.btnEliminar{
+    font-size: 1.2em;
+    color: #FFFFFF;
+    background-color: #662824;
+    border-radius: 1em;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    margin-left: 0.2em;
 }

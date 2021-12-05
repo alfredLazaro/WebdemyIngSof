@@ -262,7 +262,7 @@ class Filtro extends Component {
             <ul>
               {this.sacar().map((curso) => {
                 return (
-                  <div id="elementosDelCarrusel">
+                  <div key={curso.id_curso} id="elementosDelCarrusel">
                     <button
                       className="elementos-carrusel"
                       onClick={this.refrescarPagina}
@@ -271,7 +271,7 @@ class Filtro extends Component {
                         className="linkInial"
                         to={`/Inicio/${curso.id_curso}`}
                       >
-                        <div key={curso.id_curso} className="linkCurso">
+                        <div className="linkCurso">
                             <h3 className="contendNomCurso">{curso.nombreCurso}</h3>                  
                             <img id="imagenCursoRed" src={`/assets/imagenes/${curso.imagen}`}></img>
                             <div className="curseDescription">
