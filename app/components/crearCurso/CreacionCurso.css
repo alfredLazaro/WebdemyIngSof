@@ -109,9 +109,11 @@
 }
 .card{
     height: 40px;
-    width: 90px;
-    background-color: red;
+    width: 120px;
+    background-color: rgb(94, 139, 126);
     margin-bottom: 1%;
+    position: relative;
+
 }
 .alertMsg{
     color: red;
@@ -125,4 +127,12 @@
     position: relative;
     height: 10%;
 
+}
+.btnCerrar{
+    position: absolute;
+    top: 0%;
+    left: 79%;
+    height: 66%;
+    text-align: top;
+    background-color: red;
 }
