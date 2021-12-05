@@ -18,13 +18,14 @@
     margin-left: 7%;
     margin-right: 2%;
     align-items: center;
-
+    position: relative;
 }
 .segColum{
     margin-bottom: 4%;
     align-items: center; /* comom alineo los elementos? */
     margin-left: 3%;
     margin-right: 10%;
+    position: relative;
 }
 .alinearCamp{
     display: flex;
@@ -63,6 +64,7 @@
 
 .btnVolv{
     height: 5%;
+    top: 3%;
     left: 70%;
     text-align: center;
 }
