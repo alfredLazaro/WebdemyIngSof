@@ -217,8 +217,9 @@ router.post('/login', async (req,res)=>{
     if(user && pass){ //si existen 
         console.log(cuenta);
       if(cuenta.length!=0){
+          let passwordHash= await bcrypt.hash(pass,8);
         if(user== cuenta[0].correo && ( bcrypt.compareSync(pass,cuenta[0].contrasena))){
-            let passwordHash= await bcrypt.hash(pass,8);
+            
             console.log(cuenta); //ESTO SE IMPRIME EN CONSOLA
             res.json({
                 mensaj : "correcto",
@@ -230,10 +231,12 @@ router.post('/login', async (req,res)=>{
             });
         }else{
             console.log(cuenta);
+            console.log(passwordHash);
             res.json({
                 mensaj : "incorrecto MAL",
                 contra: cuenta[0].contrasena,
-                contraEnt : pass
+                contraEnt : pass,
+                passwordHash: passwordHash
             });
         }
        }else{  //debo aumentar este if para el bug que viene
