@@ -325,7 +325,7 @@ class CreacionCurso extends Component{
                                 <input type="text" placeholder="Inserte palabra clave"
                                     value={this.state.campEtiq} onChange={this.captEtiq}
                                 />{/* no estoy seguro de esto */}
-                                <button  id='EstiloBnt' className='posBtnG' class="w3-button "  /* onClick={this.validarInicio} */ >Insertar</button>
+                                <button  id='EstiloBnt' className='posBtnG' class="w3-button "  onClick={this.validarInicio} >Insertar</button>
                             </div>
                             <div>
                                 {this.state.errEtiqNul? <p className='alertMsg'>El campo es obligatorio</p> :null}
@@ -349,7 +349,7 @@ class CreacionCurso extends Component{
                         </div>
 
                         <div className='posBtnG'>
-                            <button  id='EstiloBnt'  className="w3-button "  /* onClick={this.validarInicio} */ >Guardar Curso</button>
+                            <button  id='EstiloBnt'  className="w3-button "  onClick={this.validarCurso} >Guardar Curso</button>
                         </div>
                     </div>
 
