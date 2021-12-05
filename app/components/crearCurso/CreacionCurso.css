@@ -57,7 +57,7 @@
 .posBtnG{
     position: relative;
     left: 35%;
-    top: 13%;
+    top: 33%;
     text-align: center;
 }
 
@@ -109,11 +109,12 @@
 }
 .card{
     height: 40px;
-    width: 120px;
+    width: 150px;
     background-color: rgb(94, 139, 126);
     margin-bottom: 1%;
     position: relative;
-
+    overflow: hidden;
+    text-align: left;
 }
 .alertMsg{
     color: red;
@@ -131,7 +132,7 @@
 .btnCerrar{
     position: absolute;
     top: 0%;
-    left: 79%;
+    left: 83%;
     height: 66%;
     text-align: top;
     background-color: red;

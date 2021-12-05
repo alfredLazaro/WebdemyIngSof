@@ -323,7 +323,8 @@ class CreacionCurso extends Component{
                             <div className='alinearCamp'>
                                 <p className='unaLin'>Palabras clave:</p>
                                 <input type="text" placeholder="Inserte palabra clave"
-                                    value={this.state.campEtiq} onChange={this.captEtiq}
+                                    value={this.state.keyword} onChange={this.handleChange} 
+                                    /* value={this.state.campEtiq} onChange={this.captEtiq} */
                                 />{/* no estoy seguro de esto */}
                                 <button  id='EstiloBnt' className='posBtnG' class="w3-button "  onClick={this.validarInicio} >Insertar</button>
                             </div>
