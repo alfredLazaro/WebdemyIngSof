@@ -393,7 +393,7 @@ class RegistroTutor extends Component {
             id="formResgistroTutor"
             class="w3-container w3-card-4 w3-light-grey"
           >
-            <h1 class="w3-center">Se un tutor de Wdemy</h1>
+            <h1 id="titulo" class="w3-center">Se un tutor de Wdemy</h1>
             {this.mostrarFormInfoPersonal()}
             {this.mostrarFormLinks()}
             <form
