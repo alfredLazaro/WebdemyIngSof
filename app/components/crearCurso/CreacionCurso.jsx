@@ -29,7 +29,8 @@ class CreacionCurso extends Component{
             errReqCor   :false,
             errImgSi    :false,
             errImgNul   :false,
-            errEtiqNul  :false
+            errEtiqNul  :false,
+            errEtiqLar  :false
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -61,7 +62,9 @@ class CreacionCurso extends Component{
             if(camImg==""){
                 this.setState({errEtiqNul:true});
             }else{
-                
+                if(camImg>15){
+                    this.setState({errEtiqLar:true})
+                }else{}
             }
         this.forceUpdate() //grafica nuevos elementos
 
@@ -208,6 +211,13 @@ class CreacionCurso extends Component{
             }
         }
 
+        validEtiq(){
+            var camEti=this.state.campEtiq;
+            if(camEti==""){     /* verificar si ya hay algun etiquete */
+                this.setState({errEtiqNul:true});
+            }else{}
+        }
+
         validarCurso(){
             var estaBien=this.validarCampos();
         }
@@ -339,6 +349,7 @@ class CreacionCurso extends Component{
                             </div>
                             <div>
                                 {this.state.errEtiqNul? <p className='alertMsg'>El campo es obligatorio</p> :null}
+                                {this.state.errEtiqLar? <p className='alertMsg'>No debe tener más de 15 caracteres</p>:null}
                             </div>
                         </div>
                         
