@@ -4,7 +4,7 @@ import "./RegistroTutor.css";
 class RegistroTutor extends Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
       idUs: this.props.idenUsuario(),
       texTrabActual: "",
@@ -41,6 +41,7 @@ class RegistroTutor extends Component {
       linkAlmenosDo: false,
       debeSerLinkOurl: false,
       ocultarCampoLink: false,
+      regisExitoso :false
     };
     this.links = [];
     this.changeTrabActual = this.changeTrabActual.bind(this);
@@ -59,6 +60,8 @@ class RegistroTutor extends Component {
     this.validarInfoPer = this.validarInfoPer.bind(this);
     this.linksVad = this.linksVad.bind(this);
     this.devolverValoresState1 = this.devolverValoresState1.bind(this);
+
+    this.mandarAsuVistaTutor = this.mandarAsuVistaTutor.bind(this);
   }
   changeTrabActual(event) {
     this.setState({ texTrabActual: event.target.value });
@@ -106,15 +109,10 @@ class RegistroTutor extends Component {
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
     var infoPer = this.validarInfoPer();
     var linksVad = this.linksVad();
-    console.log("Validadcion1"+cadVali1);
-    console.log("Validadcion2"+cadVali2);
-    console.log("Validadcion3"+cadVali3);
-    console.log("Validadcion4"+infoPer);
-    console.log("Validadcion5"+linksVad);
-  
+
     if (cadVali1 && cadVali2 && cadVali3 && infoPer && linksVad) {
       var data = {
-        USUARIO_id_usuario: 4,
+        USUARIO_id_usuario: this.state.idUs,
         academicTraining: this.state.valorRadio,
         lastJob: this.state.textTrabAnter,
         currentJob: this.state.texTrabActual,
@@ -145,6 +143,7 @@ class RegistroTutor extends Component {
             this.setState({ regisExitoso: true });
           }
         });
+        this.setState({regisExitoso:true});
     }
   }
   linksVad() {
@@ -223,7 +222,7 @@ class RegistroTutor extends Component {
   }
   changeRadio(event) {
     this.setState({ valorRadio: event.target.value });
-    console.log(this.state.valorRadio +"sera");
+    console.log(this.state.valorRadio + "sera");
   }
   mostrarFormInfoPersonal() {
     return (
@@ -401,6 +400,10 @@ class RegistroTutor extends Component {
       }
     }
   }
+  mandarAsuVistaTutor(){
+    this.props.history.push("/tutor");
+          window.location.href = window.location.href;
+  }
 
   render() {
     return (
@@ -428,6 +431,16 @@ class RegistroTutor extends Component {
           <title>Document</title>
         </head>
         <body>
+        {this.state.regisExitoso ? (
+            <div className="popup">
+              <div className="popup_inner">
+                <p className="textoPopup">Registro exitoso!</p>
+                <button className="btnOk" onClick={this.mandarAsuVistaTutor}>
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          ) : null}
           <div
             id="formResgistroTutor"
             class="w3-container w3-card-4 w3-light-grey"
