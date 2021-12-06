@@ -232,7 +232,7 @@ router.post('/login', async (req,res)=>{
         console.log(cuenta);
         console.log("Pasa1");
       if(cuenta.length!=0){
-        if(user== cuenta[0].correo && pass == cuenta[0].contrasena){ //Cambiado para hacer pruebas ( bcrypt.compareSync(pass,cuenta[0].contrasena))
+        if(bcrypt.compareSync(pass,cuenta[0].contrasena)){ 
             let passwordHash= await bcrypt.hash(pass,8);
             console.log(cuenta); //ESTO SE IMPRIME EN CONSOLA
             console.log("Pasa2");
