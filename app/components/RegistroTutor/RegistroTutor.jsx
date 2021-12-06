@@ -104,8 +104,38 @@ class RegistroTutor extends Component {
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
     var infoPer = this.validarInfoPer();
     var linksVad = this.linksVad();
-    if (cadVali1 && cadVali2 && cadVali3 && infoPer) {
-      console.log("todas");
+    if (cadVali1 && cadVali2 && cadVali3 && infoPer && linksVad) {
+      var data = {
+        USUARIO_id_usuario: 4,
+        academicTraining: this.state.valorRadio,
+        lastJob: this.state.textTrabAnter,
+        currentJob: this.state.texTrabActual,
+        extraJob: this.state.textTrabExtra,
+        profileLink:
+          this.links[0] +
+          " " +
+          this.links[1] +
+          " " +
+          this.links[2] +
+          " " +
+          this.links[3],
+      };
+      fetch("/api/cursos/registerTutor", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+
+        .catch((error) => console.error("Error:", error))
+        .then((response) => {
+          if (response.mensaj == "incorrecto MAL") {
+          } else {
+            this.setState({ regisExitoso: true });
+          }
+        });
     }
   }
   linksVad() {
@@ -309,11 +339,7 @@ class RegistroTutor extends Component {
                 El número máximo de caracteres permitidos es de 3000 El número
               </p>
             ) : null}
-            {this.state.linkMinimo ? (
-              <p>
-                Mínimo de caracteres es de 5
-              </p>
-            ) : null}
+            {this.state.linkMinimo ? <p>Mínimo de caracteres es de 5</p> : null}
             {this.state.linkAlmenosDo ? (
               <p>Debe llenar almenos dos campos</p>
             ) : null}
@@ -393,7 +419,9 @@ class RegistroTutor extends Component {
             id="formResgistroTutor"
             class="w3-container w3-card-4 w3-light-grey"
           >
-            <h1 id="titulo" class="w3-center">Se un tutor de Wdemy</h1>
+            <h1 id="titulo" class="w3-center">
+              Se un tutor de Wdemy
+            </h1>
             {this.mostrarFormInfoPersonal()}
             {this.mostrarFormLinks()}
             <form
