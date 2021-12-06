@@ -117,7 +117,7 @@
 }
 .card{
     height: 40px;
-    width: 150px;
+    width: 180px;
     background-color: rgb(94, 139, 126);
     margin-bottom: 1%;
     position: relative;
@@ -141,7 +141,7 @@
 .btnCerrar{
     position: absolute;
     top: 0%;
-    left: 83%;
+    left: 86%;
     height: 66%;
     text-align: top;
     background-color: red;

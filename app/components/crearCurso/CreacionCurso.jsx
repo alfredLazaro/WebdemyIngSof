@@ -15,6 +15,7 @@ class CreacionCurso extends Component{
             campObj     : "",
             campImg     : "",
             campEtiq    : "",
+            campDura    : "",
             errNmLa     :false,
             errNmCor    :false,
             errNmNul    :false,
@@ -30,7 +31,10 @@ class CreacionCurso extends Component{
             errImgSi    :false,
             errImgNul   :false,
             errEtiqNul  :false,
-            errEtiqLar  :false
+            errEtiqLar  :false,
+            errDuraNul  :false,
+            errDuraLet  :false,
+            errDuraLar  :false
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -38,6 +42,7 @@ class CreacionCurso extends Component{
         this.nomChange           =this.nomChange.bind(this);
         this.captDesc            =this.captDesc.bind(this);
         this.captObj             =this.captObj.bind(this);
+        this.capDura             =this.capDura.bind(this);
         this.captReq             =this.captReq.bind(this);
         this.captImg             =this.captImg.bind(this);
         this.captEtiq            =this.captEtiq.bind(this);
@@ -118,6 +123,9 @@ class CreacionCurso extends Component{
             this.setState({campObj:event.target.value});
         }
 
+        capDura(event){
+            this.setState({campDura:event.target.value});
+        }
         captReq(event){
             this.setState({campReq:event.target.value});
         }
@@ -137,7 +145,7 @@ class CreacionCurso extends Component{
             this.validarObj();
             this.validReq();
             this.validImg();
-            this.validEtiq();
+            this.validDuraci();
             return resp;
         }
         validarNomC(){
@@ -184,6 +192,26 @@ class CreacionCurso extends Component{
                 }
             }
             return resp;
+        }
+
+        validDuraci(){
+            var resp=true;
+            var campoDur=this.state.campDura;
+            if(campoDur==""){
+                this.setState({errDuraNul:true});
+            }else{
+                if(campoDur.length>4){
+                this.setState({errDuraLar:true});
+                }else{
+                    if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
+                        /* this.setState({errDuraLet:true}); */
+
+                    }else{
+                        this.setState({errDuraLet:true});
+                    }
+                }
+            }
+            return true;
         }
         validReq(){
             var resp=true;
@@ -310,10 +338,14 @@ class CreacionCurso extends Component{
                         <div className='encolumnarAre'>
                             <div className='alinearCamp'>
                                 <p className='alinDuracion'>Duracion:</p>
-                                <input name="duracion" type="text" cols="4" placeholder="cantidad de dias"/>
+                                <input name="duracion" type="text" cols="4" placeholder="cantidad de dias"
+                                value={this.state.campDura} onChange={this.capDura}
+                                />
                             </div>
                             <div> {/* ver si hay advertencia */}
-
+                            {this.state.errDuraLar?    <p className='alertMsg'>El nombre no debe tener más de 4 cifras</p>    : null} 
+                                {this.state.errDuraLet?    <p className='alertMsg'>Debe insertar un numero</p>    : null} 
+                                {this.state.errDuraNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                             </div>
                         </div>
                     </div>
