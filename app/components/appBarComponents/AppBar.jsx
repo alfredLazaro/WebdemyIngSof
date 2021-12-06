@@ -14,7 +14,9 @@ class AppBar extends Component {
         super(props);
         this.state = {
             nombreUs: "",
-            /*idUs: this.props.idenUsuario()*/
+            idUs: this.props.idenUsuario(),
+            infoTutor: [],
+            esTutor: false
         }
         //pueden reusar eso para que esos botones desaparezcan
         this.showButtonRegister = this.props.showButtRegis || false;
@@ -23,6 +25,7 @@ class AppBar extends Component {
         this.showButtonUser     = this.props.showButtonUser || false;
         //desaparecen o persisten los botones, esta en App.jsx lo llama y manda como parametro que lo
         //inabilite.
+        this.fetchInfoTutor = this.fetchInfoTutor.bind(this);
         this.refrescar = this.refrescar.bind(this);
         this.openPagLogin=this.openPagLogin.bind(this);
         this.openPagRegister=this.openPagRegister.bind(this);   
@@ -31,6 +34,7 @@ class AppBar extends Component {
         this.redirigirPagEst = this.redirigirPagEst.bind(this);
         this.redirigirPagTutor = this.redirigirPagTutor.bind(this);
         this.redirigirRegTutor = this.redirigirRegTutor.bind(this);
+        
     }
 
     componentDidMount(){
@@ -41,6 +45,19 @@ class AppBar extends Component {
                 this.setState({nombreUs: data.nombres + " " + data.apellidos});
             });
         }*/
+        this.fetchInfoTutor();
+        console.log(this.state.esTutor);
+    }
+
+    fetchInfoTutor(){
+        console.log(`/api/cursos/esTutor/${this.state.idUs}`)
+        fetch(`/api/cursos/esTutor/${this.state.idUs}`)
+        .then((res) => res.json())
+        .then(data => {
+            if(data.length>0){
+                this.setState({esTutor: true});
+            }
+        });
     }
 
     refrescar(params) {
@@ -130,8 +147,8 @@ class AppBar extends Component {
                             <div id="listaUser" className="w3-dropdown-content w3-bar-block w3-border">
                                 <button onClick={this.cerrarSes} className="w3-bar-item w3-border opcionDropd">Cerrar Sesion</button>
                                 <button onClick={this.redirigirPagEst} className="w3-bar-item w3-border opcionDropd">Pagina Estudiante</button>
-                                <button onClick={this.redirigirPagTutor} className="w3-bar-item w3-border opcionDropd">Pagina Tutor</button>
-                                <button onClick={this.redirigirRegTutor} className="w3-bar-item w3-border opcionDropd">Convertirse Tutor</button>
+                                { this.state.esTutor ? <button onClick={this.redirigirPagTutor} className="w3-bar-item w3-border opcionDropd">Pagina Tutor</button> : null}
+                                { this.state.esTutor ? null : <button onClick={this.redirigirRegTutor} className="w3-bar-item w3-border opcionDropd">Convertirse Tutor</button>}
                             </div>
                         </div>
                         }

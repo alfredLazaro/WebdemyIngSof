@@ -263,4 +263,28 @@ router.post('/login', async (req,res)=>{
     
 });
 
+router.get('/creadosTutor/:idTut', async (req, res) => {
+    const { idTut } = req.params;
+    const cursos = await pool.query('SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ?', [idTut], (err,rows,fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    });
+    res.send(cursos);
+});
+
+router.get('/esTutor/:idUser', async (req, res) => {
+    const { idUser } = req.params;
+    const cursos = await pool.query('SELECT tutor.* FROM usuario, tutor WHERE usuario.id_usuario = tutor.USUARIO_id_usuario and usuario.id_usuario = ?', [idUser], (err,rows,fields) => {
+        if(!err){
+            res.json(rows);
+        }else{
+            console.log(err);
+        }
+    });
+    res.send(cursos);
+});
+
 module.exports = router;

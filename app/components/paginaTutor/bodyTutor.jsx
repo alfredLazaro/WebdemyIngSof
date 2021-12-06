@@ -7,7 +7,8 @@ class VistaTutor extends Component{
     constructor(props){
         super(props);
         this.state = {
-            cursos: []
+            cursos: [],
+            usuario: props.idenUsuario()
         }
         this.fetchCourse = this.fetchCourse.bind(this);
         this.cortar = this.cortar.bind(this);
@@ -23,7 +24,7 @@ class VistaTutor extends Component{
     }
     
     fetchCourse() {
-        fetch("/api/cursos/cursos")
+        fetch(`/api/cursos/creadosTutor/${this.state.usuario}`)
           .then((res) => res.json())
           .then((data) => {
             this.setState({ cursos: data });
@@ -89,7 +90,7 @@ class VistaTutor extends Component{
                             return(
                             <div key={curso.id_curso} className="cardCurso">
                                 <button className="elementosLista" onClick={this.refrescarPagina}>
-                                    <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > 
+                                    <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > {/* Cambiar redireccion a creacion de curso con el id del curso, como dato global*/}
                                         <div className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCurTutor">
@@ -98,7 +99,7 @@ class VistaTutor extends Component{
                                                 <div className="w3-container w3-cell w3-cell-middle infoCurTutor">
                                                         <div className="w3-cell-row">
                                                             <div className="w3-container w3-cell">
-                                                                <p className="tituloCursTutor">{curso.nombreCurso}</p> 
+                                                                <p className="tituloCursTutor">{curso.nombre}</p> 
                                                             </div>
                                                         </div>
                                                         <div className="w3-cell-row">
