@@ -277,7 +277,7 @@ class RegistroTutor extends Component {
             type="radio"
             id="info4"
             name="drone"
-            value={this.state.infoPersonal3}
+            value={this.state.infoPersonal4}
             onChange={this.changeRadio}
           />
           <label for={this.state.infoPersonal4}>
@@ -289,7 +289,7 @@ class RegistroTutor extends Component {
             type="radio"
             id="info5"
             name="drone"
-            value={this.state.infoPersonal3}
+            value={this.state.infoPersonal5}
             onChange={this.changeRadio}
           />
           <label for={this.state.infoPersonal5}>
@@ -301,7 +301,7 @@ class RegistroTutor extends Component {
             type="radio"
             id="info6"
             name="drone"
-            value={this.state.infoPersonal3}
+            value={this.state.infoPersonal6}
             onChange={this.changeRadio}
           />
           <label for={this.state.infoPersonal6}>
