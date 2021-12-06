@@ -335,8 +335,8 @@ class CreacionCurso extends Component{
                         
                         <div className='encolumnar'>
                             {/* <div className='card'>
-                                <button className='btnCerrar'>x</button>
-                            </div> */}
+                                    <button className='btnCerrar'>x</button>
+                                </div> */}
                             {
                                 this.state.keywords.map(keyw => {
                                     return(
