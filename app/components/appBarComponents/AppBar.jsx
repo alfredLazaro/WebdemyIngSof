@@ -104,7 +104,8 @@ class AppBar extends Component {
 
     redirigirRegTutor(){
         /* Agregar redireccion a pagina registro */
-        window.location.href = window.location.href;
+        this.props.history.push("/registertutor")
+        window.location.href = window.location.href;        
     }
 
     render(){ 
