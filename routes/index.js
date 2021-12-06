@@ -301,31 +301,34 @@ router.post("/registerTutor", async (req, res) => {
   } = req.body;
   console.log(req.body);
 
-  const us = await pool.query(`SELECT * FROM usuario where id_usuario=?`, USUARIO_id_usuario);
+  const us = await pool.query(
+    `SELECT * FROM usuario where id_usuario=?`,
+    USUARIO_id_usuario
+  );
   if (us.length != 0) {
-  const tutor = await pool.query(
-    `insert into tutor ( USUARIO_id_usuario
+    const tutor = await pool.query(
+      `insert into tutor ( USUARIO_id_usuario,
         academicTraining,
         lastJob,
         currentJob,
         extraJob,
-        profileLink,) values (?, ?, ?, ?, ?, ?)`,
-    [
-      USUARIO_id_usuario,
-      academicTraining,
-      lastJob,
-      currentJob,
-      extraJob,
-      profileLink,
-    ],
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows);
-      } else {
-        console.log(err);
+        profileLink) values (?, ?, ?, ?, ?, ?)`,
+      [
+        USUARIO_id_usuario,
+        academicTraining,
+        lastJob,
+        currentJob,
+        extraJob,
+        profileLink,
+      ],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
       }
-    }
-  );
+    );
   } else {
     console.log("ya hay cuenta con el gmail");
     res.json({

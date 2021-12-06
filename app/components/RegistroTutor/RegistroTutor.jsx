@@ -104,6 +104,12 @@ class RegistroTutor extends Component {
     var cadVali3 = this.validarCadenasTexto3(this.state.textTrabExtra);
     var infoPer = this.validarInfoPer();
     var linksVad = this.linksVad();
+    console.log("Validadcion1"+cadVali1);
+    console.log("Validadcion2"+cadVali2);
+    console.log("Validadcion3"+cadVali3);
+    console.log("Validadcion4"+infoPer);
+    console.log("Validadcion5"+linksVad);
+  
     if (cadVali1 && cadVali2 && cadVali3 && infoPer && linksVad) {
       var data = {
         USUARIO_id_usuario: 4,
@@ -120,6 +126,7 @@ class RegistroTutor extends Component {
           " " +
           this.links[3],
       };
+
       fetch("/api/cursos/registerTutor", {
         method: "POST",
         body: JSON.stringify(data),
@@ -139,9 +146,12 @@ class RegistroTutor extends Component {
     }
   }
   linksVad() {
-    if (this.links.length === 0) {
+    var res = true;
+    if (this.links.length < 2) {
       this.setState({ linkAlmenosDo: true });
+      res = false;
     }
+    return res;
   }
   validarInfoPer() {
     var res = true;
@@ -211,6 +221,7 @@ class RegistroTutor extends Component {
   }
   changeRadio(event) {
     this.setState({ valorRadio: event.target.value });
+    console.log(this.state.valorRadio +"sera");
   }
   mostrarFormInfoPersonal() {
     return (
@@ -225,7 +236,7 @@ class RegistroTutor extends Component {
           <input
             className="inputs"
             type="radio"
-            id="huey"
+            id="info1"
             name="drone"
             value={this.state.infoPersonal1}
             onChange={this.changeRadio}
@@ -238,7 +249,7 @@ class RegistroTutor extends Component {
         <div>
           <input
             type="radio"
-            id="dewey"
+            id="info2"
             name="drone"
             value={this.state.infoPersonal2}
             onChange={this.changeRadio}
@@ -251,7 +262,7 @@ class RegistroTutor extends Component {
         <div>
           <input
             type="radio"
-            id="louie"
+            id="info3"
             name="drone"
             value={this.state.infoPersonal3}
             onChange={this.changeRadio}
@@ -264,7 +275,7 @@ class RegistroTutor extends Component {
         <div>
           <input
             type="radio"
-            id="louie"
+            id="info4"
             name="drone"
             value={this.state.infoPersonal3}
             onChange={this.changeRadio}
@@ -276,7 +287,7 @@ class RegistroTutor extends Component {
         <div>
           <input
             type="radio"
-            id="louie"
+            id="info5"
             name="drone"
             value={this.state.infoPersonal3}
             onChange={this.changeRadio}
@@ -288,7 +299,7 @@ class RegistroTutor extends Component {
         <div>
           <input
             type="radio"
-            id="louie"
+            id="info6"
             name="drone"
             value={this.state.infoPersonal3}
             onChange={this.changeRadio}
