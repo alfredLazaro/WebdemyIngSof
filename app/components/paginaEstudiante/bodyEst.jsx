@@ -38,7 +38,7 @@ class VistaEst extends Component{
     }
 
     fetchCourseAlf(){
-        fetch(`/api/cursos/cursosEst/${this.state.usuario}`) //Se cargan los datos de todos los cursos, para pruebas
+        fetch(`/api/cursos/cursosEst/${this.state.usuario}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({cursos: data});
@@ -46,7 +46,7 @@ class VistaEst extends Component{
     }
 
     fetchCourseFech(){
-        fetch(`/api/cursos/cursosEstFech/${this.state.usuario}`) //Se cargan los datos de todos los cursos, para pruebas
+        fetch(`/api/cursos/cursosEstFech/${this.state.usuario}`)
             .then(res => res.json())
             .then(data => {
                 this.setState({cursos: data});

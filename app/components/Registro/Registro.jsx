@@ -10,7 +10,7 @@ import "./Registro.css";
 class Registro extends Component {
   constructor(props) {
     super(props);
-    //this.idenUsuario = 
+    //this.idenUsuario =
     this.iniciarSesion = false;
     this.state = {
       campoNombre: "",
@@ -273,7 +273,7 @@ class Registro extends Component {
     if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9@.\sd]/.test(llenadoCor)) {
       this.setState({ errorCaraEspeciCorreo: true });
       res = false;
-    }
+    } 
     return res;
   }
 
@@ -367,7 +367,7 @@ class Registro extends Component {
       .then((data) => {
         if (data.id_usuario > 1) {
           this.props.history.push(`/Estudiante/`);
-          this.props.iniciarSesion(data.id_usuario);         
+          this.props.iniciarSesion(data.id_usuario);
           window.location.href = window.location.href;
         } else {
           console.log("entra al else");

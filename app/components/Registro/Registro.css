@@ -3,6 +3,8 @@
   font-family: "Roboto";
 }
 h1 {
+  margin-top: 5%;
+  font-family: "Roboto";
   color: black;
   -webkit-text-stroke: 0.9px rgba(60, 96, 223, 0.8);
 }
