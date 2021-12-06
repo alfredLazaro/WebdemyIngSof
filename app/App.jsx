@@ -4,10 +4,10 @@ import Body from "./components/body-components/Body.jsx";
 import Inicio from "./components/VistaInfoCurso/Inicio.jsx";
 import NotFound from "./components/NotFound.jsx";
 import VistaEst from "./components/paginaEstudiante/bodyEst.jsx";
+import VistaTut from "./components/paginaTutor/bodyTutor.jsx";
 import Registro from "./components/Registro/Registro.jsx";
 import CreacionCurso from "./components/crearCurso/CreacionCurso.jsx";
 import InicioDeSesion from "./components/InicioDeSesion/InicioDeSesion.jsx";
-import RegistroTutor from "./components/RegistroTutor/RegistroTutor.jsx";
 
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -21,6 +21,7 @@ function VistaGeneral(props) {
         showButtonUser={true}
         sesionIniciada={props.sesionIniciada}
         cerrarSesion={props.cerrarSesion}
+        idenUsuario={props.idenUsuario}
       />
       <Body />
     </Router>
@@ -36,6 +37,7 @@ function VistaCurso(props) {
         showButtRegis={true}
         showButtLogin={true}
         sesionIniciada={props.sesionIniciada}
+        idenUsuario={props.idenUsuario}
       />
       <Inicio id_curso={params.entrada} />
     </Router>
@@ -50,6 +52,7 @@ function VistaEstudiante(props) {
         showButtonUser={true}
         sesionIniciada={props.sesionIniciada}
         cerrarSesion={props.cerrarSesion}
+        idenUsuario={props.idenUsuario}
       />
       <VistaEst
         sesionIniciada={props.sesionIniciada}
@@ -60,10 +63,27 @@ function VistaEstudiante(props) {
   );
 }
 
+function VistaTutor(props) {
+  return (
+    <Router>
+      <AppBar
+        showButtonUser={true}
+        sesionIniciada={props.sesionIniciada}
+        cerrarSesion={props.cerrarSesion}
+        idenUsuario={props.idenUsuario}
+      />
+      <VistaTut idenUsuario={props.idenUsuario} />
+    </Router>
+  );
+}
+
 function VistaRegistro(props) {
   return (
     <Router>
-      <AppBar sesionIniciada={props.sesionIniciada} />
+      <AppBar
+        sesionIniciada={props.sesionIniciada}
+        idenUsuario={props.idenUsuario}
+      />
       <Registro iniciarSesion={props.iniciarSesion}></Registro>
     </Router>
   );
@@ -78,6 +98,7 @@ function VistaLogin(props) {
         showOptOthers={false}
         showButtonUser={false}
         sesionIniciada={props.sesionIniciada}
+        idenUsuario={props.idenUsuario}
       />
 
       <InicioDeSesion iniciarSesion={props.iniciarSesion}></InicioDeSesion>
@@ -103,12 +124,9 @@ function VistaCrearCurso(props) {
   return (
     <Router>
       <AppBar
-        showButtRegis={false}
-        showButtLogin={false}
-        showOptOthers={false}
-        showButtonUser={false}
         sesionIniciada={props.sesionIniciada}
         cerrarSesion={props.cerrarSesion}
+        idenUsuario={props.idenUsuario}
       />
       <CreacionCurso
         sesionIniciada={props.sesionIniciada}
@@ -168,12 +186,16 @@ class App extends Component {
             <VistaGeneral
               sesionIniciada={this.sesionIniciada}
               cerrarSesion={this.cerrarSesion}
+              idenUsuario={this.idenUsuario}
             />
           </Route>
 
           {/* path="/blog/:slug" */}
           <Route exact path="/Inicio/:entrada">
-            <VistaCurso sesionIniciada={this.sesionIniciada} />
+            <VistaCurso
+              sesionIniciada={this.sesionIniciada}
+              idenUsuario={this.idenUsuario}
+            />
           </Route>
 
           <Route exact path="/estudiante">
@@ -189,14 +211,8 @@ class App extends Component {
             <VistaRegistro
               sesionIniciada={this.sesionIniciada}
               iniciarSesion={this.iniciarSesion}
+              idenUsuario={this.idenUsuario}
             ></VistaRegistro>
-          </Route>
-
-          <Route exact path="/registertutor">
-            <VistaRegistroTutor
-              sesionIniciada={this.sesionIniciada}
-              iniciarSesion={this.iniciarSesion}
-            ></VistaRegistroTutor>
           </Route>
 
           {/* esta de modificarPara que revisa, us y contra */}
@@ -204,6 +220,7 @@ class App extends Component {
             <VistaLogin
               sesionIniciada={this.sesionIniciada}
               iniciarSesion={this.iniciarSesion}
+              idenUsuario={this.idenUsuario}
             />
           </Route>
 
@@ -211,8 +228,23 @@ class App extends Component {
             <VistaCrearCurso
               sesionIniciada={this.sesionIniciada}
               cerrarSesion={this.cerrarSesion}
+              idenUsuario={this.idenUsuario}
             ></VistaCrearCurso>
           </Route>
+          <Route exact path="/tutor">
+            <VistaTutor
+              sesionIniciada={this.sesionIniciada}
+              cerrarSesion={this.cerrarSesion}
+              idenUsuario={this.idenUsuario}
+            />
+          </Route>
+          <Route exact path="/registertutor">
+            <VistaRegistroTutor
+              sesionIniciada={this.sesionIniciada}
+              iniciarSesion={this.iniciarSesion}
+            ></VistaRegistroTutor>
+          </Route>
+
           <Route component={NotFound} />
         </Switch>
       </Router>
