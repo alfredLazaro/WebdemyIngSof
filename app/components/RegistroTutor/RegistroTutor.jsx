@@ -4,7 +4,9 @@ import "./RegistroTutor.css";
 class RegistroTutor extends Component {
   constructor(props) {
     super(props);
+    
     this.state = {
+      idUs: this.props.idenUsuario(),
       texTrabActual: "",
       textTrabAnter: "",
       textTrabExtra: "",

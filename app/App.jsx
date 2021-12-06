@@ -8,6 +8,7 @@ import VistaTut from "./components/paginaTutor/bodyTutor.jsx";
 import Registro from "./components/Registro/Registro.jsx";
 import CreacionCurso from "./components/crearCurso/CreacionCurso.jsx";
 import InicioDeSesion from "./components/InicioDeSesion/InicioDeSesion.jsx";
+import RegistroTutor from "./components/RegistroTutor/RegistroTutor.jsx";
 
 import { useParams } from "react-router";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -114,8 +115,11 @@ function VistaRegistroTutor(props) {
         showOptOthers={false}
         showButtonUser={false}
         sesionIniciada={props.sesionIniciada}
+        idenUsuario ={props.idenUsuario}
       />
-      <RegistroTutor></RegistroTutor>
+      <RegistroTutor
+         idenUsuario ={props.idenUsuario}
+      ></RegistroTutor>
     </Router>
   );
 }
@@ -242,6 +246,7 @@ class App extends Component {
             <VistaRegistroTutor
               sesionIniciada={this.sesionIniciada}
               iniciarSesion={this.iniciarSesion}
+              idenUsuario ={this.idenUsuario}
             ></VistaRegistroTutor>
           </Route>
 
