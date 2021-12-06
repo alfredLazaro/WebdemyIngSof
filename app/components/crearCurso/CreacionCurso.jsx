@@ -57,7 +57,14 @@ class CreacionCurso extends Component{
         this.state.keywords.push(this.state.keyword); //Agrega a lista
         this.setState({keyword: ''})
         console.log(this.state.keywords);
+        var camImg=this.state.keyword;
+            if(camImg==""){
+                this.setState({errEtiqNul:true});
+            }else{
+                
+            }
         this.forceUpdate() //grafica nuevos elementos
+
     }
 
     handleChange(event) {
@@ -201,13 +208,6 @@ class CreacionCurso extends Component{
             }
         }
 
-        validEtiq(){
-            var camEti=this.state.campEtiq;
-            if(camEti==""){     /* verificar si ya hay algun etiquete */
-                this.setState({errEtiqNul:true});
-            }else{}
-        }
-
         validarCurso(){
             var estaBien=this.validarCampos();
         }
@@ -240,7 +240,7 @@ class CreacionCurso extends Component{
                         <h1>CrearCurso</h1>
                         <div className='encolumnar'>
                            <div className='alinearCamp'>
-                            <p className='unalinea'>Nombre de curso:</p>
+                            <p className='unalineaNom'>Nombre de curso:</p>
                             <textarea name="nombreCurso" id="" cols="30" rows="2" placeholder="Inserte un nombre al curso"
                                 value={this.state.campoNombreC} onChange={this.nomChange}
                             ></textarea>
@@ -269,7 +269,7 @@ class CreacionCurso extends Component{
                         </div>
                         <div className='encolumnarAre'>   {/* El campo Objetivo no debe tener menos de 20 caracteres */}
                             <div className='alinearCamp'>
-                                <p className='nombrEtiquet'>Objetivo:</p>
+                                <p className='nombrEtiquetObj'>Objetivo:</p>
                             
                                 <textarea name="objetivo"  cols="30" rows="5" placeholder="Describa las caracteristicas del curso"
                                     value={this.state.campObj} onChange={this.captObj}
@@ -297,14 +297,23 @@ class CreacionCurso extends Component{
                                 </div>
                         </div>
 
-                        
+                        <div className='encolumnarAre'>
+                            <div className='alinearCamp'>
+                                <p className='alinDuracion'>Duracion:</p>
+                                <input name="duracion" type="text" cols="4" placeholder="cantidad de dias"/>
+                            </div>
+                            <div> {/* ver si hay advertencia */}
+
+                            </div>
+                        </div>
                     </div>
 
                     <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         {/* boton para volver */}
-
-                        <button id='EstiloBnt'className='btnVolv'>volver</button>
-
+                        <div className='btnVolv'>
+                            <button id='EstiloBnt'>volver</button>
+                        </div>
+                        
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='alingImg'>Insertar Imagen:</p>

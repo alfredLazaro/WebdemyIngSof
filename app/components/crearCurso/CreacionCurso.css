@@ -76,9 +76,15 @@
     white-space: nowrap;
     overflow: hidden;
 }
-.etiqObjet{
+.nombrEtiquetObj{
     text-align: left;
     margin-left: 72px;
+    margin-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.unalineaNom{
+    margin-left: 6px;
     margin-right: 5px;
     white-space: nowrap;
     overflow: hidden;
@@ -117,6 +123,7 @@
     position: relative;
     overflow: hidden;
     text-align: left;
+    white-space: nowrap;
 }
 .alertMsg{
     color: red;
@@ -138,4 +145,12 @@
     height: 66%;
     text-align: top;
     background-color: red;
+}
+.alinDuracion{
+    text-align: left;
+    margin-left: 70px;
+    margin-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+
 }

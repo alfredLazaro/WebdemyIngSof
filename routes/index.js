@@ -290,4 +290,8 @@ router.get('/esTutor/:idUser', async (req, res) => {
     res.send(cursos);
 });
 
+router.post('/crearcurso/',async (req,res) =>{
+    const {nombre,imagen,descripcion,litle_descripcion,requisitos,duracion,state} =req.body;
+});
+
 module.exports = router;
