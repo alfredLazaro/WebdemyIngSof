@@ -195,7 +195,7 @@ class VistaEst extends Component{
                                         <div key={curso.id_curso} className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCur">
-                                                    <img id="imagenCursoCard" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
+                                                    <img id="imagenCursoCard" src={`${curso.imagen}`}></img>
                                                 </div>
                                                 <div className="w3-container w3-cell w3-cell-middle infoCur">
                                                     <p className="tituloCurs">{curso.nombreCurso}</p>                  

@@ -99,7 +99,7 @@ class VistaTutor extends Component{
                                         <div className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCurTutor">
-                                                    <img id="imagenCursoCardTutor" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
+                                                    <img id="imagenCursoCardTutor" src={`${curso.imagen}`}></img>
                                                 </div>
                                                 <div className="w3-container w3-cell w3-cell-middle infoCurTutor">
                                                         <div className="w3-cell-row">
