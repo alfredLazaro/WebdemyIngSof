@@ -69,7 +69,9 @@ class CreacionCurso extends Component{
             }else{
                 if(camImg>15){
                     this.setState({errEtiqLar:true})
-                }else{}
+                }else{
+                    
+                }
             }
         this.forceUpdate() //grafica nuevos elementos
 
@@ -232,6 +234,8 @@ class CreacionCurso extends Component{
 
         validImg(){
             var camImg=this.state.campImg;
+            var exp =
+      /(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
             if(camImg==""){
                 this.setState({errImgNul:true});
             }else{
