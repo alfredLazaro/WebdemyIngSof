@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Popup from '../body-components/carrucel/Popup.jsx';
 import './bodyTutor.css'
 
@@ -16,6 +16,7 @@ class VistaTutor extends Component{
         this.refrescarPagina = this.refrescarPagina.bind(this);
         this.borrarCurso = this.borrarCurso.bind(this);
         this.modificar = this.modificar.bind(this);
+        this.nuevoCurso = this.nuevoCurso.bind(this);
     }
 
     componentDidMount() {
@@ -48,22 +49,26 @@ class VistaTutor extends Component{
     }
 
     borrarCurso(idCurso){
-        console.log("Ejecutar borrar");
-        console.log(idCurso);
         
         var listCursos = this.state.cursos;
-        console.log(listCursos);
         listCursos = listCursos.filter(function(curso) {
             return curso.id_curso !== idCurso; 
         });
-        console.log(listCursos);
         this.setState({
             cursos: listCursos
         });
     }
 
-    modificar(){
-        console.log("Ejecuta modificar");
+    modificar(idCurso){
+        this.props.redirCurso(idCurso);
+        this.props.history.push("/crearCurso");
+        window.location.href = window.location.href;
+    }
+
+    nuevoCurso(){
+        this.props.redirNuevoC();
+        this.props.history.push("/crearCurso");
+        window.location.href = window.location.href;
     }
 
     render() {
@@ -78,7 +83,7 @@ class VistaTutor extends Component{
                             <p id="txtOrdCursos"> Nuevo curso </p>
                         </div>
                         <div className="w3-container w3-cell w3-cell-middle">
-                            <button className="w3-button btnIconos ">
+                            <button className="w3-button btnIconos" onClick={this.nuevoCurso}>
                                 <i className="material-icons fondIconos">add_box</i>
                             </button>
                         </div>
@@ -121,7 +126,7 @@ class VistaTutor extends Component{
                                     </Link> 
                                 </button>
                                 <div className="botonesCurso">
-                                    <button className="btnModificar" onClick={this.modificar}> Modificar </button>
+                                    <button className="btnModificar" onClick={() => this.modificar(curso.id_curso)}> Modificar </button>
                                     <button className="btnEliminar" onClick={() => this.borrarCurso(curso.id_curso)}> Eliminar </button>
                                 </div>
                             </div>                  
@@ -139,4 +144,4 @@ class VistaTutor extends Component{
         )
     }
 }
-export default VistaTutor;
+export default withRouter(VistaTutor);

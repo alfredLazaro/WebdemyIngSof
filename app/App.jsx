@@ -73,7 +73,11 @@ function VistaTutor(props) {
         cerrarSesion={props.cerrarSesion}
         idenUsuario={props.idenUsuario}
       />
-      <VistaTut idenUsuario={props.idenUsuario} />
+      <VistaTut 
+        idenUsuario={props.idenUsuario} 
+        redirCurso={props.redirCurso}
+        redirNuevoC={props.redirNuevoC}
+      />
     </Router>
   );
 }
@@ -110,12 +114,9 @@ function VistaRegistroTutor(props) {
   return (
     <Router>
       <AppBar
-        showButtRegis={false}
-        showButtLogin={false}
-        showOptOthers={false}
-        showButtonUser={false}
         sesionIniciada={props.sesionIniciada}
         idenUsuario ={props.idenUsuario}
+        cerrarSesion={props.cerrarSesion}
       />
       <RegistroTutor
          idenUsuario ={props.idenUsuario}
@@ -128,13 +129,14 @@ function VistaCrearCurso(props) {
   return (
     <Router>
       <AppBar
+        showButtonUser={true}
         sesionIniciada={props.sesionIniciada}
         cerrarSesion={props.cerrarSesion}
         idenUsuario={props.idenUsuario}
       />
       <CreacionCurso
         sesionIniciada={props.sesionIniciada}
-        cerrarSesion={props.cerrarSesion}
+        idenCurso={props.idenCurso}
       ></CreacionCurso>
     </Router>
   );
@@ -145,12 +147,16 @@ class App extends Component {
     this.state = JSON.parse(window.localStorage.getItem("state")) || {
       idUsuario: 0,
       estaSesionIni: false,
+      idCurso: 0
     };
 
     this.sesionIniciada = this.sesionIniciada.bind(this);
     this.iniciarSesion = this.iniciarSesion.bind(this);
     this.cerrarSesion = this.cerrarSesion.bind(this);
     this.idenUsuario = this.idenUsuario.bind(this);
+    this.idenCurso = this.idenCurso.bind(this);
+    this.redirCurso = this.redirCurso.bind(this);
+    this.redirNuevoC = this.redirNuevoC.bind(this);
   }
 
   setState(state) {
@@ -167,18 +173,42 @@ class App extends Component {
     return this.state.idUsuario;
   }
 
+  idenCurso(e){
+    return this.state.idCurso;
+  }
+
+  redirCurso(idenCurso){
+    this.setState({
+      idUsuario: this.state.idUsuario,
+      estaSesionIni: this.state.estaSesionIni,
+      idCurso: idenCurso
+    });
+    console.log(this.state)
+  }
+
+  redirNuevoC(e){
+    this.setState({
+      idUsuario: this.state.idUsuario,
+      estaSesionIni: this.state.estaSesionIni,
+      idCurso: 0
+    });
+    console.log(this.state)
+  }
+
   iniciarSesion(idIniciado) {
     this.setState({
       idUsuario: idIniciado,
       estaSesionIni: true,
+      idCurso: 0
     });
   }
 
   cerrarSesion() {
     //Prueba para paso de valores en funcion
-    return this.setState({
+    this.setState({
       idUsuario: 0,
       estaSesionIni: false,
+      idCurso: 0
     });
   }
 
@@ -233,6 +263,7 @@ class App extends Component {
               sesionIniciada={this.sesionIniciada}
               cerrarSesion={this.cerrarSesion}
               idenUsuario={this.idenUsuario}
+              idenCurso={this.idenCurso}
             ></VistaCrearCurso>
           </Route>
           <Route exact path="/tutor">
@@ -240,6 +271,8 @@ class App extends Component {
               sesionIniciada={this.sesionIniciada}
               cerrarSesion={this.cerrarSesion}
               idenUsuario={this.idenUsuario}
+              redirCurso={this.redirCurso}
+              redirNuevoC={this.redirNuevoC}
             />
           </Route>
           <Route exact path="/registertutor">
