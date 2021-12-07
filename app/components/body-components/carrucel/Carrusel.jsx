@@ -76,7 +76,7 @@ class Filtro extends Component {
       e.preventDefault();
       return false;
     } else {
-      var patron = /[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+      var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
       var tecla_final = String.fromCharCode(tecla);
 
       if (patron.test(tecla_final)) {
