@@ -10,9 +10,11 @@ const router = express.Router();
 const pool = require("../config/database");
 const bcrypt = require("bcryptjs");
 
-router.get('/cursos', async (req,res)=>{
-    const repetidos= await pool.query('SELECT curso.id_curso, curso.nombre as nombreCurso, curso.imagen, curso.inscritos,  curso.state, curso.created_at, etiqueta.nombre as nombreEtiqueta, usuario.nombres as nomT, usuario.apellidos as apellT FROM curso, curso_has_etiqueta, etiqueta, tutor, usuario WHERE curso.id_curso = curso_has_etiqueta.curso_id_curso and curso_has_etiqueta.etiqueta_id_etiqueta = etiqueta.id_etiqueta and curso.tutor_id_tutor = tutor.id_tutor and usuario.id_usuario = tutor.usuario_id_usuario ORDER BY inscritos desc,created_at desc');
-    res.send(repetidos);
+router.get("/cursos", async (req, res) => {
+  const repetidos = await pool.query(
+    "SELECT curso.id_curso, curso.nombre as nombreCurso, curso.imagen, curso.inscritos,  curso.state, curso.created_at, etiqueta.nombre as nombreEtiqueta, usuario.nombres as nomT, usuario.apellidos as apellT FROM curso, curso_has_etiqueta, etiqueta, tutor, usuario WHERE curso.id_curso = curso_has_etiqueta.curso_id_curso and curso_has_etiqueta.etiqueta_id_etiqueta = etiqueta.id_etiqueta and curso.tutor_id_tutor = tutor.id_tutor and usuario.id_usuario = tutor.usuario_id_usuario ORDER BY inscritos desc,created_at desc"
+  );
+  res.send(repetidos);
 });
 
 router.get("/cursos", async (req, res) => {
@@ -22,30 +24,38 @@ router.get("/cursos", async (req, res) => {
   res.send(repetidos);
 });
 
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const cursos = await pool.query('SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?', [id], (err,rows,fields) => {
-        if(!err){
-            res.json(rows[0]);
-        }else{
-            console.log(err);
-        }
-    });
-    
-    res.send(cursos); //muestra la consulta en la pagina
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const cursos = await pool.query(
+    "SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?",
+    [id],
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows[0]);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+
+  res.send(cursos); //muestra la consulta en la pagina
 });
 
-router.get('/:idEst/info', async (req, res) => {
-    const { idEst } = req.params;
-    const cursos = await pool.query('SELECT usuario.nombres, usuario.apellidos FROM usuario WHERE  usuario.id_usuario = ?', [idEst], (err,rows,fields) => {
-        if(!err){
-            res.json(rows[0]);
-        }else{
-            console.log(err);
-        }
-    });
-    
-    res.send(cursos); //muestra la consulta en la pagina
+router.get("/:idEst/info", async (req, res) => {
+  const { idEst } = req.params;
+  const cursos = await pool.query(
+    "SELECT usuario.nombres, usuario.apellidos FROM usuario WHERE  usuario.id_usuario = ?",
+    [idEst],
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows[0]);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+
+  res.send(cursos); //muestra la consulta en la pagina
 });
 
 router.get("/:id", async (req, res) => {
@@ -344,32 +354,131 @@ router.post("/registerTutor", async (req, res) => {
   console.log("sale del post");
 });
 
-router.get('/creadosTutor/:idTut', async (req, res) => {
-    const { idTut } = req.params;
-    const cursos = await pool.query('SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ?', [idTut], (err,rows,fields) => {
-        if(!err){
-            res.json(rows);
-        }else{
-            console.log(err);
-        }
-    });
-    res.send(cursos);
+router.get("/creadosTutor/:idTut", async (req, res) => {
+  const { idTut } = req.params;
+  const cursos = await pool.query(
+    "SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ?",
+    [idTut],
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+  res.send(cursos);
 });
 
-router.get('/esTutor/:idUser', async (req, res) => {
-    const { idUser } = req.params;
-    const cursos = await pool.query('SELECT tutor.* FROM usuario, tutor WHERE usuario.id_usuario = tutor.USUARIO_id_usuario and usuario.id_usuario = ?', [idUser], (err,rows,fields) => {
-        if(!err){
-            res.json(rows);
-        }else{
-            console.log(err);
-        }
-    });
-    res.send(cursos);
+router.get("/esTutor/:idUser", async (req, res) => {
+  const { idUser } = req.params;
+  const cursos = await pool.query(
+    "SELECT tutor.* FROM usuario, tutor WHERE usuario.id_usuario = tutor.USUARIO_id_usuario and usuario.id_usuario = ?",
+    [idUser],
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+  res.send(cursos);
 });
 
-router.post('/crearcurso/',async (req,res) =>{
-    const {nombre,imagen,descripcion,litle_descripcion,requisitos,duracion,state} =req.body;
+router.post("/crearcurso/", async (req, res) => {
+  const {
+    nombre,
+    imagen,
+    descripcion,
+    litle_descripcion,
+    requisitos,
+    duracion,
+    state,
+  } = req.body;
+});
+
+router.post("/crearcurso", async (req, res) => {
+  const {
+    tutorId,
+    nombre,
+    imagen,
+    descripcion,
+    requisitos,
+    duraciion,
+    objetivo,
+    palabrasClave,
+  } = req.body;
+  console.log(req.body);
+  //Creacion curso..
+  const curso = await pool.query(
+    `insert into curso ( TUTOR_id_tutor,nombre, imagen, descripcion, litle_descripcion ,requisitos,duracion) values (?, ?, ?, ?, ?, ?)`,
+    [
+      tutorId,
+      nombre,
+      imagen,
+      descripcion,
+      requisitos,
+      duraciion,
+      objetivo,
+      palabrasClave,
+    ],
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+  //obtener  id_curso, pero nose por que criterio.. pensaba tomar al ultimo curso creado.
+  const idCurso = await pool.query(
+    `SELECT id_curso FROM curso`,
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+  //creamos todas las palabras clave.
+  for (var i = 0; i < palabrasClave.length; i++) {
+    const etiqueta = await pool.query(
+      `insert into etiqueta (nombre ) values (?)`,
+      palabrasClave[i],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+    //solo se podria obtener el ultimo id de la tabla
+    const idEtiqueta = await pool.query(
+      `select id_etiqueta from etiqueta`,
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+
+    const cursoHasEti = await pool.query(
+      `insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?)`,
+      [idCurso, idEtiqueta],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  }
 });
 
 module.exports = router;
