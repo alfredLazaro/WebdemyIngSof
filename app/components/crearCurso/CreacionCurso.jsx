@@ -63,6 +63,7 @@ class CreacionCurso extends Component{
         this.validEtiq           =this.validEtiq.bind(this);
         this.validarCurso        =this.validarCurso.bind(this);
         this.handleChar          = this.handleChar.bind(this);
+        this.obtenerDatos        =this.obtenerDatos.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -256,6 +257,7 @@ class CreacionCurso extends Component{
                         this.setState({errDuraLet:true});
                         resp=false;
                     } */
+                    
                     if(this.state.respuestaDur){
                         
                     }else{
@@ -351,7 +353,7 @@ class CreacionCurso extends Component{
                         tags: this.state.campEtiq,
                         duration: this.state.campDura
                     }
-                    fetch("/api/cursos/registerCurso", {
+                    fetch("/api/cursos/crearcurso", {
                         method: "POST",
                         body: JSON.stringify(data),
                         headers: {
@@ -373,7 +375,9 @@ class CreacionCurso extends Component{
             }else{}
 
         }
-
+        obtenerDatos(){
+                /* en aqui debe existir un get que mande idCurso y cambiar estados de entrada */
+        }
         volver() {
             history.back();
         }
