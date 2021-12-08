@@ -104,7 +104,7 @@ class Inicio extends Component {
                             <div className='contenidoCaja'>
                                 {this.state.nombreTut}
                                 <br />
-                                {this.state.objCurso.bibliografia}
+                                {this.state.objCurso.lastJob}
                             </div>
                             <div className="infoCursos">
                                 Duracion del curso: {this.state.objCurso.duracion} dias

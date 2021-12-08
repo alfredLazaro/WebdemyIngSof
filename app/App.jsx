@@ -114,6 +114,7 @@ function VistaRegistroTutor(props) {
   return (
     <Router>
       <AppBar
+        showButtonUser={true}
         sesionIniciada={props.sesionIniciada}
         idenUsuario ={props.idenUsuario}
         cerrarSesion={props.cerrarSesion}

@@ -64,6 +64,8 @@ class CreacionCurso extends Component{
         this.validarCurso        =this.validarCurso.bind(this);
         this.handleChar          = this.handleChar.bind(this);
         this.obtenerDatos        =this.obtenerDatos.bind(this);
+        this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
+        this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -82,9 +84,9 @@ class CreacionCurso extends Component{
                         this.setState({errEtiqNoper:true});
                     }else{
                         this.state.keywords.push(this.state.keyword); //Agrega a lista
-                    this.setState({keyword: ''});
-                    console.log(this.state.keywords);
-                    this.forceUpdate() //grafica nuevos elementos
+                        this.setState({keyword: ''});
+                        console.log(this.state.keywords);
+                        this.forceUpdate() //grafica nuevos elementos
                     }
                 }
             }
@@ -381,6 +383,39 @@ class CreacionCurso extends Component{
         volver() {
             history.back();
         }
+
+        componentDidMount(){
+            if(this.state.idCurso!=0){
+                this.fetchInfoCurso(this.state.idCurso);
+                this.fetchEtiquetas(this.state.idCurso);
+            }
+            this.forceUpdate();
+        }
+
+
+        fetchInfoCurso(idCurso){
+            fetch(`/api/cursos/${idCurso}`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    campNmC: data.nombre,
+                    campDesc: data.descripcion,
+                    campObj: data.litle_descripcion,
+                    campImg: data.imagen,
+                    campReq: data.requisitos,
+                    campDura: data.duracion
+                });
+            });
+        }
+        fetchEtiquetas(idCurso){
+            fetch(`/api/cursos/${idCurso}/etiquetas`)
+            .then(res => res.json())
+            .then(data => {
+                data.map(keyword => {
+                    this.state.keywords.push(keyword.nombre);
+                })
+            });
+        }
     render(){
         return(
         <html lang="en">
@@ -412,8 +447,8 @@ class CreacionCurso extends Component{
                            <div className='alinearCamp'>
                             <p className='unalineaNom'>Nombre de curso:</p>
                             <textarea name="nombreCurso" id="" cols="30" rows="2" placeholder="Inserte un nombre al curso"
-                                value={this.state.campoNombreC} onChange={this.nomChange}
-                            ></textarea>
+                               value={this.state.campNmC} onChange={this.nomChange}
+                            ></textarea> {/* Modificado para pruebas en campo value*/} 
                             
                             </div>
                             <div >

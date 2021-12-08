@@ -8,7 +8,8 @@ class VistaTutor extends Component{
         super(props);
         this.state = {
             cursos: [],
-            usuario: props.idenUsuario()
+            usuario: props.idenUsuario(),
+            textPopup: ""
         }
         this.fetchCourse = this.fetchCourse.bind(this);
         this.cortar = this.cortar.bind(this);
@@ -17,11 +18,18 @@ class VistaTutor extends Component{
         this.borrarCurso = this.borrarCurso.bind(this);
         this.modificar = this.modificar.bind(this);
         this.nuevoCurso = this.nuevoCurso.bind(this);
+        this.deleteEtiquetas = this.deleteEtiquetas.bind(this);
+        this.deleteModulos = this.deleteModulos.bind(this);
+        this.deleteUsuarios = this.deleteUsuarios.bind(this);
+        this.deleteCurso = this.deleteCurso.bind(this);
+        this.togglePopup = this.togglePopup.bind(this);
+        this.togglePopupAct = this.togglePopupAct.bind(this);
+
+        this.showPopup = false;
     }
 
     componentDidMount() {
         this.fetchCourse();
-        console.log(this.state.cursos);
     }
     
     fetchCourse() {
@@ -44,20 +52,142 @@ class VistaTutor extends Component{
         return text.slice(1,11);
     }
 
+    togglePopup() {
+        this.setState({
+          showPopup: !this.state.showPopup,
+        });
+    }
+
+    togglePopupAct() {
+        this.setState({
+          showPopup: !this.state.showPopup,
+        });
+        window.location.href = window.location.href;
+    }
+
     refrescarPagina(){
         window.location.href = window.location.href;
     }
 
     borrarCurso(idCurso){
         
-        var listCursos = this.state.cursos;
+        /*var listCursos = this.state.cursos;
         listCursos = listCursos.filter(function(curso) {
             return curso.id_curso !== idCurso; 
         });
         this.setState({
             cursos: listCursos
+        });*/
+
+        this.deleteEtiquetas(idCurso);
+        this.deleteModulos(idCurso);
+        this.deleteUsuarios(idCurso);
+        this.deleteCurso(idCurso);
+        this.fetchCourse();
+
+        this.setState({
+            textPopup: "Se elimino correctamente el curso",
         });
+        this.togglePopup();
+
+        
     }
+
+    deleteEtiquetas(idCurso){
+        try {
+            var data ={
+                idenCurso: idCurso
+            };
+            fetch(`/api/cursos/deleteCurso/etiquetas`,{
+                
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            })
+                .then(res => res.json())
+                .then(dato =>{ 
+                    console.log(dato)
+                }
+              )
+              
+        } catch (error) {
+            console.log("Error al eliminar")
+        }
+    }
+
+    deleteModulos(idCurso){
+        try {
+            var data ={
+                idenCurso: idCurso
+            };
+            fetch(`/api/cursos/deleteCurso/modulos`,{
+                
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            })
+                .then(res => res.json())
+                .then(dato =>{ 
+                    console.log(dato)
+                }
+              )
+              
+        } catch (error) {
+            console.log("Error al eliminar")
+        }
+    }
+
+    deleteUsuarios(idCurso){
+        try {
+            var data ={
+                idenCurso: idCurso
+            };
+            fetch(`/api/cursos/deleteCurso/usuarios`,{
+                
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            })
+                .then(res => res.json())
+                .then(dato =>{ 
+                    console.log(dato)
+                }
+              )
+              
+        } catch (error) {
+            console.log("Error al eliminar")
+        }
+    }
+    deleteCurso(idCurso){
+        try {
+            var data ={
+                idenCurso: idCurso
+            };
+            fetch(`/api/cursos/deleteCurso`,{
+                
+                method: 'DELETE',
+                body: JSON.stringify(data),
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            })
+                .then(res => res.json())
+                .then(dato =>{ 
+                    console.log(dato)
+                }
+              )
+              
+        } catch (error) {
+            console.log("Error al eliminar")
+        }
+    }
+
 
     modificar(idCurso){
         this.props.redirCurso(idCurso);
@@ -140,6 +270,12 @@ class VistaTutor extends Component{
                         <img id='imagenError' src={`/assets/imagenes/vacio.png`}></img>  
                     </div> : null
                 }
+                {this.state.showPopup ? (
+                <Popup
+                    text={this.state.textPopup}
+                    closePopup={this.togglePopupAct.bind(this)}
+                />
+                ) : null}
             </div>
         )
     }

@@ -6,7 +6,7 @@ module.exports = {
     database: "bnzejryfzccllt1iv6cd",
   },
 
-  /* database: {
+   /*database: {
 
         host: 'localhost',
         user: 'root',
