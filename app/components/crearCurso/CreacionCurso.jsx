@@ -16,6 +16,9 @@ class CreacionCurso extends Component{
             campImg     : "",
             campEtiq    : "",
             campDura    : "",
+
+            respuestaDur:true,
+
             errNmLa     :false,
             errNmCor    :false,
             errNmNul    :false,
@@ -59,7 +62,7 @@ class CreacionCurso extends Component{
         this.validImg            =this.validImg.bind(this);
         this.validEtiq           =this.validEtiq.bind(this);
         this.validarCurso        =this.validarCurso.bind(this);
-        
+        this.handleChar          = this.handleChar.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -209,7 +212,9 @@ class CreacionCurso extends Component{
                 if(campoDes.length<20){
                     this.setState({errDesCor:true});
                     resp=false;
-                }else{}
+                }else{
+                    if(campoDes.length>4095){}else{}
+                }
             }
             return resp;
         }
@@ -244,17 +249,44 @@ class CreacionCurso extends Component{
                 this.setState({errDuraLar:true});
                 resp=false;
                 }else{
-                    if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
-                        /* this.setState({errDuraLet:true}); */
+                    /* if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
+                        
 
                     }else{
                         this.setState({errDuraLet:true});
                         resp=false;
+                    } */
+                    if(this.state.respuestaDur){
+                        
+                    }else{
+                        this.setState({errDuraLet:true});
+                        resp=false;
+
                     }
+
                 }
             }
             return resp;
         }
+
+        handleChar(e){
+            
+            var tecla = e.charCode;
+            var patron= /[0-9\s]/;
+            var tecla_final = String.fromCharCode(tecla);
+            if(patron.test(tecla_final)){
+                this.setState({respuestaDur:true});
+                this.setState({errDuraLet:false});
+            }else{
+                /* this.setState({errDuraLet:true}); */
+                
+                console.log("no meti un numero");
+                this.setState({respuestaDur:false});
+                console.log(this.state.respuestaDur);
+            }
+            
+        }
+
         validReq(){
             var resp=true;
             var campRequis=this.state.campReq;
@@ -309,6 +341,10 @@ class CreacionCurso extends Component{
             console.log("esta funcionando")
             var estaBien=this.validarCampos();
             console.log(estaBien);
+        }
+
+        volver() {
+            history.back();
         }
     render(){
         return(
@@ -400,7 +436,7 @@ class CreacionCurso extends Component{
                             <div className='alinearCamp'>
                                 <p className='alinDuracion'>Duracion:</p>
                                 <input name="duracion" className="entrada" type="text" cols="4" placeholder="cantidad de dias"
-                                value={this.state.campDura} onChange={this.capDura}
+                                value={this.state.campDura} onChange={this.capDura} onKeyPress={this.handleChar}
                                 />
                             </div>
                             <div> {/* ver si hay advertencia */}
@@ -414,7 +450,7 @@ class CreacionCurso extends Component{
                     <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         {/* boton para volver */}
                         <div className='btnVolv'>
-                            <button id='EstiloBnt'>volver</button>
+                            <button id='EstiloBnt' onClick={this.volver}>volver</button>
                         </div>
                         
                         <div className='encolumnar'>
@@ -426,7 +462,6 @@ class CreacionCurso extends Component{
                             </div>
                                 <div >
                                     {this.state.errImgSi?    <p className='alertMsg'>no es una url</p>    : null} 
-                                
                                     {this.state.errImgNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>
