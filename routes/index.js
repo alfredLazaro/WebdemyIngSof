@@ -405,9 +405,8 @@ router.post("/crearcurso", async (req, res) => {
     imagen,
     descripcion,
     requisitos,
-    duraciion,
-    objetivo,
-    palabrasClave,
+    duracion,
+    objetivo
   } = req.body;
   console.log(req.body);
   //Creacion curso..
@@ -419,7 +418,7 @@ router.post("/crearcurso", async (req, res) => {
       imagen,
       descripcion,
       requisitos,
-      duraciion,
+      duracion,
       objetivo,
       palabrasClave,
     ],
@@ -436,7 +435,7 @@ router.post("/crearcurso", async (req, res) => {
     `SELECT id_curso FROM curso`,
     (err, rows, fields) => {
       if (!err) {
-        res.json(rows);
+        res.json(rows[rows.length]);
       } else {
         console.log(err);
       }
@@ -460,7 +459,7 @@ router.post("/crearcurso", async (req, res) => {
       `select id_etiqueta from etiqueta`,
       (err, rows, fields) => {
         if (!err) {
-          res.json(rows);
+          res.json(rows[rows.length]);
         } else {
           console.log(err);
         }
