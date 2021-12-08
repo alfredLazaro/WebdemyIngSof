@@ -66,7 +66,7 @@ class CreacionCurso extends Component{
         console.log(this.state.keyword);
         this.devolvEstadiEtiq();
         
-        console.log(this.state.keywords);
+        
         var camImg=this.state.keyword;
             if(camImg==""){
                 this.setState({errEtiqNul:true});
@@ -78,7 +78,8 @@ class CreacionCurso extends Component{
                         this.setState({errEtiqNoper:true});
                     }else{
                         this.state.keywords.push(this.state.keyword); //Agrega a lista
-                    this.setState({keyword: ''})
+                    this.setState({keyword: ''});
+                    console.log(this.state.keywords);
                     this.forceUpdate() //grafica nuevos elementos
                     }
                 }
@@ -165,13 +166,18 @@ class CreacionCurso extends Component{
         validarCampos(){
             var resp = true;
             this.devolverEstado();
-            this.validarNomC();
-            this.validarDes();
-            this.validarObj();
-            this.validReq();
-            this.validImg();
-            this.validDuraci();
-            this.validEtiq();
+            var v1=this.validarNomC();
+            var v2=this.validarDes();
+            var v3=this.validarObj();
+            var v4=this.validReq();
+            var v5=this.validImg();
+            var v6=this.validDuraci();
+            var v7=this.validEtiq();
+            if(v1 && v2 && v3 && v4 && v5 && v6 && v7){
+                resp=true;
+            }else{
+                resp=false;
+            }
             return resp;
         }
         validarNomC(){
@@ -183,9 +189,11 @@ class CreacionCurso extends Component{
             }else{
                 if(campoNom.length>45){
                     this.setState({errNmLa:true});
+                    resp=false;
                 }else{
                     if(campoNom.length<3){
                         this.setState({errNmCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -196,9 +204,11 @@ class CreacionCurso extends Component{
             var campoDes=this.state.campDesc;
             if(campoDes==""){
                 this.setState({errDesNul:true});
+                resp=false;
             }else{
                 if(campoDes.length<20){
                     this.setState({errDesCor:true});
+                    resp=false;
                 }else{}
             }
             return resp;
@@ -208,12 +218,15 @@ class CreacionCurso extends Component{
             var campoObj=this.state.campObj;
             if(campoObj==""){
                 this.setState({errObjNul:true});
+                resp=false;
             }else{
                 if(campoObj.length>127){
                     this.setState({errObjLa:true});
+                    resp=false;
                 }else{
                     if(campoObj.length<20){
                         this.setState({errObjCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -225,31 +238,37 @@ class CreacionCurso extends Component{
             var campoDur=this.state.campDura;
             if(campoDur==""){
                 this.setState({errDuraNul:true});
+                resp=false;
             }else{
                 if(campoDur.length>3){
                 this.setState({errDuraLar:true});
+                resp=false;
                 }else{
                     if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
                         /* this.setState({errDuraLet:true}); */
 
                     }else{
                         this.setState({errDuraLet:true});
+                        resp=false;
                     }
                 }
             }
-            return true;
+            return resp;
         }
         validReq(){
             var resp=true;
             var campRequis=this.state.campReq;
             if(campRequis==""){
                 this.setState({errReqNul:true});
+                resp=false;
             }else{
                 if(campRequis.length>250){
                     this.setState({errReqLa:true});
+                    resp=false;
                 }else{
                     if(campRequis.length<5){
                         this.setState({errReqCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -257,10 +276,12 @@ class CreacionCurso extends Component{
         }
 
         validImg(){
+            var resp=true;
             var camImg=this.state.campImg;
             var exp =/(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
             if(camImg==""){
                 this.setState({errImgNul:true});
+                resp=false;
             }else{
                 if(exp.test(camImg)){
                     this.setState({errImgSi:true}); /* no estoy seguro pero parece que funca */
@@ -268,22 +289,26 @@ class CreacionCurso extends Component{
                     
                 }
             }
+            return resp;
         }
 
         validEtiq(){
             var resp=true;
             var camEti=this.state.campEtiq;
             if(this.state.keywords.length==0){     /* verificar si ya hay algun etiquete */
-                console.log('Etiqueta')
                 this.setState({errEtiqNoHay:true});
+
+                resp=false;
             }else{
-                this.setState({errEtiqNoHay:true});
+                
             }
             return resp;
         }
 
         validarCurso(){
+            console.log("esta funcionando")
             var estaBien=this.validarCampos();
+            console.log(estaBien);
         }
     render(){
         return(
@@ -374,7 +399,7 @@ class CreacionCurso extends Component{
                         <div className='encolumnarAre'>
                             <div className='alinearCamp'>
                                 <p className='alinDuracion'>Duracion:</p>
-                                <input name="duracion" type="text" cols="4" placeholder="cantidad de dias"
+                                <input name="duracion" className="entrada" type="text" cols="4" placeholder="cantidad de dias"
                                 value={this.state.campDura} onChange={this.capDura}
                                 />
                             </div>
@@ -395,7 +420,7 @@ class CreacionCurso extends Component{
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='alingImg'>Insertar Imagen:</p>
-                                <input name="imagen" type="text"  placeholder="Inserte url de la imagen"
+                                <input name="imagen" className="entrada" type="text"  placeholder="Inserte url de la imagen"
                                     value={this.state.campImg}   onChange={this.captImg}
                                 />
                             </div>
@@ -409,7 +434,7 @@ class CreacionCurso extends Component{
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='unaLin'>Palabras clave:</p>
-                                <input type="text" placeholder="Inserte palabra clave"
+                                <input type="text" className="entrada" placeholder="Inserte palabra clave"
                                     value={this.state.keyword} onChange={this.handleChange} 
                                     /* value={this.state.campEtiq} onChange={this.captEtiq} */
                                 />{/* no estoy seguro de esto */}
