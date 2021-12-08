@@ -22,18 +22,6 @@ router.get("/cursos", async (req, res) => {
   res.send(repetidos);
 });
 
-router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    const cursos = await pool.query('SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?', [id], (err,rows,fields) => {
-        if(!err){
-            res.json(rows[0]);
-        }else{
-            console.log(err);
-        }
-    });
-    
-    res.send(cursos); //muestra la consulta en la pagina
-});
 
 router.get('/:idEst/info', async (req, res) => {
     const { idEst } = req.params;
@@ -48,11 +36,11 @@ router.get('/:idEst/info', async (req, res) => {
     res.send(cursos); //muestra la consulta en la pagina
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/:idCurso", async (req, res) => {
+  const { idCurso } = req.params;
   const cursos = await pool.query(
-    "SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.bibliografia, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?",
-    [id],
+    "SELECT curso.*, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?",
+    [idCurso],
     (err, rows, fields) => {
       if (!err) {
         res.json(rows[0]);
@@ -65,11 +53,11 @@ router.get("/:id", async (req, res) => {
   res.send(cursos); //muestra la consulta en la pagina
 });
 
-router.get("/:id/modulos", async (req, res) => {
-  const { id } = req.params;
+router.get("/:idCurso/modulos", async (req, res) => {
+  const { idCurso } = req.params;
   const cursos = await pool.query(
     "SELECT modulo.nombre FROM modulo Join curso WHERE id_curso = curso_id_curso and id_curso= ?",
-    [id],
+    [idCurso],
     (err, rows, fields) => {
       if (!err) {
         res.json(rows);
@@ -82,11 +70,11 @@ router.get("/:id/modulos", async (req, res) => {
   res.send(cursos); //muestra la consulta en la pagina
 });
 
-router.get("/:id/etiquetas", async (req, res) => {
-  const { id } = req.params;
+router.get("/:idCurso/etiquetas", async (req, res) => {
+  const { idCurso } = req.params;
   const cursos = await pool.query(
     "SELECT E.nombre FROM etiqueta as E Join curso  Join curso_has_etiqueta WHERE id_curso = curso_id_curso and id_etiqueta=ETIQUETA_id_etiqueta and id_curso= ?",
-    [id],
+    [idCurso],
     (err, rows, fields) => {
       if (!err) {
         res.json(rows);
@@ -487,6 +475,18 @@ router.delete("/deleteCurso", async (req, res) => {
     console.log("no existe tal curso, para eliminar");   
   }
   console.log("sale del post");
+});
+
+router.get('/creadosTutor/:idTut', async (req, res) => {
+  const { idTut } = req.params;
+  const cursos = await pool.query('SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ? ORDER BY curso.created_at desc', [idTut], (err,rows,fields) => {
+      if(!err){
+          res.json(rows);
+      }else{
+          console.log(err);
+      }
+  });
+  res.send(cursos);
 });
 
 module.exports = router;
