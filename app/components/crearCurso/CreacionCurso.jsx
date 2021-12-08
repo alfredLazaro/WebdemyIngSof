@@ -16,6 +16,9 @@ class CreacionCurso extends Component{
             campImg     : "",
             campEtiq    : "",
             campDura    : "",
+
+            respuestaDur:true,
+
             errNmLa     :false,
             errNmCor    :false,
             errNmNul    :false,
@@ -35,6 +38,8 @@ class CreacionCurso extends Component{
             errDuraNul  :false,
             errDuraLet  :false,
             errDuraLar  :false,
+            errEtiqNoHay:false,
+            errEtiqNoper:false,
 
             idCurso: this.props.idenCurso()
         }
@@ -57,26 +62,39 @@ class CreacionCurso extends Component{
         this.validImg            =this.validImg.bind(this);
         this.validEtiq           =this.validEtiq.bind(this);
         this.validarCurso        =this.validarCurso.bind(this);
-        
+        this.handleChar          = this.handleChar.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
         console.log(this.state.keyword);
-        this.state.keywords.push(this.state.keyword); //Agrega a lista
-        this.setState({keyword: ''})
-        console.log(this.state.keywords);
+        this.devolvEstadiEtiq();
+        
+        
         var camImg=this.state.keyword;
             if(camImg==""){
                 this.setState({errEtiqNul:true});
             }else{
                 if(camImg>15){
-                    this.setState({errEtiqLar:true})
+                    this.setState({errEtiqLar:true});
                 }else{
-                    
+                    if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd0-9#-+]/.test(camImg)){
+                        this.setState({errEtiqNoper:true});
+                    }else{
+                        this.state.keywords.push(this.state.keyword); //Agrega a lista
+                    this.setState({keyword: ''});
+                    console.log(this.state.keywords);
+                    this.forceUpdate() //grafica nuevos elementos
+                    }
                 }
             }
-        this.forceUpdate() //grafica nuevos elementos
-
+        
+    }
+    devolvEstadiEtiq(){
+        this.setState({
+            errEtiqLar:false,
+            errEtiqNul:false,
+            errEtiqNoper:false
+        });
     }
 
     handleChange(event) {
@@ -100,19 +118,26 @@ class CreacionCurso extends Component{
         devolverEstado(){
             this.setState({
                 errNmLa     :false,
-            errNmCor    :false,
-            errNmNul    :false,
-            errDesNul   :false,
-            errDesCor   :false,
-            errObjLa    :false,
-            errObjCor   :false,
-            errObjNul   :false,
-
-            errReqLa    :false,
-            errReqNul   :false,
-            errReqCor   :false,
-            errImgSi    :false,
-            errImgNul   :false
+                errNmCor    :false,
+                errNmNul    :false,
+                errDesNul   :false,
+                errDesCor   :false,
+                errObjLa    :false,
+                errObjCor   :false,
+                errObjNul   :false,
+    
+                errReqLa    :false,
+                errReqNul   :false,
+                errReqCor   :false,
+                errImgSi    :false,
+                errImgNul   :false,
+                errEtiqNul  :false,
+                errEtiqLar  :false,
+                errDuraNul  :false,
+                errDuraLet  :false,
+                errDuraLar  :false,
+                errEtiqNoHay:false,
+                errEtiqNoper:false
             });
         }
         nomChange(event){
@@ -144,12 +169,18 @@ class CreacionCurso extends Component{
         validarCampos(){
             var resp = true;
             this.devolverEstado();
-            this.validarNomC();
-            this.validarDes();
-            this.validarObj();
-            this.validReq();
-            this.validImg();
-            this.validDuraci();
+            var v1=this.validarNomC();
+            var v2=this.validarDes();
+            var v3=this.validarObj();
+            var v4=this.validReq();
+            var v5=this.validImg();
+            var v6=this.validDuraci();
+            var v7=this.validEtiq();
+            if(v1 && v2 && v3 && v4 && v5 && v6 && v7){
+                resp=true;
+            }else{
+                resp=false;
+            }
             return resp;
         }
         validarNomC(){
@@ -161,9 +192,11 @@ class CreacionCurso extends Component{
             }else{
                 if(campoNom.length>45){
                     this.setState({errNmLa:true});
+                    resp=false;
                 }else{
                     if(campoNom.length<3){
                         this.setState({errNmCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -174,10 +207,14 @@ class CreacionCurso extends Component{
             var campoDes=this.state.campDesc;
             if(campoDes==""){
                 this.setState({errDesNul:true});
+                resp=false;
             }else{
                 if(campoDes.length<20){
                     this.setState({errDesCor:true});
-                }else{}
+                    resp=false;
+                }else{
+                    if(campoDes.length>4095){}else{}
+                }
             }
             return resp;
         }
@@ -186,12 +223,15 @@ class CreacionCurso extends Component{
             var campoObj=this.state.campObj;
             if(campoObj==""){
                 this.setState({errObjNul:true});
+                resp=false;
             }else{
                 if(campoObj.length>127){
                     this.setState({errObjLa:true});
+                    resp=false;
                 }else{
                     if(campoObj.length<20){
                         this.setState({errObjCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -203,31 +243,64 @@ class CreacionCurso extends Component{
             var campoDur=this.state.campDura;
             if(campoDur==""){
                 this.setState({errDuraNul:true});
+                resp=false;
             }else{
-                if(campoDur.length>4){
+                if(campoDur.length>3){
                 this.setState({errDuraLar:true});
+                resp=false;
                 }else{
-                    if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
-                        /* this.setState({errDuraLet:true}); */
+                    /* if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
+                        
 
                     }else{
                         this.setState({errDuraLet:true});
+                        resp=false;
+                    } */
+                    if(this.state.respuestaDur){
+                        
+                    }else{
+                        this.setState({errDuraLet:true});
+                        resp=false;
+
                     }
+
                 }
             }
-            return true;
+            return resp;
         }
+
+        handleChar(e){
+            
+            var tecla = e.charCode;
+            var patron= /[0-9\s]/;
+            var tecla_final = String.fromCharCode(tecla);
+            if(patron.test(tecla_final)){
+                this.setState({respuestaDur:true});
+                this.setState({errDuraLet:false});
+            }else{
+                /* this.setState({errDuraLet:true}); */
+                
+                console.log("no meti un numero");
+                this.setState({respuestaDur:false});
+                console.log(this.state.respuestaDur);
+            }
+            
+        }
+
         validReq(){
             var resp=true;
             var campRequis=this.state.campReq;
             if(campRequis==""){
                 this.setState({errReqNul:true});
+                resp=false;
             }else{
                 if(campRequis.length>250){
                     this.setState({errReqLa:true});
+                    resp=false;
                 }else{
                     if(campRequis.length<5){
                         this.setState({errReqCor:true});
+                        resp=false;
                     }else{}
                 }
             }
@@ -235,25 +308,43 @@ class CreacionCurso extends Component{
         }
 
         validImg(){
+            var resp=true;
             var camImg=this.state.campImg;
-            var exp =
-      /(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
+            var exp =/(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
             if(camImg==""){
                 this.setState({errImgNul:true});
+                resp=false;
             }else{
-                
+                if(exp.test(camImg)){
+                    this.setState({errImgSi:true}); /* no estoy seguro pero parece que funca */
+                }else{
+                    
+                }
             }
+            return resp;
         }
 
         validEtiq(){
+            var resp=true;
             var camEti=this.state.campEtiq;
-            if(camEti==""){     /* verificar si ya hay algun etiquete */
-                this.setState({errEtiqNul:true});
-            }else{}
+            if(this.state.keywords.length==0){     /* verificar si ya hay algun etiquete */
+                this.setState({errEtiqNoHay:true});
+
+                resp=false;
+            }else{
+                
+            }
+            return resp;
         }
 
         validarCurso(){
+            console.log("esta funcionando")
             var estaBien=this.validarCampos();
+            console.log(estaBien);
+        }
+
+        volver() {
+            history.back();
         }
     render(){
         return(
@@ -344,12 +435,12 @@ class CreacionCurso extends Component{
                         <div className='encolumnarAre'>
                             <div className='alinearCamp'>
                                 <p className='alinDuracion'>Duracion:</p>
-                                <input name="duracion" type="text" cols="4" placeholder="cantidad de dias"
-                                value={this.state.campDura} onChange={this.capDura}
+                                <input name="duracion" className="entrada" type="text" cols="4" placeholder="cantidad de dias"
+                                value={this.state.campDura} onChange={this.capDura} onKeyPress={this.handleChar}
                                 />
                             </div>
                             <div> {/* ver si hay advertencia */}
-                            {this.state.errDuraLar?    <p className='alertMsg'>El nombre no debe tener más de 4 cifras</p>    : null} 
+                            {this.state.errDuraLar?    <p className='alertMsg'>El nombre no debe tener más de 3 cifras</p>    : null} 
                                 {this.state.errDuraLet?    <p className='alertMsg'>Debe insertar un numero</p>    : null} 
                                 {this.state.errDuraNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                             </div>
@@ -359,19 +450,18 @@ class CreacionCurso extends Component{
                     <div className='segColum'>{/* no se si esta clase sea muy necesaria */}
                         {/* boton para volver */}
                         <div className='btnVolv'>
-                            <button id='EstiloBnt'>volver</button>
+                            <button id='EstiloBnt' onClick={this.volver}>volver</button>
                         </div>
                         
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='alingImg'>Insertar Imagen:</p>
-                                <input name="imagen" type="text" placeholder="Inserte url de la imagen"
+                                <input name="imagen" className="entrada" type="text"  placeholder="Inserte url de la imagen"
                                     value={this.state.campImg}   onChange={this.captImg}
                                 />
                             </div>
                                 <div >
                                     {this.state.errImgSi?    <p className='alertMsg'>no es una url</p>    : null} 
-                                
                                     {this.state.errImgNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>
@@ -379,7 +469,7 @@ class CreacionCurso extends Component{
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='unaLin'>Palabras clave:</p>
-                                <input type="text" placeholder="Inserte palabra clave"
+                                <input type="text" className="entrada" placeholder="Inserte palabra clave"
                                     value={this.state.keyword} onChange={this.handleChange} 
                                     /* value={this.state.campEtiq} onChange={this.captEtiq} */
                                 />{/* no estoy seguro de esto */}
@@ -388,6 +478,8 @@ class CreacionCurso extends Component{
                             <div>
                                 {this.state.errEtiqNul? <p className='alertMsg'>El campo es obligatorio</p> :null}
                                 {this.state.errEtiqLar? <p className='alertMsg'>No debe tener más de 15 caracteres</p>:null}
+                                {this.state.errEtiqNoper? <p className='alertMsg'>El caracter no es permitido</p>:null}
+                                {this.state.errEtiqNoHay? <p className='alertMsg'>Debe insertar palabra clave</p>:null}
                             </div>
                         </div>
                         
@@ -406,7 +498,7 @@ class CreacionCurso extends Component{
                                 })
                             }
                         </div>
-
+                            {/* <img src="https://i.blogs.es/594843/chrome/450_1000.jpg" alt="prueba" /> */}
                         <div className='posBtnG'>
                             <button  id='EstiloBnt'  className="w3-button "  onClick={this.validarCurso} >Guardar Curso</button>
                         </div>
