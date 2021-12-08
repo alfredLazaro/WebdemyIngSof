@@ -375,7 +375,7 @@ class RegistroTutor extends Component {
       res = false;
     }
     //revisar eso ojo!!
-    if (exp.test(this.state.link) || !this.state.link.includes(".")) {
+    if (!exp.test(this.state.link) || !this.state.link.includes(".")) {
       this.setState({ debeSerLinkOurl: true });
       res = false;
     }
