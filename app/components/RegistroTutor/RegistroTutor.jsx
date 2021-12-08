@@ -41,7 +41,7 @@ class RegistroTutor extends Component {
       linkAlmenosDo: false,
       debeSerLinkOurl: false,
       ocultarCampoLink: false,
-      regisExitoso :false
+      regisExitoso: false,
     };
     this.links = [];
     this.changeTrabActual = this.changeTrabActual.bind(this);
@@ -98,7 +98,6 @@ class RegistroTutor extends Component {
       linkMinimo: false,
       linkAlmenosDo: false,
       debeSerLinkOurl: false,
-      ocultarCampoLink: false,
     });
   }
 
@@ -143,7 +142,7 @@ class RegistroTutor extends Component {
             this.setState({ regisExitoso: true });
           }
         });
-        this.setState({regisExitoso:true});
+      this.setState({ regisExitoso: true });
     }
   }
   linksVad() {
@@ -335,12 +334,8 @@ class RegistroTutor extends Component {
                   value={this.state.link}
                   onChange={this.changeLink}
                 />
-                <div className="w3-button">
-                  <i
-                    className="fas fa-check-square"
-                    id="iconWorkRegis"
-                    onClick={this.guardarLink}
-                  ></i>
+                <div className="w3-button" onClick={this.guardarLink}>
+                  <i className="fas fa-check-square" id="iconWorkRegis"></i>
                 </div>
               </div>
             )}
@@ -364,7 +359,7 @@ class RegistroTutor extends Component {
   validarErrores() {
     var res = true;
     var exp =
-      /(\b(((https?|ftp|file|):\/\/)|www[.])[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/;
+      /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
 
     if (this.state.link.length < 6) {
       this.setState({ linkMinimo: true });
@@ -375,7 +370,11 @@ class RegistroTutor extends Component {
       res = false;
     }
     //revisar eso ojo!!
-    if (!exp.test(this.state.link) || !this.state.link.includes(".")) {
+    var primer = exp.test(this.state.link);
+    var segund = this.state.link.includes(".");
+    if (primer || segund) {
+      this.setState({ debeSerLinkOurl: false });
+    } else {
       this.setState({ debeSerLinkOurl: true });
       res = false;
     }
@@ -383,7 +382,13 @@ class RegistroTutor extends Component {
   }
   guardarLink() {
     var val = this.validarErrores();
+
     if (val) {
+      this.setState({
+        linkMaximo: false,
+        linkMinimo: false,
+        linkAlmenosDo: false,
+      });
       if (this.links.length <= 4) {
         if (this.links.length <= 0) {
           this.links.push(this.state.link);
@@ -400,9 +405,9 @@ class RegistroTutor extends Component {
       }
     }
   }
-  mandarAsuVistaTutor(){
+  mandarAsuVistaTutor() {
     this.props.history.push("/tutor");
-          window.location.href = window.location.href;
+    window.location.href = window.location.href;
   }
 
   render() {
@@ -431,7 +436,7 @@ class RegistroTutor extends Component {
           <title>Document</title>
         </head>
         <body>
-        {this.state.regisExitoso ? (
+          {this.state.regisExitoso ? (
             <div className="popup">
               <div className="popup_inner">
                 <p className="textoPopup">Registro exitoso!</p>
