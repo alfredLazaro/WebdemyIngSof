@@ -346,7 +346,7 @@ router.post("/registerTutor", async (req, res) => {
 
 router.get('/creadosTutor/:idTut', async (req, res) => {
     const { idTut } = req.params;
-    const cursos = await pool.query('SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ?', [idTut], (err,rows,fields) => {
+    const cursos = await pool.query('SELECT curso.* FROM curso, usuario, tutor WHERE curso.TUTOR_id_tutor = tutor.id_tutor and tutor.USUARIO_id_usuario = usuario.id_usuario and id_usuario = ? ORDER BY curso.created_at desc', [idTut], (err,rows,fields) => {
         if(!err){
             res.json(rows);
         }else{
@@ -370,6 +370,123 @@ router.get('/esTutor/:idUser', async (req, res) => {
 
 router.post('/crearcurso/',async (req,res) =>{
     const {nombre,imagen,descripcion,litle_descripcion,requisitos,duracion,state} =req.body;
+});
+
+router.delete("/deleteCurso/etiquetas", async (req, res) => {
+  const { idenCurso } = req.body;
+  
+  const us = await pool.query(
+    `SELECT * FROM curso where id_curso = ?`,
+    idenCurso
+  );
+  if (us.length != 0) {
+    console.log("Entra a eliminar curso")
+    const etiquetas = await pool.query(
+      `DELETE
+       FROM curso_has_etiqueta
+       WHERE curso_has_etiqueta.CURSO_id_curso = ?`,
+      [
+        idenCurso
+      ],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    console.log("no existe tal curso, para eliminar");   
+  }
+  console.log("sale del post");
+});
+
+router.delete("/deleteCurso/modulos", async (req, res) => {
+  const { idenCurso } = req.body;
+  
+  const us = await pool.query(
+    `SELECT * FROM curso where id_curso = ?`,
+    idenCurso
+  );
+  if (us.length != 0) {
+    const modulos = await pool.query(
+      `DELETE
+       FROM modulo
+       WHERE modulo.CURSO_id_curso = ?`,
+      [
+        idenCurso
+      ],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    console.log("no existe tal curso, para eliminar");   
+  }
+  console.log("sale del post");
+});
+
+router.delete("/deleteCurso/usuarios", async (req, res) => {
+  const { idenCurso } = req.body;
+  
+  const us = await pool.query(
+    `SELECT * FROM curso where id_curso = ?`,
+    idenCurso
+  );
+  if (us.length != 0) {
+    const usuarios = await pool.query(
+      `DELETE 
+       FROM usuario_has_curso
+       WHERE usuario_has_curso.CURSO_id_curso = ?`,
+      [
+        idenCurso
+      ],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    console.log("no existe tal curso, para eliminar");   
+  }
+  console.log("sale del post");
+});
+
+router.delete("/deleteCurso", async (req, res) => {
+  const { idenCurso } = req.body;
+  
+  const us = await pool.query(
+    `SELECT * FROM curso where id_curso = ?`,
+    idenCurso
+  );
+  if (us.length != 0) {
+    const cursos = await pool.query(
+      `DELETE
+       FROM curso
+       WHERE curso.id_curso = ?`,
+      [
+        idenCurso
+      ],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    console.log("no existe tal curso, para eliminar");   
+  }
+  console.log("sale del post");
 });
 
 module.exports = router;
