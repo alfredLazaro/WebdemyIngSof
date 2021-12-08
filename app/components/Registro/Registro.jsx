@@ -603,9 +603,9 @@ class Registro extends Component {
             </div>
 
             <div className="enlacePre">
-              <p>¿Ya tiene cuenta?</p>
-              <a id="enlace" href="/login">
-                Iniciar Sesión
+              <p>¿ya tienes cuenta?</p>
+              <a className="enlaceIni" href="/login">
+                iniciar sesion
               </a>
             </div>
           </div>

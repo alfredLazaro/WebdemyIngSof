@@ -7,7 +7,7 @@ create table `usuario` (
   `nombres` varchar(25) not null,
   `apellidos` varchar(25) not null,
   `correo` varchar(50) not null,
-  `contrasena` varchar(40) not null,
+  `contrasena` varchar(80) not null,
   `fotografia` varchar(255) default NULL,
   `created_at` timestamp not null default current_timestamp(),
   `updated_at` timestamp not null default current_timestamp(),
@@ -15,18 +15,18 @@ create table `usuario` (
 ) ENGINE=InnoDB default CHARset=utf8mb4;
 
 insert into `usuario` (`nombres`, `apellidos`, `correo`, `contrasena`) values
-('Alvaro', 'Linera', 'linerita33@gmail.com', 'sumamos1mas1'),
-('Adrianita', 'Salvatierra', 'adrianapress2030@gmail.com', 'paralamento2018'),
-('Javier', 'Filgrana Agreda', 'jav15porsiempre@gmail.com', 'javier2019'),
-('Mauricio', 'Huayta Villanueva', 'andres30porsiempre@gmail.com', 'mauricio2019'),
-('Alfredo', 'Lazaro Poma', 'alfredo18porsiiempre@gmail.com', 'alfredo2018'),
-('Ivan', 'Martinez Achata', 'elviscocho@gmail.com', 'elviscocho2020'),
-('Evo', 'Morales', 'evito33@gmail.com', 'sumamos5mas5'),
-('Arce', 'Catocora', 'catacora2025@gmail.com', 'presidente2025'),
-('Leticia', 'Blanco', 'laquenoteaprueba@gmail.com', 'algoritmosavanzados'),
-('Mauricio', 'Montencinos', 'aceonepiece@gmail.com', 'mauricio1010'),
-('Marcelo', 'Jaldin', 'sintarea09@gmail.com', 'tallerdebasedatos'),
-('Vladimir', 'Oropeza', 'macporsiempre@gmail.com', 'programación web');
+('Alvaro', 'Linera', 'linerita33@gmail.com', '$2a$08$2ACc0z7XlRP0dwQNl6qQ8uq28Vy6XFsXCTL24ljAkYb2g9ELC6RLy'),
+('Adrianita', 'Salvatierra', 'adrianapress2030@gmail.com', '$2a$08$9rFIGKccv21sDk3Fyg45ROss6aA.NHKaCoYD4Ld3YvUUKWxn4u4/m'),
+('Javier', 'Filgrana Agreda', 'jav15porsiempre@gmail.com', '$2a$08$CZ3As1yKDgx3Hkhpa5RPfuFO7/vt6f4/EGBHuEto5HIw1ls.wzn1e'),
+('Mauricio', 'Huayta Villanueva', 'andres30porsiempre@gmail.com', '$2a$08$bprNMPJzKSoI.R9L22Sr4uKgiRUojqXA4KDrvUe0XbfGsewLR4RTm'),
+('Alfredo', 'Lazaro Poma', 'alfredo18porsiiempre@gmail.com', '$2a$08$Av21Lf5Fqa5h1g4A7AFjy.wmLTFota1I93ZnKN.TxZDGjyjy.60DG'),
+('Ivan', 'Martinez Achata', 'elviscocho@gmail.com', '$2a$08$SKyzuBRzyS9hv0bjrKyVxO1re1k6qNb6xeGZBm9aJXKpxxiZUB7QG'),
+('Evo', 'Morales', 'evito33@gmail.com', '$2a$08$mq40uU3xro1GM4JSZ8oKqOcYnLYixwrzO3Y7YT7TdBN1qFr4m.Fjy'),
+('Arce', 'Catocora', 'catacora2025@gmail.com', '$2a$08$U.LKHRGRZHaJSMBjMUEAyeCE9xs7auNO6L/J9NtPiE3extk5Eg81S'),
+('Leticia', 'Blanco', 'laquenoteaprueba@gmail.com', '$2a$08$c25tqx5hj6MDMB4A0313q.KLXAU.BISR9NsH5NFAFhSzDFsZUhnu2'),
+('Mauricio', 'Montencinos', 'aceonepiece@gmail.com', '$2a$08$3zFwHS6aXYMFNFDpqDGIh.AltG3L0UCugGCbVsJYc1egvxsBMZWVC'),
+('Marcelo', 'Jaldin', 'sintarea09@gmail.com', '$2a$08$w99rJy9kzEaXCLkjeUXt8uaYmvrt4xPJZ2k7krzTJyEqndH6sh/Gi'),
+('Vladimir', 'Oropeza', 'macporsiempre@gmail.com', '$2a$08$WvdOAs5f/YZPpFquE3T6jOIMnmZC3ptOU77R0.r2BuCpnJdtcwWRe');
 
 create table `tutor` (
   `id_tutor` integer(11) not null AUTO_INCREMENT,
