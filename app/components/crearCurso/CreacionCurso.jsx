@@ -1,3 +1,4 @@
+import { response } from "express";
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import "./CreacionCurso.css";
@@ -57,13 +58,13 @@ class CreacionCurso extends Component{
         this.validImg            =this.validImg.bind(this);
         this.validEtiq           =this.validEtiq.bind(this);
         this.validarCurso        =this.validarCurso.bind(this);
-        
-    }   
+
+    }
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
         console.log(this.state.keyword);
         this.devolvEstadiEtiq();
-        
+
         console.log(this.state.keywords);
         var camImg=this.state.keyword;
             if(camImg==""){
@@ -81,7 +82,7 @@ class CreacionCurso extends Component{
                     }
                 }
             }
-        
+
     }
     devolvEstadiEtiq(){
         this.setState({
@@ -92,14 +93,14 @@ class CreacionCurso extends Component{
     }
 
     handleChange(event) {
-        this.setState({keyword: event.target.value});  
+        this.setState({keyword: event.target.value});
         event.preventDefault();
     }
 
     borrarKWord(kword){
         var arr = this.state.keywords
         var i = arr.indexOf( kword );
- 
+
         if ( i !== -1 ) {
             arr.splice( i, 1 );
         }
@@ -119,7 +120,7 @@ class CreacionCurso extends Component{
                 errObjLa    :false,
                 errObjCor   :false,
                 errObjNul   :false,
-    
+
                 errReqLa    :false,
                 errReqNul   :false,
                 errReqCor   :false,
@@ -172,6 +173,38 @@ class CreacionCurso extends Component{
             this.validEtiq();
             return resp;
         }
+
+    PutBD() {
+        try {
+            var data = {
+                description: this.state.campDesc,
+                requirements: this.state.campReq,
+                objetives: this.state.campObj,
+                image:this.state.campImg,
+                tags: this.state.campEtiq,
+                duration: this.state.campDura
+            }
+            fetch("/api/cursos/registerCurso", {
+                method: "POST",
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+            .then((response) => {
+                if (response."nombreMensaje" == "Incorrecto") {
+                }else{
+                    this.setState({ "AtributoDeRegistroExitoso" : true });
+                }
+            });
+        } catch (eer) {
+            console.log(eer);
+            console.log("No se envió el curso.");
+        }
+    }
+
         validarNomC(){
             var resp = true;
             var campoNom=this.state.campNmC;
@@ -263,7 +296,7 @@ class CreacionCurso extends Component{
                 if(exp.test(camImg)){
                     this.setState({errImgSi:true}); /* no estoy seguro pero parece que funca */
                 }else{
-                    
+
                 }
             }
         }
@@ -307,7 +340,7 @@ class CreacionCurso extends Component{
 
         <body>
             <div id='fondoCursoCol'>
-                
+
                     <div className='primFil'>
                         <h1>Crear Curso</h1>
                         <div className='encolumnar'>
@@ -316,40 +349,40 @@ class CreacionCurso extends Component{
                             <textarea name="nombreCurso" id="" cols="30" rows="2" placeholder="Inserte un nombre al curso"
                                 value={this.state.campoNombreC} onChange={this.nomChange}
                             ></textarea>
-                            
+
                             </div>
                             <div >
-                                {this.state.errNmLa?    <p className='alertMsg'>El nombre no debe tener más de 45 caracteres</p>    : null} 
-                                {this.state.errNmCor?    <p className='alertMsg'>Debe insertar más de 2 caracteres</p>    : null} 
+                                {this.state.errNmLa?    <p className='alertMsg'>El nombre no debe tener más de 45 caracteres</p>    : null}
+                                {this.state.errNmCor?    <p className='alertMsg'>Debe insertar más de 2 caracteres</p>    : null}
                                 {this.state.errNmNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
-                            </div> 
+                            </div>
                         </div>
-                        
+
                         <div className='encolumnarAre'>
                             <div className='alinearCamp'>
                                 <p className='nombrEtiquet'>Descripcion:</p>
-                            
+
                                 <textarea name="descrip"  cols="30" rows="5" placeholder="Describa las caracteristicas del curso"
                                     value={this.state.campDesc} onChange={this.captDesc}
                                 ></textarea>
-                            
+
                             </div>
                                 <div >
-                                    {this.state.errDesCor?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null} 
+                                    {this.state.errDesCor?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null}
                                     {this.state.errDesNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>
                         <div className='encolumnarAre'>   {/* El campo Objetivo no debe tener menos de 20 caracteres */}
                             <div className='alinearCamp'>
                                 <p className='nombrEtiquetObj'>Objetivo:</p>
-                            
+
                                 <textarea name="objetivo"  cols="30" rows="5" placeholder="Describa las caracteristicas del curso"
                                     value={this.state.campObj} onChange={this.captObj}
                                 ></textarea>
-                            
+
                             </div>
                                 <div >
-                                    {this.state.errObjCor?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null} 
+                                    {this.state.errObjCor?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null}
                                     {this.state.errObjNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                     {this.state.errObjLa?    <p className='alertMsg'>El campo Objetivo no debe tener más de 127 caracteres</p>    : null}
                                 </div>
@@ -363,8 +396,8 @@ class CreacionCurso extends Component{
                                 ></textarea>
                             </div>
                             <div >
-                                    {this.state.errReqLa?    <p className='alertMsg'>Los requisitos no deben tener más de 250 caracteres</p>    : null} 
-                                    {this.state.errReqCor?    <p className='alertMsg'>Debe insertar más de 5 caracteres</p>    : null} 
+                                    {this.state.errReqLa?    <p className='alertMsg'>Los requisitos no deben tener más de 250 caracteres</p>    : null}
+                                    {this.state.errReqCor?    <p className='alertMsg'>Debe insertar más de 5 caracteres</p>    : null}
                                     {this.state.errReqNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>
@@ -377,8 +410,8 @@ class CreacionCurso extends Component{
                                 />
                             </div>
                             <div> {/* ver si hay advertencia */}
-                            {this.state.errDuraLar?    <p className='alertMsg'>El nombre no debe tener más de 3 cifras</p>    : null} 
-                                {this.state.errDuraLet?    <p className='alertMsg'>Debe insertar un numero</p>    : null} 
+                            {this.state.errDuraLar?    <p className='alertMsg'>El nombre no debe tener más de 3 cifras</p>    : null}
+                                {this.state.errDuraLet?    <p className='alertMsg'>Debe insertar un numero</p>    : null}
                                 {this.state.errDuraNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                             </div>
                         </div>
@@ -389,7 +422,7 @@ class CreacionCurso extends Component{
                         <div className='btnVolv'>
                             <button id='EstiloBnt'>volver</button>
                         </div>
-                        
+
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='alingImg'>Insertar Imagen:</p>
@@ -398,17 +431,17 @@ class CreacionCurso extends Component{
                                 />
                             </div>
                                 <div >
-                                    {this.state.errImgSi?    <p className='alertMsg'>no es una url</p>    : null} 
-                                
+                                    {this.state.errImgSi?    <p className='alertMsg'>no es una url</p>    : null}
+
                                     {this.state.errImgNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>
-                        
+
                         <div className='encolumnar'>
                             <div className='alinearCamp'>
                                 <p className='unaLin'>Palabras clave:</p>
                                 <input type="text" placeholder="Inserte palabra clave"
-                                    value={this.state.keyword} onChange={this.handleChange} 
+                                    value={this.state.keyword} onChange={this.handleChange}
                                     /* value={this.state.campEtiq} onChange={this.captEtiq} */
                                 />{/* no estoy seguro de esto */}
                                 <button  id='EstiloBnt' className='posBtnG' class="w3-button "  onClick={this.validarInicio} >Insertar</button>
@@ -420,7 +453,7 @@ class CreacionCurso extends Component{
                                 {this.state.errEtiqNoHay? <p className='alertMsg'>Debe insertar palabra clave</p>:null}
                             </div>
                         </div>
-                        
+
                         <div className='encolumnar'>
                             {/* <div className='card'>
                                     <button className='btnCerrar'>x</button>
@@ -442,9 +475,9 @@ class CreacionCurso extends Component{
                         </div>
                     </div>
 
-                
 
-                
+
+
             </div>
         </body>
         </html>
