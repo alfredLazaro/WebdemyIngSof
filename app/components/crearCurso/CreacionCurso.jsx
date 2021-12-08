@@ -36,7 +36,9 @@ class CreacionCurso extends Component{
             errDuraLet  :false,
             errDuraLar  :false,
             errEtiqNoHay:false,
-            errEtiqNoper:false
+            errEtiqNoper:false,
+
+            idCurso: this.props.idenCurso()
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -309,7 +311,7 @@ class CreacionCurso extends Component{
             <div id='fondoCursoCol'>
                 
                     <div className='primFil'>
-                        <h1>Crear Curso</h1>
+                        { this.state.idCurso == 0 ? <h1> Crear Curso </h1> : <h1> Modificar Curso </h1>}
                         <div className='encolumnar'>
                            <div className='alinearCamp'>
                             <p className='unalineaNom'>Nombre de curso:</p>
