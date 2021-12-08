@@ -341,6 +341,37 @@ class CreacionCurso extends Component{
             console.log("esta funcionando")
             var estaBien=this.validarCampos();
             console.log(estaBien);
+            if(estaBien){
+                try {
+                    var data = {
+                        description: this.state.campDesc,
+                        requirements: this.state.campReq,
+                        objetives: this.state.campObj,
+                        image:this.state.campImg,
+                        tags: this.state.campEtiq,
+                        duration: this.state.campDura
+                    }
+                    fetch("/api/cursos/registerCurso", {
+                        method: "POST",
+                        body: JSON.stringify(data),
+                        headers: {
+                            "Content-Type": "application/json",
+                        }
+                    })
+                    .then((res) => res.json())
+                    .catch((error) => console.error("Error:", error))
+                    .then((response) => {
+                        /* if (response."nombreMensaje" == "Incorrecto") {
+                        }else{
+                            this.setState({ "AtributoDeRegistroExitoso" : true });
+                        } */
+                    });
+                } catch (eer) {
+                    console.log(eer);
+                    console.log("No se envió el curso.");
+                }
+            }else{}
+
         }
 
         volver() {
