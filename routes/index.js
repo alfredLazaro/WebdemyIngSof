@@ -385,28 +385,20 @@ router.get("/esTutor/:idUser", async (req, res) => {
 
 
 router.post("/crearcurso", async (req, res) => {
-  const {
-    tutorId,
-    nombre,
-    imagen,
-    descripcion,
-    objetivo,
-    requisitos,
-    duracion,
-    palabrasClave
-  } = req.body;
+  const { idTutor, nombreC, image, description, objetives, requirements, duration, tags } = req.body;
   console.log(req.body);
   //Creacion curso..
   const curso = await pool.query(
-    `insert into curso ( TUTOR_id_tutor,nombre, imagen, descripcion, litle_descripcion ,requisitos,duracion,state) values (?, ?, ?, ?, ?, ?,?)`,
+    "insert into curso ( TUTOR_id_tutor, nombre, imagen, descripcion, litle_descripcion ,requisitos ,duracion ,state, inscritos) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
-      tutorId,
-      nombre,
-      imagen,
-      descripcion,
-      objetivo,
-      requisitos,
-      duracion,
+      idTutor, 
+      nombreC, 
+      image, 
+      description, 
+      objetives, 
+      requirements, 
+      duration, 
+      0,
       0
     ],
     (err, rows, fields) => {
@@ -422,17 +414,17 @@ router.post("/crearcurso", async (req, res) => {
     `SELECT id_curso FROM curso`,
     (err, rows, fields) => {
       if (!err) {
-        res.json(rows[rows.length]);
+        res.json(rows[rows.length].id_curso);
       } else {
         console.log(err);
       }
     }
   );
   //creamos todas las palabras clave.
-  for (var i = 0; i < palabrasClave.length; i++) {
+  for (var i = 0; i < tags.length; i++) {
     const etiqueta = await pool.query(
       `insert into etiqueta (nombre ) values (?)`,
-      palabrasClave[i],
+      tags[i],
       (err, rows, fields) => {
         if (!err) {
           res.json(rows);
@@ -446,7 +438,7 @@ router.post("/crearcurso", async (req, res) => {
       `select id_etiqueta from etiqueta`,
       (err, rows, fields) => {
         if (!err) {
-          res.json(rows[rows.length]);
+          res.json(rows[rows.length].id_etiqueta);
         } else {
           console.log(err);
         }
