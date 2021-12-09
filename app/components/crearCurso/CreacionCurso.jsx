@@ -41,7 +41,8 @@ class CreacionCurso extends Component{
             errEtiqNoHay:false,
             errEtiqNoper:false,
 
-            idCurso: this.props.idenCurso()
+            idCurso: this.props.idenCurso(),
+            idUsuario: this.props.idenUsuario()
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
