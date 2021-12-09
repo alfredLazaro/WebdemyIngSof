@@ -244,6 +244,7 @@ class CreacionCurso extends Component{
         validDuraci(){
             var resp=true;
             var campoDur=this.state.campDura;
+            var patron= /[0-9\s]/;
             if(campoDur==""){
                 this.setState({errDuraNul:true});
                 resp=false;
@@ -260,13 +261,24 @@ class CreacionCurso extends Component{
                         resp=false;
                     } */
                     
+                    /* for(i=0;i<campoDur.length;i++){
+                        console.log("entra al for")
+                        if(patron.test(campoDur.charAt(i))){
+                            console.log("entra al if")
+                            
+                        }else{
+                            console.log("puse algo mal")
+                            this.setState({errDuraLet:true});
+                            
+                        }
+                    } */
+                    
                     if(this.state.respuestaDur){
                         
                     }else{
                         this.setState({errDuraLet:true});
-                        resp=false;
-
-                    }
+                        
+                        resp=false;}
 
                 }
             }
@@ -348,6 +360,7 @@ class CreacionCurso extends Component{
             if(estaBien){
                 try {
                     var data = {
+                        nombreC:this.state.campNmC,
                         description: this.state.campDesc,
                         requirements: this.state.campReq,
                         objetives: this.state.campObj,
@@ -368,6 +381,7 @@ class CreacionCurso extends Component{
                         /* if (response."nombreMensaje" == "Incorrecto") {
                         }else{
                             this.setState({ "AtributoDeRegistroExitoso" : true });
+
                         } */
                     });
                 } catch (eer) {
@@ -469,6 +483,7 @@ class CreacionCurso extends Component{
                             </div>
                                 <div >
                                     {this.state.errDesCor?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null} 
+                                    {this.state.errDes?    <p className='alertMsg'>Debe insertar más de 20 caracteres</p>    : null}
                                     {this.state.errDesNul?    <p className='alertMsg'>El campo es obligatorio</p>    : null}
                                 </div>
                         </div>

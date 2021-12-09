@@ -402,7 +402,8 @@ router.post("/crearcurso", async (req, res) => {
     descripcion,
     requisitos,
     duracion,
-    objetivo
+    objetivo,
+    palabrasClave
   } = req.body;
   console.log(req.body);
   //Creacion curso..
@@ -415,8 +416,7 @@ router.post("/crearcurso", async (req, res) => {
       descripcion,
       requisitos,
       duracion,
-      objetivo,
-      palabrasClave,
+      objetivo
     ],
     (err, rows, fields) => {
       if (!err) {
