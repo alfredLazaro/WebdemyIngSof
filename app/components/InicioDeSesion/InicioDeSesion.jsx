@@ -88,7 +88,7 @@ class InicioDeSesion extends Component{
                         console.log(dato.contra)
                         console.log(this.state.campoContra);
 
-                        if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
+                        if(dato.mensaj=='correcto' ){
                             console.log("buen inicio");
                             this.props.history.push('/Estudiante/');
                             this.props.iniciarSesion(dato.id_usuario);
