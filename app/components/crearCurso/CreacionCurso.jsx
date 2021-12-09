@@ -408,10 +408,10 @@ class CreacionCurso extends Component{
         }
 
         componentDidMount(){
+            this.fetchIdTutor(this.state.idUsuario);
             if(this.state.idCurso!=0){
                 this.fetchInfoCurso(this.state.idCurso);
                 this.fetchEtiquetas(this.state.idCurso);
-                this.fetchIdTutor(this.state.idUsuario);
             }
             this.forceUpdate();
         }
