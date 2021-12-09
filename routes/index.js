@@ -398,7 +398,6 @@ router.post("/crearcurso", async (req, res) => {
       objetives, 
       requirements, 
       duration, 
-      tags,
       0,
       0
     ],
@@ -415,17 +414,17 @@ router.post("/crearcurso", async (req, res) => {
     `SELECT id_curso FROM curso`,
     (err, rows, fields) => {
       if (!err) {
-        res.json(rows[rows.length]);
+        res.json(rows[rows.length].id_curso);
       } else {
         console.log(err);
       }
     }
   );
   //creamos todas las palabras clave.
-  for (var i = 0; i < palabrasClave.length; i++) {
+  for (var i = 0; i < tags.length; i++) {
     const etiqueta = await pool.query(
       `insert into etiqueta (nombre ) values (?)`,
-      palabrasClave[i],
+      tags[i],
       (err, rows, fields) => {
         if (!err) {
           res.json(rows);
@@ -439,7 +438,7 @@ router.post("/crearcurso", async (req, res) => {
       `select id_etiqueta from etiqueta`,
       (err, rows, fields) => {
         if (!err) {
-          res.json(rows[rows.length]);
+          res.json(rows[rows.length].id_etiqueta);
         } else {
           console.log(err);
         }
