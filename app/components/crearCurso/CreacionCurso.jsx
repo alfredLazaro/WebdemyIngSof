@@ -624,7 +624,7 @@ class CreacionCurso extends Component {
                     </p>
                   ) : null}
                   {this.state.errDuraLet ? (
-                    <p className="alertMsg">Debe insertar un numero</p>
+                    <p className="alertMsg">Debe insertar un número entero positivo</p>
                   ) : null}
                   {this.state.errDuraNul ? (
                     <p className="alertMsg">El campo es obligatorio</p>
