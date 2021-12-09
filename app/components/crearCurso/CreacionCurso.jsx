@@ -40,7 +40,7 @@ class CreacionCurso extends Component {
       errDuraLar: false,
       errEtiqNoHay: false,
       errEtiqNoper: false,
-
+      creacionExitosa: false,
       idCurso: this.props.idenCurso(),
       idUsuario: this.props.idenUsuario(),
     };
@@ -288,6 +288,7 @@ class CreacionCurso extends Component {
   }
 
   handleChar(e) {
+    this.devolverEstado();
     var tecla = e.charCode;
     var patron = /[0-9\s]/;
     var tecla_final = String.fromCharCode(tecla);
@@ -359,8 +360,10 @@ class CreacionCurso extends Component {
   validarCurso() {
     console.log("esta funcionando");
     var estaBien = this.validarCampos();
+    /* this.setState({creacionExitosa:true}); */
     console.log(estaBien);
     if (estaBien) {
+      this.setState({ creacionExitosa: true });
       try {
         var data = {
           idTutor: 4,
@@ -392,15 +395,6 @@ class CreacionCurso extends Component {
         console.log(eer);
         console.log("No se envió el curso.");
       }
-
-      <div className="popup">
-        <div className="popup_inner">
-          <p className="textoPopup">Registro exitoso!</p>
-          <button className="btnOk" onClick={this.volver}>
-            Aceptar
-          </button>
-        </div>
-      </div>;
     } else {
     }
   }
@@ -468,6 +462,16 @@ class CreacionCurso extends Component {
         </head>
 
         <body>
+          {this.state.creacionExitosa ? (
+            <div className="popup">
+              <div className="popup_inner">
+                <p className="textoPopup">Curso Creado Correctamente</p>
+                <button className="btnOk" onClick={this.volver}>
+                  Aceptar
+                </button>
+              </div>
+            </div>
+          ) : null}
           <div id="fondoCursoCol">
             <div className="primFil">
               {this.state.idCurso == 0 ? (
