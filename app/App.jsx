@@ -138,6 +138,7 @@ function VistaCrearCurso(props) {
       <CreacionCurso
         sesionIniciada={props.sesionIniciada}
         idenCurso={props.idenCurso}
+        idenUsuario={props.idenUsuario}
       ></CreacionCurso>
     </Router>
   );
