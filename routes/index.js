@@ -385,28 +385,21 @@ router.get("/esTutor/:idUser", async (req, res) => {
 
 
 router.post("/crearcurso", async (req, res) => {
-  const {
-    tutorId,
-    nombre,
-    imagen,
-    descripcion,
-    objetivo,
-    requisitos,
-    duracion,
-    palabrasClave
-  } = req.body;
+  const { idTutor, nombreC, image, description, objetives, requirements, duration, tags } = req.body;
   console.log(req.body);
   //Creacion curso..
   const curso = await pool.query(
-    `insert into curso ( TUTOR_id_tutor,nombre, imagen, descripcion, litle_descripcion ,requisitos,duracion,state) values (?, ?, ?, ?, ?, ?,?)`,
+    "insert into curso ( TUTOR_id_tutor, nombre, imagen, descripcion, litle_descripcion ,requisitos ,duracion ,state, inscritos) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [
-      tutorId,
-      nombre,
-      imagen,
-      descripcion,
-      objetivo,
-      requisitos,
-      duracion,
+      idTutor, 
+      nombreC, 
+      image, 
+      description, 
+      objetives, 
+      requirements, 
+      duration, 
+      tags,
+      0,
       0
     ],
     (err, rows, fields) => {
