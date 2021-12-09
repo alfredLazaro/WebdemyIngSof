@@ -605,4 +605,16 @@ router.get('/creadosTutor/:idTut', async (req, res) => {
   res.send(cursos);
 });
 
+router.get('/idtutor/:idUs', async (req, res) => {
+  const { idUs } = req.params;
+  const cursos = await pool.query('SELECT id_tutor FROM tutor WHERE USUARIO_id_usuario = ?', [idUs], (err,rows,fields) => {
+      if(!err){
+          res.json(rows[0]);
+      }else{
+          console.log(err);
+      }
+  });
+  res.send(cursos);
+});
+
 module.exports = router;

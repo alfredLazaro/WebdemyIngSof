@@ -42,7 +42,8 @@ class CreacionCurso extends Component{
             errEtiqNoper:false,
 
             idCurso: this.props.idenCurso(),
-            idUsuario: this.props.idenUsuario()
+            idUsuario: this.props.idenUsuario(),
+            idTutor: 0
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -61,10 +62,11 @@ class CreacionCurso extends Component{
         this.validarObj          =this.validarObj.bind(this);
         this.validReq            =this.validReq.bind(this);
         this.validImg            =this.validImg.bind(this);
+        this.volver              =this.volver.bind(this);
         this.validEtiq           =this.validEtiq.bind(this);
         this.validarCurso        =this.validarCurso.bind(this);
+        this.fetchIdTutor        =this.fetchIdTutor.bind(this);
         this.handleChar          = this.handleChar.bind(this);
-        this.obtenerDatos        =this.obtenerDatos.bind(this);
         this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
         this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
     }   
@@ -358,6 +360,7 @@ class CreacionCurso extends Component{
             console.log("esta funcionando")
             var estaBien=this.validarCampos();
             console.log(estaBien);
+            var idTutor = this.getIdTutor()
             if(estaBien){
                 try {
                     var data = {
@@ -392,9 +395,6 @@ class CreacionCurso extends Component{
             }else{}
 
         }
-        obtenerDatos(){
-                /* en aqui debe existir un get que mande idCurso y cambiar estados de entrada */
-        }
         volver() {
             history.back();
         }
@@ -403,6 +403,7 @@ class CreacionCurso extends Component{
             if(this.state.idCurso!=0){
                 this.fetchInfoCurso(this.state.idCurso);
                 this.fetchEtiquetas(this.state.idCurso);
+                this.fetchIdTutor(this.state.idUsuario);
             }
             this.forceUpdate();
         }
@@ -429,6 +430,15 @@ class CreacionCurso extends Component{
                 data.map(keyword => {
                     this.state.keywords.push(keyword.nombre);
                 })
+            });
+        }
+        fetchIdTutor(idUsuario){
+            fetch(`/api/cursos/idtutor/${idUsuario}`)
+            .then(res => res.json())
+            .then(data => {
+                this.setState({
+                    idTutor: data.id_tutor
+                });
             });
         }
     render(){
