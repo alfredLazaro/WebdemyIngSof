@@ -382,17 +382,7 @@ router.get("/esTutor/:idUser", async (req, res) => {
   res.send(cursos);
 });
 
-router.post("/crearcurso/", async (req, res) => {
-  const {
-    nombre,
-    imagen,
-    descripcion,
-    litle_descripcion,
-    requisitos,
-    duracion,
-    state,
-  } = req.body;
-});
+
 
 router.post("/crearcurso", async (req, res) => {
   const {
@@ -400,23 +390,24 @@ router.post("/crearcurso", async (req, res) => {
     nombre,
     imagen,
     descripcion,
+    objetivo,
     requisitos,
     duracion,
-    objetivo,
     palabrasClave
   } = req.body;
   console.log(req.body);
   //Creacion curso..
   const curso = await pool.query(
-    `insert into curso ( TUTOR_id_tutor,nombre, imagen, descripcion, litle_descripcion ,requisitos,duracion) values (?, ?, ?, ?, ?, ?)`,
+    `insert into curso ( TUTOR_id_tutor,nombre, imagen, descripcion, litle_descripcion ,requisitos,duracion,state) values (?, ?, ?, ?, ?, ?,?)`,
     [
       tutorId,
       nombre,
       imagen,
       descripcion,
+      objetivo,
       requisitos,
       duracion,
-      objetivo
+      0
     ],
     (err, rows, fields) => {
       if (!err) {
@@ -463,7 +454,7 @@ router.post("/crearcurso", async (req, res) => {
     );
 
     const cursoHasEti = await pool.query(
-      `insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?)`,
+      `insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?,?)`,
       [idCurso, idEtiqueta],
       (err, rows, fields) => {
         if (!err) {
