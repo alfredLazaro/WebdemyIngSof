@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
             console.log(err);
         }
     });
-    
+
     res.send(cursos); //muestra la consulta en la pagina
 });
 
@@ -44,7 +44,7 @@ router.get('/:idEst/info', async (req, res) => {
             console.log(err);
         }
     });
-    
+
     res.send(cursos); //muestra la consulta en la pagina
 });
 
@@ -138,6 +138,49 @@ router.get("/:correo/usuarioid", async (req, res) => {
   res.send(repetidos);
 });
 
+router.post("/registerCurso", async (req, res) => {
+  const{
+    TUTOR_id_tutor,
+    ETIQUETA_id_etiqueta,
+    description,
+    requirements,
+    objetives,
+    image,
+    tags,
+    duration
+  } = req.body;
+
+  console.log(req.body);
+
+  const idCurso = await pool.query(`SELECT * FROM curso where nombre=?`, nombre);
+  if (idCurso.length == 0){
+    const curso = await pool.query(`insert into curso (TUTOR_id_tutor, ETIQUETA_id_etiqueta, descripcion, requisitos, litle_descripcion, imagen, duracion) values (?,?,?,?,?,?,?,?)`,
+    [
+      TUTOR_id_tutor,
+      ETIQUETA_id_etiqueta,
+      description,
+      requirements,
+      objetives,
+      image,
+      tags,
+      duration
+    ]),
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    };
+} else {
+  console.log("Ya existe un curso con ese nombre.");
+  res.json({
+    mensaj: "Incorrecto",
+  });
+}
+console.log("sale del post");
+});
+
 router.post("/register", async (req, res) => {
   const { first, last, email, password } = req.body;
   console.log(req.body);
@@ -186,13 +229,13 @@ router.get("/:email/login", async (req, res) => {
                 //let passwordHash = await bcrypt.hash(password,8);
                 res.json({
                     message: '¡AUTENTICADO WEY!',
-                    
+
                 });
             }else{
                 res.json({
                     message: '¡error!',
                     emailR : email[0],
-                   
+
                 });
             }  */
       } else {
@@ -202,7 +245,7 @@ router.get("/:email/login", async (req, res) => {
   );
   res.send(emailR);
   //comprobamos que sean datos
-  /* 
+  /*
     if(user == emailR[0].correo && (await bcrypt.compare(password,email[0].contrasena))){
         //let passwordHash = await bcrypt.hash(password,8);
         res.json({
