@@ -24,7 +24,7 @@ class Inicio extends Component {
         this.fetchTags();
     }
 
-    fetchCourse() {   /**/
+    fetchCourse(){   /**/
         fetch(`/api/cursos/${this.state.curso}`)
             .then(res => res.json())
             .then(data => {
@@ -73,7 +73,7 @@ class Inicio extends Component {
         return (
             <div className="fondoCurso">
                 <div className="deDebajoDeBody">
-                    <img id="imagenCurso" src={`${process.env.PUBLIC_URL}/assets/imagenes/${this.state.objCurso.imagen}`}></img>
+                    <img id="imagenCurso" src={`${this.state.objCurso.imagen}`}></img>
                     
                     <div className="contenedor">
                         <div>
@@ -104,7 +104,7 @@ class Inicio extends Component {
                             <div className='contenidoCaja'>
                                 {this.state.nombreTut}
                                 <br />
-                                {this.state.objCurso.bibliografia}
+                                {this.state.objCurso.lastJob}
                             </div>
                             <div className="infoCursos">
                                 Duracion del curso: {this.state.objCurso.duracion} dias

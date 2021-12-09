@@ -15,13 +15,13 @@ class InicioDeSesion extends Component{
         }
         this.validarInicio =this.validarInicio.bind(this);
          this.mailChange          = this.mailChange.bind(this);
-        this.contraChange          = this.contraChange.bind(this); 
+        this.contraChange          = this.contraChange.bind(this);
         this.validarAllCampos      = this.validarAllCampos.bind(this);
         this.validarCorreo         = this.validarCorreo.bind(this);
         this.validarContra         = this.validarContra.bind(this);
         this.devolverValoresState  = this.devolverValoresState.bind(this);
-    } 
-    
+    }
+
     mailChange(event){
         this.setState({campoCorreo: event.target.value});
     }
@@ -40,7 +40,7 @@ class InicioDeSesion extends Component{
         var res = true;
          this.devolverValoresState();
         this.validarCorreo();
-        this.validarContra(); 
+        this.validarContra();
         return res;
     }
 
@@ -64,8 +64,8 @@ class InicioDeSesion extends Component{
         }else{}
         return res;
     }
-    
-   
+
+
     validarInicio(event){
         var estaBien=this.validarAllCampos();
         console.log(estaBien);
@@ -87,8 +87,8 @@ class InicioDeSesion extends Component{
                     .then(dato =>{ 
                         console.log(dato.contra)
                         console.log(this.state.campoContra);
-                        
-                        if(dato.mensaj=='correcto' ){
+
+                        if(this.state.campoCorreo== data.correo && (this.state.campoContra ==data.contrasena)){
                             console.log("buen inicio");
                             this.props.history.push('/Estudiante/');
                             this.props.iniciarSesion(dato.id_usuario);
@@ -102,7 +102,7 @@ class InicioDeSesion extends Component{
                   )
                   
             } catch (error) {
-                
+
             }
 
         }else{
@@ -113,7 +113,7 @@ class InicioDeSesion extends Component{
 
     render(){
         return(
-           
+
             <html lang="en">
             <head>
                 <meta charset="UTF-8" />
@@ -125,12 +125,12 @@ class InicioDeSesion extends Component{
                 <title>Wdemy</title>
             </head>
             <body>
-                 
+
                  <div id='form'   className="w3-container w3-card-4 w3-light-grey" onSubmit={this.validarInicio}>
                     <div className="w3-row w3-section" className="w3-center">
-                        
+
                         <h1 className="w3-center" className="titulForm">Bienvenido a Wdemy</h1>
-                        
+
                         <div >
                             <div  class="w3-rest" >
                             {/* <i id='iconCor' class="w3-email"></i>
@@ -139,20 +139,20 @@ class InicioDeSesion extends Component{
                             <i id='iconCor' class="w3-email"></i>  */}
                                 <i id='iconCor' class="fa fa-envelope"></i>
                                 <div >
-                                    <input  id='prinPar'  class="w3-input w3-border" name="email" type="text" placeholder="correo electronico" 
-                                    value={this.state.campoCorreo} onChange={this.mailChange}  
+                                    <input  id='prinPar'  class="w3-input w3-border" name="email" type="text" placeholder="correo electronico"
+                                    value={this.state.campoCorreo} onChange={this.mailChange}
                                     />
                                 </div>
-                                
+
                             </div>
-                            
+
                             <div className="alertas">
-                                {this.state.errorCorreo?    <p>correo electronico incorrecto</p>    : null} 
-                                {this.state.vacioCorr? <p>correo electronico incorrecto</p>         :null }
+                                {this.state.errorCorreo?    <p>Correo electrónico incorrecto</p>    : null}
+                                {this.state.vacioCorr? <p>Correo electrónico incorrecto</p>         :null }
                             </div>
-                                
+
                         </div>
-                        
+
                         <br />
                         <div >
                             <div>
@@ -161,35 +161,35 @@ class InicioDeSesion extends Component{
                             <i id='iconCor' class="w3-email"></i>
                             <i id='iconCor' class="w3-email"></i>  */}
                                 <i id='iconCor' class="fa fa-lock"></i>
-                                
-                                <input id='prinPar'  class="w3-input w3-border" name="campoContra" type="Password" placeholder="contraseña" 
-                                value={this.state.campoContra} onChange={this.contraChange} 
+
+                                <input id='prinPar'  class="w3-input w3-border" name="campoContra" type="Password" placeholder="contraseña"
+                                value={this.state.campoContra} onChange={this.contraChange}
                                 />
                             </div>
-                            
+
 
                             <div className="alertas">
-                                {this.state.errorContraseña?    <p>la contraseña es incorrecta</p>        :null} 
-                                {this.state.vacioContra?        <p>la contraseña es incorrecta</p>        :null}
+                                {this.state.errorContraseña?    <p>La contraseña es incorrecta</p>        :null}
+                                {this.state.vacioContra?        <p>La contraseña es incorrecta</p>        :null}
                             </div>
-                                
+
                         </div>
-                        
+
                         <br />
-                        <button  id='btnIni'  class="w3-button "  onClick={this.validarInicio} >Iniciar Sesion</button>
+                        <button  id='btnIni'  class="w3-button "  onClick={this.validarInicio} >Iniciar Sesión</button>
                         <br />
-                        
+
                         <div  className="enlaceComp" >
                             <p >¿aun no tienes cuenta?</p>
                             <a className='enlaceIni' href="/register">registrarse</a>
                         </div>
                     </div>
-                        
+
                  </div>
-                 
+
             </body>
             </html>
-            
+
         );
     }
 }

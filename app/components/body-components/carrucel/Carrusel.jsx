@@ -76,7 +76,7 @@ class Filtro extends Component {
       e.preventDefault();
       return false;
     } else {
-      var patron = /[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+      var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
       var tecla_final = String.fromCharCode(tecla);
 
       if (patron.test(tecla_final)) {
@@ -273,7 +273,7 @@ class Filtro extends Component {
                       >
                         <div className="linkCurso">
                             <h3 className="contendNomCurso">{curso.nombreCurso}</h3>                  
-                            <img id="imagenCursoRed" src={`/assets/imagenes/${curso.imagen}`}></img>
+                            <img id="imagenCursoRed" src={`${curso.imagen}`}></img>
                             <div className="curseDescription">
                               Actualizacion: {this.cortar(curso.created_at) }
                               <br />

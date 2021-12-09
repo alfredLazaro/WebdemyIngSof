@@ -20,7 +20,7 @@ class VistaEst extends Component{
         this.listOrd = this.listOrd.bind(this);
         this.ordAlf = this.ordAlf.bind(this);
         this.ordFecha = this.ordFecha.bind(this);
-        
+
         this.togglePopup = this.togglePopup.bind(this);
 
         this.handleChange = this.handleChange.bind(this);
@@ -59,10 +59,10 @@ class VistaEst extends Component{
     }
 
     sacar() {
-    
+
         var filtracion0= this.state.cursos.filter(curso =>curso.nombreEtiqueta.includes(this.nombreAbuscar) ||
         this.nombreAbuscar === "" );
-    
+
         let hash = {};
         var filtracion = filtracion0.filter(curso=>hash[curso.id_curso]? false : hash[curso.id_curso]=true);
         this.numFiltrado = filtracion.length;
@@ -76,7 +76,7 @@ class VistaEst extends Component{
     listOrd(){ //muestra lista desplegable
         console.log("Se muestra lista");
         var x = document.getElementById("listaOrden");
-        if (x.className.indexOf("w3-show") == -1) { 
+        if (x.className.indexOf("w3-show") == -1) {
             x.className += " w3-show";
         } else {
             x.className = x.className.replace(" w3-show", "");
@@ -98,10 +98,10 @@ class VistaEst extends Component{
     }
 
       handleChange(event) {
-        this.setState({value: event.target.value});  
+        this.setState({value: event.target.value});
         event.preventDefault();
       }
-    
+
       handlePaste(event){
         event.preventDefault();
         this.setState({textPopup: "No se permite pegar texto en el campo"})
@@ -109,13 +109,13 @@ class VistaEst extends Component{
         console.log("se intento pegar");
         return false;
       }
-    
+
       togglePopup() {
         this.setState({
             showPopup: !this.state.showPopup
           });
       }
-    
+
       handleChar(e){
         var tecla = e.charCode;
         //Tecla de retroceso para borrar, siempre la permite
@@ -124,19 +124,19 @@ class VistaEst extends Component{
           return false;
         }
         if (tecla == 8 || tecla == 13) {
-           return true; 
+           return true;
         }
         if (tecla == 32){ //Borra espacios
           e.preventDefault();
           return false;
         }else{
-          var patron = /[a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+          var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
           var tecla_final = String.fromCharCode(tecla);
-          
+
           if(patron.test(tecla_final)){
             return true;
           }else{
-    
+
             if(e.fromCharCode != typeof undefined){
               e.preventDefault();
               console.log("No se agrega nada");
@@ -150,7 +150,7 @@ class VistaEst extends Component{
             this.setState({textPopup: "El campo solo puede ser llenado con letras y números"})
             this.togglePopup();
             return false;
-          }  
+          }
         }
       }
 
@@ -163,12 +163,12 @@ class VistaEst extends Component{
                             <button className="btnIconos w3-button" onClick={this.buscarPalab}>
                                 <i className="fa fa-search w3-xxlarge" ></i>
                             </button>
-                            
+
                             <input type="text" value={this.state.value} onChange={this.handleChange} onPaste={this.handlePaste} onKeyPress={this.handleChar} maxLength={16} placeholder="Buscador de Cursos" className="inputPagEst"/>
                         </div>
-                        
+
                         <div className="w3-container w3-cell w3-cell-middle txtOrden" >
-                            <p id="txtOrdCursos"> Ordenar cursos </p> 
+                            <p id="txtOrdCursos"> Ordenar cursos </p>
                         </div>
 
                         <div className="w3-container w3-cell w3-cell-middle">
@@ -181,7 +181,7 @@ class VistaEst extends Component{
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <p id="textMisCursos"> Mis cursos: </p>
                 { this.props.sesionIniciada() ? 
@@ -191,18 +191,18 @@ class VistaEst extends Component{
                             return(
                             <div>
                                 <button className="elementosLista" onClick={this.refrescarPagina}>
-                                    <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} > 
+                                    <Link className='linkInial' to={`/Inicio/${curso.id_curso}`} >
                                         <div key={curso.id_curso} className="linkCursoEst">
                                             <div className="w3-cell-row">
                                                 <div className="w3-container w3-cell w3-cell-middle imagenCur">
-                                                    <img id="imagenCursoCard" src={`${process.env.PUBLIC_URL}/assets/imagenes/${curso.imagen}`}></img>
+                                                    <img id="imagenCursoCard" src={`${curso.imagen}`}></img>
                                                 </div>
                                                 <div className="w3-container w3-cell w3-cell-middle infoCur">
-                                                    <p className="tituloCurs">{curso.nombreCurso}</p>                  
+                                                    <p className="tituloCurs">{curso.nombreCurso}</p>
                                                     <div>
                                                         <div className="w3-cell-row">
                                                             <div className="w3-cell">
-                                                                Actualizacion: {this.cortar(curso.created_at) }
+                                                                Actualización: {this.cortar(curso.created_at) }
                                                             </div>
                                                             <div className="w3-cell">
                                                                 Tutor: {curso.tutorNombre} {curso.tutorApellido}
@@ -213,9 +213,9 @@ class VistaEst extends Component{
                                                 </div>
                                             </div>
                                         </div>
-                                    </Link> 
+                                    </Link>
                                 </button>
-                            </div>                  
+                            </div>
                             )
                             })
                     }
@@ -227,10 +227,10 @@ class VistaEst extends Component{
                 {(this.numFiltrado === 0) && (this.props.sesionIniciada()) ? 
                     <div id="contNoEncont">
                         <h1> No existen coincidencias de cursos </h1>
-                        <img id='imagenError' src={`${process.env.PUBLIC_URL}/assets/imagenes/error.png`}></img>  
+                        <img id='imagenError' src={`${process.env.PUBLIC_URL}/assets/imagenes/error.png`}></img>
                     </div> : null
                 }
-                {this.state.showPopup ? 
+                {this.state.showPopup ?
                     <Popup
                     text= {this.state.textPopup}
                     closePopup={this.togglePopup.bind(this)}
@@ -238,7 +238,7 @@ class VistaEst extends Component{
                     : null
                 }
             </div>
-            
+
         )
     }
 }
