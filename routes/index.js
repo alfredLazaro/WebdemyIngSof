@@ -24,22 +24,6 @@ router.get("/cursos", async (req, res) => {
   res.send(repetidos);
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const cursos = await pool.query(
-    "SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?",
-    [id],
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows[0]);
-      } else {
-        console.log(err);
-      }
-    }
-  );
-
-  res.send(cursos); //muestra la consulta en la pagina
-});
 
 router.get("/:idEst/info", async (req, res) => {
   const { idEst } = req.params;
@@ -387,6 +371,7 @@ router.get("/esTutor/:idUser", async (req, res) => {
 router.post("/crearcurso", async (req, res) => {
   const { idTutor, nombreC, image, description, objetives, requirements, duration, tags } = req.body;
   console.log(req.body);
+  
   //Creacion curso..
   const curso = await pool.query(
     "insert into curso ( TUTOR_id_tutor, nombre, imagen, descripcion, litle_descripcion ,requisitos ,duracion ,state, inscritos) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -400,16 +385,20 @@ router.post("/crearcurso", async (req, res) => {
       duration, 
       0,
       0
-    ],
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows);
-      } else {
-        console.log(err);
-      }
-    }
-  );
-  //obtener  id_curso, pero nose por que criterio.. pensaba tomar al ultimo curso creado.
+    ]);
+
+    const ids = await pool.query('SELECT id_curso FROM curso WHERE TUTOR_id_tutor = ? and nombre = ?', [idTutor, nombreC], (err,rows,fields) => {
+        if(!err){
+            res.json({
+              idCurso: rows[0],
+            });
+        }else{
+            console.log(err);
+        }
+    });
+    res.send(ids);
+   
+  /*//obtener  id_curso, pero nose por que criterio.. pensaba tomar al ultimo curso creado.
   const idCurso = await pool.query(
     `SELECT id_curso FROM curso`,
     (err, rows, fields) => {
@@ -456,7 +445,7 @@ router.post("/crearcurso", async (req, res) => {
         }
       }
     );
-  }
+  }*/
 });
 
 router.delete("/deleteCurso/etiquetas", async (req, res) => {
@@ -598,6 +587,48 @@ router.get('/idtutor/:idUs', async (req, res) => {
       }
   });
   res.send(cursos);
+});
+
+router.post("/crearcurso/addEtiqueta", async (req, res) => {
+  const { etiqueta } = req.body;
+  console.log(req.body);
+
+  const idEt = await pool.query(`SELECT id_etiqueta FROM etiqueta WHERE nombre = ?`,[etiqueta]);
+
+  if (idEt.length == 0) {
+    const insertEtiq = await pool.query(
+      `insert into etiqueta (nombre) values (?)`,[etiqueta],(err, rows, fields) => {
+        if (err) {
+          console.log(err);
+        } 
+      }
+    );
+    const idEt2 = await pool.query(`SELECT id_etiqueta FROM etiqueta WHERE nombre = ?`,[etiqueta]);
+    res.json({
+      idEtiq: idEt2[0],
+    });
+  } else {
+    res.json({
+      idEtiq: idEt[0],
+    });
+  }
+});
+
+router.post("/crearcurso/addCursoEtiq", async (req, res) => {
+  const { idEtiqueta, idCurso } = req.body;
+  console.log(req.body);
+
+  const idEt = await pool.query(`insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?,?)`,
+  [idCurso, idEtiqueta],
+  (err, rows, fields) => {
+    if(!err){
+      res.json(rows);
+    }else{
+      console.log(err);
+    } 
+  }
+  );
+
 });
 
 module.exports = router;

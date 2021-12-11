@@ -43,7 +43,7 @@ class CreacionCurso extends Component{
 
             idCurso: this.props.idenCurso(),
             idUsuario: this.props.idenUsuario(),
-            idTutor: 0
+            idTutor: 0,
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -69,6 +69,8 @@ class CreacionCurso extends Component{
         this.handleChar          = this.handleChar.bind(this);
         this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
         this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
+        this.addEtiqueta         = this.addEtiqueta.bind(this);
+        this.addCursoEtiqueta    = this.addCursoEtiqueta.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -365,6 +367,8 @@ class CreacionCurso extends Component{
   validarCurso() {
     console.log("esta funcionando");
     var estaBien = this.validarCampos();
+    var idCurso = 0;
+    var idEtiqueta = 0;
     /* this.setState({creacionExitosa:true}); */
     console.log(estaBien);
     if (estaBien) {
@@ -390,23 +394,27 @@ class CreacionCurso extends Component{
           .then((res) => res.json())
           .catch((error) => console.error("Error:", error))
           .then((response) => {
-            /* if (response."nombreMensaje" == "Incorrecto") {
-                        }else{
-                            this.setState({ "AtributoDeRegistroExitoso" : true });
+            idCurso = response.idCurso.id_curso; //No porque se salva asi
+            
+            if(idCurso != 0){//Comprueba que se guarde un id
+              console.log("Se actualizo el id de Curso");
+              var tags = this.state.keywords;
+              for (var i = 0; i < tags.length; i++) {
+                this.addEtiqueta(tags[i],idCurso); //Agrega tags y el vinculo
+              }
+            }
 
-                        } */
-                    });
-                } catch (eer) {
-                    console.log(eer);
-                    console.log("No se envió el curso.");
-                }
-            }else{}
+          });
+      } catch (eer) {
+        console.log(eer);
+        console.log("No se envió el curso.");
+      }
 
-        }
-        volver() {
-            history.back();
-        }
-
+    }
+  }
+  volver() {
+    history.back();
+  }
         componentDidMount(){
             this.fetchIdTutor(this.state.idUsuario);
             if(this.state.idCurso!=0){
@@ -415,12 +423,11 @@ class CreacionCurso extends Component{
             }
             this.forceUpdate();
         }
-
-
         fetchInfoCurso(idCurso){
             fetch(`/api/cursos/${idCurso}`)
             .then(res => res.json())
             .then(data => {
+                console.log(data)
                 this.setState({
                     campNmC: data.nombre,
                     campDesc: data.descripcion,
@@ -448,6 +455,51 @@ class CreacionCurso extends Component{
                     idTutor: data.id_tutor
                 });
             });
+        }
+
+        addEtiqueta(etiq, idCurs){
+          try {
+            var data = {
+              etiqueta: etiq
+            };
+            fetch("/api/cursos/crearcurso/addEtiqueta", {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((res) => res.json())
+              .catch((error) => console.error("Error:", error))
+              .then((response) => {
+                console.log(response.idEtiq)
+                this.addCursoEtiqueta(idCurs,response.idEtiq.id_etiqueta); //Agrega vinculo de etiq y curso
+              });
+          } catch (eer) {
+            console.log(eer);
+          }
+        }
+        addCursoEtiqueta(idCurs, idEtiq){
+          try {
+            var data = {
+              idEtiqueta: idEtiq,
+              idCurso: idCurs
+            };
+            fetch("/api/cursos/crearcurso/addCursoEtiq", {
+              method: "POST",
+              body: JSON.stringify(data),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            })
+              .then((res) => res.json())
+              .catch((error) => console.error("Error:", error))
+              .then((response) => {
+
+              });
+          } catch (eer) {
+            console.log(eer);
+          }
         }
     render(){
         return(
