@@ -47,6 +47,8 @@ class InicioDeSesion extends Component{
     validarCorreo(){
         var res = true; //esta variable res no me confio 
         var estadoCor = this.state.campoCorreo;
+        estadoCor = estadoCor.toLowerCase();
+        this.setState({campoCorreo:estadoCor});
         if(estadoCor==""){
             this.setState({vacioCorr:true});
             this.setState({vacioContra:true}); //este es bug de que deberian mostrarse ambos

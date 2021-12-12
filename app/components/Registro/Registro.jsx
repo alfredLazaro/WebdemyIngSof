@@ -238,6 +238,8 @@ class Registro extends Component {
   validarCorreo() {
     var res = true;
     var llenadoCor = this.state.campoCorreo;
+    llenadoCor = llenadoCor.toLocaleLowerCase();
+    this.setState({campoCorreo:llenadoCor});
     if (llenadoCor.length == 0) {
       this.setState({ cadVacioCorreo: true });
       return false;
@@ -273,7 +275,7 @@ class Registro extends Component {
     if (/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ0-9@.\sd]/.test(llenadoCor)) {
       this.setState({ errorCaraEspeciCorreo: true });
       res = false;
-    } 
+    }
     return res;
   }
 
@@ -567,9 +569,7 @@ class Registro extends Component {
                       <p>Las contraseñas deben de ser idénticas</p>
                     ) : null}
                     {this.state.almenosDosNumContrase ? (
-                      <p>
-                        Debe introducir al menos 2 números en su contraseña
-                      </p>
+                      <p>Debe introducir al menos 2 números en su contraseña</p>
                     ) : null}
                     {this.state.confirmarContrase ? (
                       <p>Debe confirmar su contraseña</p>
