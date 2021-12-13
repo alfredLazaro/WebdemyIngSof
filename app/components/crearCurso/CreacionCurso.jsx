@@ -48,29 +48,31 @@ class CreacionCurso extends Component{
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.borrarKWord = this.borrarKWord.bind(this);
-        this.nomChange           =this.nomChange.bind(this);
-        this.captDesc            =this.captDesc.bind(this);
-        this.captObj             =this.captObj.bind(this);
-        this.capDura             =this.capDura.bind(this);
-        this.captReq             =this.captReq.bind(this);
-        this.captImg             =this.captImg.bind(this);
-        this.captEtiq            =this.captEtiq.bind(this);
-        this.devolverEstado      =this.devolverEstado.bind(this);
-        this.validarCampos       =this.validarCampos.bind(this);
-        this.validarNomC         =this.validarNomC.bind(this);
-        this.validarDes          =this.validarDes.bind(this);
-        this.validarObj          =this.validarObj.bind(this);
-        this.validReq            =this.validReq.bind(this);
-        this.validImg            =this.validImg.bind(this);
-        this.volver              =this.volver.bind(this);
-        this.validEtiq           =this.validEtiq.bind(this);
-        this.validarCurso        =this.validarCurso.bind(this);
-        this.fetchIdTutor        =this.fetchIdTutor.bind(this);
+        this.nomChange           = this.nomChange.bind(this);
+        this.captDesc            = this.captDesc.bind(this);
+        this.captObj             = this.captObj.bind(this);
+        this.capDura             = this.capDura.bind(this);
+        this.captReq             = this.captReq.bind(this);
+        this.captImg             = this.captImg.bind(this);
+        this.captEtiq            = this.captEtiq.bind(this);
+        this.devolverEstado      = this.devolverEstado.bind(this);
+        this.validarCampos       = this.validarCampos.bind(this);
+        this.validarNomC         = this.validarNomC.bind(this);
+        this.validarDes          = this.validarDes.bind(this);
+        this.validarObj          = this.validarObj.bind(this);
+        this.validReq            = this.validReq.bind(this);
+        this.validImg            = this.validImg.bind(this);
+        this.volver              = this.volver.bind(this);
+        this.validEtiq           = this.validEtiq.bind(this);
+        this.validarCurso        = this.validarCurso.bind(this);
+        this.fetchIdTutor        = this.fetchIdTutor.bind(this);
         this.handleChar          = this.handleChar.bind(this);
         this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
         this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
         this.addEtiqueta         = this.addEtiqueta.bind(this);
         this.addCursoEtiqueta    = this.addCursoEtiqueta.bind(this);
+        this.deleteCursoEtiq     = this.deleteCursoEtiq.bind(this);
+        this.deleteEtiquetas     = this.deleteEtiquetas.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -368,48 +370,87 @@ class CreacionCurso extends Component{
     console.log("esta funcionando");
     var estaBien = this.validarCampos();
     var idCurso = 0;
-    var idEtiqueta = 0;
     /* this.setState({creacionExitosa:true}); */
     console.log(estaBien);
     if (estaBien) {
       this.setState({ creacionExitosa: true });
-      try {
-        var data = {
-          idTutor: this.state.idTutor,
-          nombreC: this.state.campNmC,
-          image: this.state.campImg,
-          description: this.state.campDesc,
-          objetives: this.state.campObj,
-          requirements: this.state.campReq,
-          duration: this.state.campDura,
-          tags: this.state.keywords,
-        };
-        fetch("/api/cursos/crearcurso", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-          .then((res) => res.json())
-          .catch((error) => console.error("Error:", error))
-          .then((response) => {
-            idCurso = response.idCurso.id_curso; //No porque se salva asi
-            
-            if(idCurso != 0){//Comprueba que se guarde un id
-              console.log("Se actualizo el id de Curso");
-              var tags = this.state.keywords;
-              for (var i = 0; i < tags.length; i++) {
-                this.addEtiqueta(tags[i],idCurso); //Agrega tags y el vinculo
+      if(this.state.idCurso == 0){ //Creo curso desde cero
+        try {
+          var data = {
+            idTutor: this.state.idTutor,
+            nombreC: this.state.campNmC,
+            image: this.state.campImg,
+            description: this.state.campDesc,
+            objetives: this.state.campObj,
+            requirements: this.state.campReq,
+            duration: this.state.campDura,
+            tags: this.state.keywords,
+          };
+          fetch("/api/cursos/crearcurso", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+            .then((response) => {
+              idCurso = response.idCurso.id_curso; //No porque se salva asi
+              
+              if(idCurso != 0){//Comprueba que se guarde un id
+                console.log("Se actualizo el id de Curso");
+                var tags = this.state.keywords;
+                for (var i = 0; i < tags.length; i++) {
+                  this.addEtiqueta(tags[i]); //Agrega tags en caso de ser necesario
+                  this.addCursoEtiqueta(tags[i], idCurso); //crea el enlace con curso
+                }
               }
-            }
-
-          });
-      } catch (eer) {
-        console.log(eer);
-        console.log("No se envió el curso.");
+  
+            });
+        } catch (eer) {
+          console.log(eer);
+          console.log("No se envió el curso.");
+        }
+      }else{//Alterar datos en BD
+        //Alterar datos en tabla curso
+        try {
+          var data = {
+            TUTOR_id_tutor: this.state.idTutor,
+            nombre: this.state.campNmC,
+            imagen: this.state.campImg,
+            descripcion: this.state.campDesc,
+            litle_descripcion: this.state.campObj,
+            requisitos: this.state.campReq,
+            duracion: this.state.campDura,
+            id_curso: this.state.idCurso
+          };
+          fetch("/api/cursos/crearcurso/updateCurso", {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          })
+            .then((res) => res.json())
+            .catch((error) => console.error("Error:", error))
+        } catch (eer) {
+          console.log(eer);
+          console.log("No se envió el curso.");
+        }
+        //Eliminar vinculos a curso de etiquetas
+        this.deleteCursoEtiq(this.state.idCurso);
+        //Agregar nuevas etiquetas
+        //Agregar nuevos vinculos de etiquetas
+        var tags = this.state.keywords;
+        for (var i = 0; i < tags.length; i++) {
+          console.log("Agregando "+tags[i]+" con "+this.state.idCurso);
+          this.addEtiqueta(tags[i]); //Agrega tags en caso de ser necesario
+          this.addCursoEtiqueta(tags[i], this.state.idCurso); //crea el enlace con curso
+        }
+        //Eliminar etiquetas que no sean usadas (opc ?)
+        //this.deleteEtiquetas();
       }
-
     }
   }
   volver() {
@@ -457,7 +498,7 @@ class CreacionCurso extends Component{
             });
         }
 
-        addEtiqueta(etiq, idCurs){
+        addEtiqueta(etiq){
           try {
             var data = {
               etiqueta: etiq
@@ -471,36 +512,73 @@ class CreacionCurso extends Component{
             })
               .then((res) => res.json())
               .catch((error) => console.error("Error:", error))
-              .then((response) => {
-                console.log(response.idEtiq)
-                this.addCursoEtiqueta(idCurs,response.idEtiq.id_etiqueta); //Agrega vinculo de etiq y curso
-              });
+              
           } catch (eer) {
             console.log(eer);
           }
         }
-        addCursoEtiqueta(idCurs, idEtiq){
+        addCursoEtiqueta(etiqueta, idCurs){
+          fetch(`/api/cursos/crearcurso/getId/${etiqueta}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.id_etiqueta != 0){
+                  console.log("Crea vinculo")
+                  console.log(idCurs);
+                  console.log(etiqueta);
+                  try {
+                    var dato = {
+                      idEtiqueta: data.id_etiqueta,
+                      idCurso: idCurs
+                    };
+                    fetch("/api/cursos/crearcurso/addCursoEtiq", {
+                      method: "POST",
+                      body: JSON.stringify(dato),
+                      headers: {
+                        "Content-Type": "application/json",
+                      },
+                    })
+                      .then((res) => res.json())
+                      .catch((error) => console.error("Error:", error))
+                      
+                  } catch (eer) {
+                    console.log(eer);
+                  }
+                }
+            });
+        }
+        deleteCursoEtiq(idCurso){
           try {
-            var data = {
-              idEtiqueta: idEtiq,
-              idCurso: idCurs
-            };
-            fetch("/api/cursos/crearcurso/addCursoEtiq", {
-              method: "POST",
-              body: JSON.stringify(data),
-              headers: {
-                "Content-Type": "application/json",
-              },
-            })
-              .then((res) => res.json())
-              .catch((error) => console.error("Error:", error))
-              .then((response) => {
-
-              });
-          } catch (eer) {
-            console.log(eer);
+              var data ={
+                  idenCurso: idCurso
+              };
+              fetch(`/api/cursos/crearcurso/deleteCursoEtiq`,{
+                  
+                  method: 'DELETE',
+                  body: JSON.stringify(data),
+                  headers:{
+                      'Content-Type': 'application/json'
+                  }                
+              })
+          } catch (error) {
+              console.log("Error al eliminar")
           }
         }
+        deleteEtiquetas(){
+          try {
+            fetch(`/api/cursos/crearcurso/deleteEtiquetas`,{
+                method: 'DELETE',
+                headers:{
+                    'Content-Type': 'application/json'
+                }                
+            })
+                .then(res => res.json())
+                
+          } catch (error) {
+              console.log("Error al eliminar")
+          }
+        }
+        
     render(){
         return(
         <html lang="en">
