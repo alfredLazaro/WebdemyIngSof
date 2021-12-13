@@ -70,7 +70,6 @@ class CreacionCurso extends Component{
         this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
         this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
         this.addEtiqueta         = this.addEtiqueta.bind(this);
-        this.addCursoEtiqueta    = this.addCursoEtiqueta.bind(this);
         this.deleteCursoEtiq     = this.deleteCursoEtiq.bind(this);
         this.deleteEtiquetas     = this.deleteEtiquetas.bind(this);
     }   
@@ -402,8 +401,7 @@ class CreacionCurso extends Component{
                 console.log("Se actualizo el id de Curso");
                 var tags = this.state.keywords;
                 for (var i = 0; i < tags.length; i++) {
-                  this.addEtiqueta(tags[i]); //Agrega tags en caso de ser necesario
-                  this.addCursoEtiqueta(tags[i], idCurso); //crea el enlace con curso
+                  this.addEtiqueta(tags[i], idCurso); //Agrega tags en caso de ser necesario
                 }
               }
   
@@ -444,12 +442,10 @@ class CreacionCurso extends Component{
         //Agregar nuevos vinculos de etiquetas
         var tags = this.state.keywords;
         for (var i = 0; i < tags.length; i++) {
-          console.log("Agregando "+tags[i]+" con "+this.state.idCurso);
-          this.addEtiqueta(tags[i]); //Agrega tags en caso de ser necesario
-          this.addCursoEtiqueta(tags[i], this.state.idCurso); //crea el enlace con curso
+          this.addEtiqueta(tags[i],this.state.idCurso); //Agrega tags en caso de ser necesario y enlace
         }
         //Eliminar etiquetas que no sean usadas (opc ?)
-        //this.deleteEtiquetas();
+        this.deleteEtiquetas();
       }
     }
   }
@@ -468,7 +464,6 @@ class CreacionCurso extends Component{
             fetch(`/api/cursos/${idCurso}`)
             .then(res => res.json())
             .then(data => {
-                console.log(data)
                 this.setState({
                     campNmC: data.nombre,
                     campDesc: data.descripcion,
@@ -498,7 +493,7 @@ class CreacionCurso extends Component{
             });
         }
 
-        addEtiqueta(etiq){
+        addEtiqueta(etiq, idCurs){
           try {
             var data = {
               etiqueta: etiq
@@ -512,41 +507,29 @@ class CreacionCurso extends Component{
             })
               .then((res) => res.json())
               .catch((error) => console.error("Error:", error))
+              .then((response) => {
+                //Agrega a vinculo con el curso
+                var datos = {
+                  idEtiqueta: response.id_etiqueta,
+                  idCurso: idCurs
+                };
+                fetch("/api/cursos/crearcurso/addCursoEtiq", {
+                  method: "POST",
+                  body: JSON.stringify(datos),
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                })
+                  .then((res) => res.json())
+                  .catch((error) => console.error("Error:", error))
+                  
+              })
               
           } catch (eer) {
             console.log(eer);
           }
         }
-        addCursoEtiqueta(etiqueta, idCurs){
-          fetch(`/api/cursos/crearcurso/getId/${etiqueta}`)
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                if(data.id_etiqueta != 0){
-                  console.log("Crea vinculo")
-                  console.log(idCurs);
-                  console.log(etiqueta);
-                  try {
-                    var dato = {
-                      idEtiqueta: data.id_etiqueta,
-                      idCurso: idCurs
-                    };
-                    fetch("/api/cursos/crearcurso/addCursoEtiq", {
-                      method: "POST",
-                      body: JSON.stringify(dato),
-                      headers: {
-                        "Content-Type": "application/json",
-                      },
-                    })
-                      .then((res) => res.json())
-                      .catch((error) => console.error("Error:", error))
-                      
-                  } catch (eer) {
-                    console.log(eer);
-                  }
-                }
-            });
-        }
+        
         deleteCursoEtiq(idCurso){
           try {
               var data ={

@@ -10,12 +10,6 @@ const router = express.Router();
 const pool = require("../config/database");
 const bcrypt = require("bcryptjs");
 
-router.get("/cursos", async (req, res) => {
-  const repetidos = await pool.query(
-    "SELECT curso.id_curso, curso.nombre as nombreCurso, curso.imagen, curso.inscritos,  curso.state, curso.created_at, etiqueta.nombre as nombreEtiqueta, usuario.nombres as nomT, usuario.apellidos as apellT FROM curso, curso_has_etiqueta, etiqueta, tutor, usuario WHERE curso.id_curso = curso_has_etiqueta.curso_id_curso and curso_has_etiqueta.etiqueta_id_etiqueta = etiqueta.id_etiqueta and curso.tutor_id_tutor = tutor.id_tutor and usuario.id_usuario = tutor.usuario_id_usuario ORDER BY inscritos desc,created_at desc"
-  );
-  res.send(repetidos);
-});
 
 router.get("/cursos", async (req, res) => {
   const repetidos = await pool.query(
@@ -552,22 +546,18 @@ router.post("/crearcurso/addEtiqueta", async (req, res) => {
       `insert into etiqueta (nombre) values (?)`,[etiqueta],(err, rows, fields) => {
         if (err) {
           console.log(err);
-        } 
+        }else{
+          res.json({
+            id_etiqueta: rows.insertId    //devuelve el id agregado en insert
+          })
+        }
       }
     );
+  }else{
+    res.json({
+        id_etiqueta: idEt[0].id_etiqueta   
+    })
   }
-});
-
-router.get('/crearcurso/getId/:etiqueta', async (req, res) => {
-  const { etiqueta } = req.params;
-  const ids = await pool.query('SELECT id_etiqueta FROM etiqueta WHERE nombre = ?', [etiqueta], (err,rows,fields) => {
-      if(!err){
-          res.json(rows[0]);
-      }else{
-          console.log(err);
-      }
-  });
-  res.send(ids);
 });
 
 router.post("/crearcurso/addCursoEtiq", async (req, res) => {
@@ -628,7 +618,7 @@ router.delete("/crearcurso/deleteCursoEtiq", async (req, res) => {
   
   const enlaces = await pool.query(
     `SELECT * FROM curso_has_etiqueta WHERE CURSO_id_curso = ?`,
-    idenCurso
+    [idenCurso]
   );
   if (enlaces.length != 0) {
     const eliminados = await pool.query(
