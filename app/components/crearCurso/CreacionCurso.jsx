@@ -24,6 +24,7 @@ class CreacionCurso extends Component{
             errNmNul    :false,
             errDesNul   :false,
             errDesCor   :false,
+            errDesLar   :false,
             errObjLa    :false,
             errObjCor   :false,
             errObjNul   :false,
@@ -43,7 +44,8 @@ class CreacionCurso extends Component{
 
             idCurso: this.props.idenCurso(),
             idUsuario: this.props.idenUsuario(),
-            idTutor: 0
+            idTutor: 0,
+            ImgValida   :false
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -129,6 +131,7 @@ class CreacionCurso extends Component{
       errNmNul: false,
       errDesNul: false,
       errDesCor: false,
+      errDesLar: false,
       errObjLa: false,
       errObjCor: false,
       errObjNul: false,
@@ -145,6 +148,7 @@ class CreacionCurso extends Component{
       errDuraLar: false,
       errEtiqNoHay: false,
       errEtiqNoper: false,
+      ImgValida   :false
     });
   }
   nomChange(event) {
@@ -168,6 +172,7 @@ class CreacionCurso extends Component{
 
   captImg(event) {
     this.setState({ campImg: event.target.value });
+    this.forceUpdate();
   }
 
   captEtiq(event) {
@@ -222,6 +227,8 @@ class CreacionCurso extends Component{
         resp = false;
       } else {
         if (campoDes.length > 4095) {
+          this.setState({errDesLar:true});
+          resp=false;
         } else {
         }
       }
@@ -331,22 +338,26 @@ class CreacionCurso extends Component{
   }
 
   validImg() {
-    var resp = true;
+    var respImg = true;
     var camImg = this.state.campImg;
     var exp =
       /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i;
     if (camImg == "") {
       this.setState({ errImgNul: true });
+      this.setState({ImgValida   :false});
       resp = false;
     } else {
       if (!exp.test(camImg)) {
         this.setState({
           errImgSi: true,
         }); /* no estoy seguro pero parece que funca */
+        this.setState({ImgValida   :false});
+        respImg=false;
       } else {
+        this.setState({ImgValida   :true});
       }
     }
-    return resp;
+    return respImg;
   }
 
   validEtiq() {
@@ -480,7 +491,7 @@ class CreacionCurso extends Component{
               <div className="popup_inner">
                 <p className="textoPopup">Curso Creado Correctamente</p>
                 <button className="btnOk" onClick={this.volver}>
-                  Aceptar
+                  ok
                 </button>
               </div>
             </div>
@@ -542,9 +553,9 @@ class CreacionCurso extends Component{
                       Debe insertar más de 20 caracteres
                     </p>
                   ) : null}
-                  {this.state.errDes ? (
+                  {this.state.errDesLar ? (
                     <p className="alertMsg">
-                      Debe insertar más de 20 caracteres
+                      Debe insertar menos de 4095 caracteres
                     </p>
                   ) : null}
                   {this.state.errDesNul ? (
@@ -666,6 +677,7 @@ class CreacionCurso extends Component{
                     value={this.state.campImg}
                     onChange={this.captImg}
                   />
+                  {/* <button onClick={this.validImg}>insert</button> */}
                 </div>
                 <div>
                   {this.state.errImgSi ? (
@@ -675,8 +687,20 @@ class CreacionCurso extends Component{
                     <p className="alertMsg">El campo es obligatorio</p>
                   ) : null}
                 </div>
+                
               </div>
+              <div>
+                  {/* <object data={this.state.campImg}  height={150}>
+                    {console.log(this.state.campImg)}
+                    <img src={`/assets/imagenes/noDisponible.png`} alt="algo anda mal" height={150}/>
+                  </object> */}
+                  
+                  
 
+                  {(this.state.campImg=="")?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/>):(<img src={this.state.campImg} onerror="this.src='/assets/imagenes/noDisponible.png'"  alt="not found"  height={150}/>)}
+                  
+                  {/* <img  src={this.state.campImg} alt="hola" height={150}/> */}
+              </div>
               <div className="encolumnar">
                 <div className="alinearCamp">
                   <p className="unaLin">Palabras clave:</p>
