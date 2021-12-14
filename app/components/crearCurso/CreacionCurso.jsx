@@ -148,6 +148,8 @@ class CreacionCurso extends Component{
     if (tecla == 32){ //Borra espacios
       e.preventDefault();
       return false;
+    }else{
+      return true;
     }
   }
 
