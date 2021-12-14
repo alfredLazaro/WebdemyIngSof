@@ -34,21 +34,24 @@ class AppBar extends Component {
         this.redirigirPagEst = this.redirigirPagEst.bind(this);
         this.redirigirPagTutor = this.redirigirPagTutor.bind(this);
         this.redirigirRegTutor = this.redirigirRegTutor.bind(this);
-        
+        this.fetchNombreUser = this.fetchNombreUser.bind(this);
     }
 
     componentDidMount(){
-        /*if(this.props.sesionIniciada()){
-            fetch(`/api/cursos/${this.state.idUs}/info`) //Se cargan los datos de todos los cursos, para pruebas
-            .then((res) => res.json())
-            .then(data => {
-                this.setState({nombreUs: data.nombres + " " + data.apellidos});
-            });
-        }*/
+        this.fetchNombreUser();
         this.fetchInfoTutor();
         console.log(this.state.esTutor);
     }
-
+    fetchNombreUser(){
+        if(this.props.sesionIniciada()){
+            fetch(`/api/cursos/${this.state.idUs}/info`) //Se cargan los datos de todos los cursos, para pruebas
+            .then((res) => res.json())
+            .then(data => {
+                console.log(data);
+                this.setState({nombreUs: data.nombres + " " + data.apellidos});
+            });
+        }
+    }
     fetchInfoTutor(){
         console.log(`/api/cursos/esTutor/${this.state.idUs}`)
         fetch(`/api/cursos/esTutor/${this.state.idUs}`)
@@ -134,13 +137,14 @@ class AppBar extends Component {
                              iniciar sesion
                         </button> 
                         }
-                        {/*{(!this.props.sesionIniciada()) ? null:
-                        <div className="w3-container w3-cell w3-cell-middle">
-                            <p id="nombreUs"> {this.state.nombreUs} </p>
-                        </div>
-                        }*/}
+                        
                         {(!this.showButtonUser) || (!this.props.sesionIniciada()) ? null:
                         <div className="w3-container w3-cell w3-cell-middle">
+                            {(!this.props.sesionIniciada()) ? null:
+                            <div className="w3-container w3-cell w3-cell-middle w3-display-topright">
+                                <p id="nombreUs"> {this.state.nombreUs} </p>
+                            </div>
+                            }
                             <button className="btnIconAppBar w3-button" onClick={this.listUser}>
                                 <i className="fa fa-user w3-xxlarge" ></i>
                             </button>
