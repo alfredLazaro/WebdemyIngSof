@@ -697,7 +697,7 @@ class CreacionCurso extends Component{
                   
                   
 
-                  {(this.state.campImg=="")?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/>):(<img src={this.state.campImg} onerror="this.src='/assets/imagenes/noDisponible.png'"  alt="not found"  height={150}/>)}
+                  {(this.state.campImg=="")?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/>):(<img src={this.state.campImg} onerror="this.src='/assets/imagenes/noDisponible.png'"  alt="not found" onerror="this.src='/assets/imagenes/noDisponible.png'" alt="not found" height={150}/>)}
                   
                   {/* <img  src={this.state.campImg} alt="hola" height={150}/> */}
               </div>
