@@ -121,8 +121,7 @@ class CreacionCurso extends Component{
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
-    
+    this.setState({ keyword: event.target.value });
     event.preventDefault();
   }
 
@@ -133,7 +132,6 @@ class CreacionCurso extends Component{
 
   onCharEtiq(e){
     var tecla = e.charCode;
-    console.log(tecla);
     if (tecla == 8 || tecla == 13) {
       return true;
     }
