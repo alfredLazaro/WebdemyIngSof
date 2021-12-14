@@ -73,32 +73,47 @@ body{
 }
 
 .pestanas{
-  width: 79%;
   display: table-row;
 }
 .botones{
-  width: 21%;
+  width: 22%;
   margin-left: auto;
+  display: table-row;
+}
+
+.userIni{
+  display: flex;
+  justify-content: center;
+  text-align: center;
 }
 
 #nombreUs{
   font-size: 1.5em;
   color: #FFFFFF;
-  text-align: left;
+  text-align: center;
   display: table-cell;
 }
 
 #listaUser{
-  margin-left: 5em;
+  margin-left: -5em;
 }
 
 .btnIconAppBar{
   border: none;
-  margin-left: 10em; /*para alinear a derecha*/
+  /*margin-left: 10em; /*para alinear a derecha*/
   background-color: #2F5D62;
   height: 5em;
   width: 5em;
   cursor: pointer;
+}
+
+
+#botonUser{
+  width: 50%;
+}
+
+#nombreUser{
+  width: 50%;
 }
 
 .nombreAppBar{

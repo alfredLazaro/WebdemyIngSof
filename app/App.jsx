@@ -37,6 +37,7 @@ function VistaCurso(props) {
       <AppBar
         showButtRegis={true}
         showButtLogin={true}
+        showButtonUser={true}
         sesionIniciada={props.sesionIniciada}
         idenUsuario={props.idenUsuario}
       />

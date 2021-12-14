@@ -139,22 +139,22 @@ class AppBar extends Component {
                         }
                         
                         {(!this.showButtonUser) || (!this.props.sesionIniciada()) ? null:
-                        <div className="w3-container w3-cell w3-cell-middle">
-                            {(!this.props.sesionIniciada()) ? null:
-                            <div className="w3-container w3-cell w3-cell-middle w3-display-topright">
-                                <p id="nombreUs"> {this.state.nombreUs} </p>
+                            <div className="userIni">
+                                <div id="nombreUser">
+                                    <p id="nombreUs"> {this.state.nombreUs} </p>
+                                </div>
+                                <div id="botonUser">
+                                    <button className="btnIconAppBar w3-button" onClick={this.listUser}>
+                                        <i className="fa fa-user w3-xxlarge" ></i>
+                                    </button>
+                                    <div id="listaUser" className="w3-dropdown-content w3-bar-block w3-border">
+                                        <button onClick={this.cerrarSes} className="w3-bar-item w3-border opcionDropd">Cerrar Sesion</button>
+                                        <button onClick={this.redirigirPagEst} className="w3-bar-item w3-border opcionDropd">Pagina Estudiante</button>
+                                        { this.state.esTutor ? <button onClick={this.redirigirPagTutor} className="w3-bar-item w3-border opcionDropd">Pagina Tutor</button> : null}
+                                        { this.state.esTutor ? null : <button onClick={this.redirigirRegTutor} className="w3-bar-item w3-border opcionDropd">Convertirse Tutor</button>}
+                                    </div>
+                                </div>
                             </div>
-                            }
-                            <button className="btnIconAppBar w3-button" onClick={this.listUser}>
-                                <i className="fa fa-user w3-xxlarge" ></i>
-                            </button>
-                            <div id="listaUser" className="w3-dropdown-content w3-bar-block w3-border">
-                                <button onClick={this.cerrarSes} className="w3-bar-item w3-border opcionDropd">Cerrar Sesion</button>
-                                <button onClick={this.redirigirPagEst} className="w3-bar-item w3-border opcionDropd">Pagina Estudiante</button>
-                                { this.state.esTutor ? <button onClick={this.redirigirPagTutor} className="w3-bar-item w3-border opcionDropd">Pagina Tutor</button> : null}
-                                { this.state.esTutor ? null : <button onClick={this.redirigirRegTutor} className="w3-bar-item w3-border opcionDropd">Convertirse Tutor</button>}
-                            </div>
-                        </div>
                         }
                         
                     </div>
