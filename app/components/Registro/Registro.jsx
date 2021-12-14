@@ -115,7 +115,7 @@ class Registro extends Component {
   }
 
   correoChange(event) {
-    this.setState({ campoCorreo: event.target.value });
+    this.setState({ campoCorreo: event.target.value.toLowerCase() });
   }
   nameChange(event) {
     this.setState({ campoNombre: event.target.value });
@@ -238,8 +238,6 @@ class Registro extends Component {
   validarCorreo() {
     var res = true;
     var llenadoCor = this.state.campoCorreo;
-    llenadoCor = llenadoCor.toLocaleLowerCase();
-    this.setState({campoCorreo:llenadoCor});
     if (llenadoCor.length == 0) {
       this.setState({ cadVacioCorreo: true });
       return false;
