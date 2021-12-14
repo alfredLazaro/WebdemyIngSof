@@ -72,28 +72,42 @@ class CreacionCurso extends Component{
         this.addEtiqueta         = this.addEtiqueta.bind(this);
         this.deleteCursoEtiq     = this.deleteCursoEtiq.bind(this);
         this.deleteEtiquetas     = this.deleteEtiquetas.bind(this);
+        this.onCharEtiq          = this.onCharEtiq.bind(this);
+        this.handlePasteEtiq     = this.handlePasteEtiq.bind(this);
+
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
         console.log(this.state.keyword);
         this.devolvEstadiEtiq();
         
-        
         var camImg=this.state.keyword;
+        console.log(camImg);
             if(camImg==""){
                 this.setState({errEtiqNul:true});
             }else{
-                if(camImg>15){
+                if(camImg.length>15){
                     this.setState({errEtiqLar:true});
                 }else{
-                    if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd0-9#-+]/.test(camImg)){
-                        this.setState({errEtiqNoper:true});
-                    }else{
-                        this.state.keywords.push(this.state.keyword); //Agrega a lista
-                        this.setState({keyword: ''});
-                        console.log(this.state.keywords);
-                        this.forceUpdate() //grafica nuevos elementos
+                  var n;
+                  var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+                  var ok = true;
+                  for(n=0;n<camImg.length && ok;n++){
+                    var letra = camImg.charAt(n);
+                    console.log(letra);
+                    console.log(patron.test(letra));
+
+                    if(!patron.test(letra)){
+                       console.log("Sale error");
+                       ok = false;
+                       this.setState({errEtiqNoper:true});
                     }
+                  }
+                  if(ok){
+                    this.state.keywords.push(this.state.keyword); //Agrega a lista
+                    this.setState({keyword: ''});
+                    this.forceUpdate() //grafica nuevos elementos
+                  }
                 }
             }
         
@@ -110,6 +124,22 @@ class CreacionCurso extends Component{
   handleChange(event) {
     this.setState({ keyword: event.target.value });
     event.preventDefault();
+  }
+
+  handlePasteEtiq(event){
+    console.log("Se pego");
+    //event.preventDefault();
+  }
+
+  onCharEtiq(e){
+    var tecla = e.charCode;
+    if (tecla == 8 || tecla == 13) {
+      return true;
+    }
+    if (tecla == 32){ //Borra espacios
+      e.preventDefault();
+      return false;
+    }
   }
 
   borrarKWord(kword) {
@@ -799,6 +829,8 @@ class CreacionCurso extends Component{
                     placeholder="Inserte palabra clave"
                     value={this.state.keyword}
                     onChange={this.handleChange}
+                    onPaste={this.handlePasteEtiq}
+                    onKeyPress={this.onCharEtiq}
                     /* value={this.state.campEtiq} onChange={this.captEtiq} */
                   />
                   {/* no estoy seguro de esto */}
