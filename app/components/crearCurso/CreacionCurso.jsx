@@ -69,13 +69,13 @@ class CreacionCurso extends Component{
         this.handleChar          = this.handleChar.bind(this);
         this.fetchInfoCurso      = this.fetchInfoCurso.bind(this);
         this.fetchEtiquetas      = this.fetchEtiquetas.bind(this);
-    }   
+    }
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
         console.log(this.state.keyword);
         this.devolvEstadiEtiq();
-        
-        
+
+
         var camImg=this.state.keyword;
             if(camImg==""){
                 this.setState({errEtiqNul:true});
@@ -93,9 +93,9 @@ class CreacionCurso extends Component{
                     }
                 }
             }
-        
+
     }
-  
+
   devolvEstadiEtiq(){
     this.setState({
       errEtiqLar: false,
@@ -262,7 +262,7 @@ class CreacionCurso extends Component{
         resp = false;
       } else {
         /* if(/[^A-Za-z-ZñÑáéíóúÁÉÍÓÚ\sd]/.test(campoDur)){
-                        
+
 
                     }else{
                         this.setState({errDuraLet:true});
@@ -273,11 +273,11 @@ class CreacionCurso extends Component{
                         console.log("entra al for")
                         if(patron.test(campoDur.charAt(i))){
                             console.log("entra al if")
-                            
+
                         }else{
                             console.log("puse algo mal")
                             this.setState({errDuraLet:true});
-                            
+
                         }
                     } */
 
@@ -525,7 +525,7 @@ class CreacionCurso extends Component{
 
               <div className="encolumnarAre">
                 <div className="alinearCamp">
-                  <p className="nombrEtiquet">Descripcion:</p>
+                  <p className="nombrEtiquet">Descripción:</p>
 
                   <textarea
                     name="descrip"
@@ -616,7 +616,7 @@ class CreacionCurso extends Component{
 
               <div className="encolumnarAre">
                 <div className="alinearCamp">
-                  <p className="alinDuracion">Duracion:</p>
+                  <p className="alinDuracion">Duración:</p>
                   <input
                     name="duracion"
                     className="entrada"
@@ -633,7 +633,7 @@ class CreacionCurso extends Component{
                   {/* ver si hay advertencia */}
                   {this.state.errDuraLar ? (
                     <p className="alertMsg">
-                      El nombre no debe tener más de 3 cifras
+                      La duración no debe tener más de 3 cifras
                     </p>
                   ) : null}
                   {this.state.errDuraLet ? (
@@ -679,7 +679,7 @@ class CreacionCurso extends Component{
 
               <div className="encolumnar">
                 <div className="alinearCamp">
-                  <p className="unaLin">Palabras clave:</p>
+                  <p className="unaLin">Palabras clave::</p>
                   <input
                     type="text"
                     className="entrada"

@@ -5,13 +5,13 @@
     min-height: 56em;
     display: flex;
     flex-direction: row;
-    
+
 }
 
 /* .body {
     background-color: lightblue;
   } */
-  
+
 .primFil{
     width: 50%;
     margin-bottom: 4%;
@@ -34,7 +34,7 @@
     margin-bottom: 1%;
     text-align: left;
     align-items: baseline;
-    
+
 }
 .textoLinea{
     width: 70%;
@@ -46,7 +46,7 @@
     text-align: top;
 }
 #EstiloBnt{
-    width: 130px;
+    width: 150px;
     top: 703px;
     background: rgba(94, 139, 126, 0.65);
     border: 1px solid #000000;
@@ -66,7 +66,7 @@
 .btnVolv{
     position:absolute;
     height: 5%;
-    top: 0%;
+    top: -3%;
     left: 70%;
     margin-top: 0%;
     margin-bottom: 10%;
@@ -105,7 +105,7 @@
 }
 .unaLin{
     margin-left: 24px;
-    margin-right: 8px;
+    margin-right: 10px;
     white-space: nowrap;
     overflow: hidden;
 }
@@ -133,7 +133,7 @@
     color: red;
     position: relative; /* como hacer que aparesca abajo*/
     top: 70%;
-    margin-top: 0%;
+    margin-top: -1%;
 
 }
 .encolumnar{
