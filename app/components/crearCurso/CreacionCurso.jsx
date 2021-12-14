@@ -121,19 +121,8 @@ class CreacionCurso extends Component{
   }
 
   handleChange(event) {
-    var camImg = event.target.value;
-    var n;
-    var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
-    var ok = true;
-    for(n=0;n<camImg.length && ok;n++){
-      var letra = camImg.charAt(n);
-      if(!patron.test(letra)){
-         ok = false;
-      }
-    }
-    if(ok){
-      this.setState({ value: event.target.value });
-    }
+    this.setState({ value: event.target.value });
+    
     event.preventDefault();
   }
 
@@ -144,6 +133,7 @@ class CreacionCurso extends Component{
 
   onCharEtiq(e){
     var tecla = e.charCode;
+    console.log(tecla);
     if (tecla == 8 || tecla == 13) {
       return true;
     }
