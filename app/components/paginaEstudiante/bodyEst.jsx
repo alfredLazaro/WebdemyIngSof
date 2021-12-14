@@ -98,7 +98,19 @@ class VistaEst extends Component{
     }
 
       handleChange(event) {
-        this.setState({value: event.target.value});
+        var camImg = event.target.value;
+        var n;
+        var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+        var ok = true;
+        for(n=0;n<camImg.length && ok;n++){
+        var letra = camImg.charAt(n);
+        if(!patron.test(letra)){
+            ok = false;
+        }
+        }
+        if(ok){
+        this.setState({ value: event.target.value });
+        }
         event.preventDefault();
       }
 

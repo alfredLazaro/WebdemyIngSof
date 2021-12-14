@@ -43,7 +43,19 @@ class Filtro extends Component {
   }
 
   handleChange(event) {
-    this.setState({ value: event.target.value });
+    var camImg = event.target.value;
+    var n;
+    var patron = /[-#+a-zA-ZñÑáéíóúÁÉÍÓÚ0-9\s]/;
+    var ok = true;
+    for(n=0;n<camImg.length && ok;n++){
+      var letra = camImg.charAt(n);
+      if(!patron.test(letra)){
+         ok = false;
+      }
+    }
+    if(ok){
+      this.setState({ value: event.target.value });
+    }
     event.preventDefault();
   }
 
@@ -122,7 +134,6 @@ class Filtro extends Component {
         curso.nombreEtiqueta.includes(this.nombreAbuscar) ||
         this.nombreAbuscar === ""
     );
-    console.log(this.state.cursos);
     let hash = {};
     var filtracion = filtracion0.filter((curso) =>
       hash[curso.id_curso] ? false : (hash[curso.id_curso] = true)

@@ -94,11 +94,8 @@ class CreacionCurso extends Component{
                   var ok = true;
                   for(n=0;n<camImg.length && ok;n++){
                     var letra = camImg.charAt(n);
-                    console.log(letra);
-                    console.log(patron.test(letra));
 
                     if(!patron.test(letra)){
-                       console.log("Sale error");
                        ok = false;
                        this.setState({errEtiqNoper:true});
                     }
@@ -480,7 +477,8 @@ class CreacionCurso extends Component{
     }
   }
   volver() {
-    history.back();
+    this.props.history.push("/tutor")
+    window.location.href = window.location.href; 
   }
         componentDidMount(){
             this.fetchIdTutor(this.state.idUsuario);
