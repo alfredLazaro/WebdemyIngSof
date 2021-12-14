@@ -421,7 +421,7 @@ class CreacionCurso extends Component{
           var data = {
             idTutor: this.state.idTutor,
             nombreC: this.state.campNmC,
-            image: this.state.campImg,
+            image: this.captura(),
             description: this.state.campDesc,
             objetives: this.state.campObj,
             requirements: this.state.campReq,
@@ -618,7 +618,7 @@ class CreacionCurso extends Component{
             console.log("imag "+Imag);
           }else{
           }
-          this.setState({});
+          
           return Imag;
         }
     render(){
