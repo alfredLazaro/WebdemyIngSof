@@ -23,7 +23,7 @@ class InicioDeSesion extends Component{
     }
 
     mailChange(event){
-        this.setState({campoCorreo: event.target.value});
+        this.setState({campoCorreo: event.target.value.toLowerCase()});
     }
     contraChange(event){
         this.setState({campoContra: event.target.value});

@@ -24,22 +24,6 @@ router.get("/cursos", async (req, res) => {
   res.send(repetidos);
 });
 
-router.get("/:id", async (req, res) => {
-  const { id } = req.params;
-  const cursos = await pool.query(
-    "SELECT curso.nombre , curso.imagen, curso.inscritos, curso.descripcion, curso.requisitos, curso.duracion, curso.created_at, tutor.lastJob, usuario.nombres, usuario.apellidos FROM curso, tutor, usuario WHERE curso.TUTOR_id_tutor=tutor.id_tutor and usuario.id_usuario = tutor.USUARIO_id_usuario and curso.id_curso = ?",
-    [id],
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows[0]);
-      } else {
-        console.log(err);
-      }
-    }
-  );
-
-  res.send(cursos); //muestra la consulta en la pagina
-});
 
 router.get("/:idEst/info", async (req, res) => {
   const { idEst } = req.params;
@@ -387,6 +371,7 @@ router.get("/esTutor/:idUser", async (req, res) => {
 router.post("/crearcurso", async (req, res) => {
   const { idTutor, nombreC, image, description, objetives, requirements, duration, tags } = req.body;
   console.log(req.body);
+  
   //Creacion curso..
   const curso = await pool.query(
     "insert into curso ( TUTOR_id_tutor, nombre, imagen, descripcion, litle_descripcion ,requisitos ,duracion ,state, inscritos) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
@@ -400,63 +385,18 @@ router.post("/crearcurso", async (req, res) => {
       duration, 
       0,
       0
-    ],
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows);
-      } else {
-        console.log(err);
-      }
-    }
-  );
-  //obtener  id_curso, pero nose por que criterio.. pensaba tomar al ultimo curso creado.
-  const idCurso = await pool.query(
-    `SELECT id_curso FROM curso`,
-    (err, rows, fields) => {
-      if (!err) {
-        res.json(rows[rows.length].id_curso);
-      } else {
-        console.log(err);
-      }
-    }
-  );
-  //creamos todas las palabras clave.
-  for (var i = 0; i < tags.length; i++) {
-    const etiqueta = await pool.query(
-      `insert into etiqueta (nombre ) values (?)`,
-      tags[i],
-      (err, rows, fields) => {
-        if (!err) {
-          res.json(rows);
-        } else {
-          console.log(err);
-        }
-      }
-    );
-    //solo se podria obtener el ultimo id de la tabla
-    const idEtiqueta = await pool.query(
-      `select id_etiqueta from etiqueta`,
-      (err, rows, fields) => {
-        if (!err) {
-          res.json(rows[rows.length].id_etiqueta);
-        } else {
-          console.log(err);
-        }
-      }
-    );
+    ]);
 
-    const cursoHasEti = await pool.query(
-      `insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?,?)`,
-      [idCurso, idEtiqueta],
-      (err, rows, fields) => {
-        if (!err) {
-          res.json(rows);
-        } else {
-          console.log(err);
+    const ids = await pool.query('SELECT id_curso FROM curso WHERE TUTOR_id_tutor = ? and nombre = ?', [idTutor, nombreC], (err,rows,fields) => {
+        if(!err){
+            res.json({
+              idCurso: rows[0],
+            });
+        }else{
+            console.log(err);
         }
-      }
-    );
-  }
+    });
+    res.send(ids);
 });
 
 router.delete("/deleteCurso/etiquetas", async (req, res) => {
@@ -598,6 +538,132 @@ router.get('/idtutor/:idUs', async (req, res) => {
       }
   });
   res.send(cursos);
+});
+
+router.post("/crearcurso/addEtiqueta", async (req, res) => {
+  const { etiqueta } = req.body;
+  console.log(req.body);
+
+  const idEt = await pool.query(`SELECT id_etiqueta FROM etiqueta WHERE nombre = ?`,[etiqueta]);
+
+  if (idEt.length == 0) {
+    console.log("Inserta etiqueta en bd");
+    const insertEtiq = await pool.query(
+      `insert into etiqueta (nombre) values (?)`,[etiqueta],(err, rows, fields) => {
+        if (err) {
+          console.log(err);
+        } 
+      }
+    );
+  }
+});
+
+router.get('/crearcurso/getId/:etiqueta', async (req, res) => {
+  const { etiqueta } = req.params;
+  const ids = await pool.query('SELECT id_etiqueta FROM etiqueta WHERE nombre = ?', [etiqueta], (err,rows,fields) => {
+      if(!err){
+          res.json(rows[0]);
+      }else{
+          console.log(err);
+      }
+  });
+  res.send(ids);
+});
+
+router.post("/crearcurso/addCursoEtiq", async (req, res) => {
+  const { idEtiqueta, idCurso } = req.body;
+  console.log(req.body);
+
+  const idEt = await pool.query(`insert into curso_has_etiqueta ( CURSO_id_curso,ETIQUETA_id_etiqueta)  values (?,?)`,
+  [idCurso, idEtiqueta],
+  (err, rows, fields) => {
+    if(!err){
+      res.json(rows);
+    }else{
+      console.log(err);
+    } 
+  }
+  );
+});
+
+router.post("/crearcurso/updateCurso", async (req, res) => {
+  const { 
+    TUTOR_id_tutor, 
+    nombre, 
+    imagen, 
+    descripcion, 
+    litle_descripcion, 
+    requisitos, 
+    duracion, 
+    id_curso
+  } = req.body;
+  console.log(req.body);
+
+  const updateCur = await pool.query(`
+  UPDATE curso curso 
+  SET TUTOR_id_tutor = ?, nombre = ?, imagen = ?, descripcion = ?, litle_descripcion = ?, requisitos = ?, duracion = ?, state = ?, inscritos = ?
+  WHERE id_curso = ?`,
+  [
+    TUTOR_id_tutor, 
+    nombre, imagen, 
+    descripcion, 
+    litle_descripcion, 
+    requisitos, 
+    duracion, 
+    0, 
+    0, 
+    id_curso
+  ],(err, rows, fields) => {
+    if(!err){
+      res.json(rows);
+    }else{
+      console.log(err);
+    } 
+  }
+  );
+});
+
+router.delete("/crearcurso/deleteCursoEtiq", async (req, res) => {
+  const { idenCurso } = req.body;
+  
+  const enlaces = await pool.query(
+    `SELECT * FROM curso_has_etiqueta WHERE CURSO_id_curso = ?`,
+    idenCurso
+  );
+  if (enlaces.length != 0) {
+    const eliminados = await pool.query(
+      `DELETE
+       FROM curso_has_etiqueta
+       WHERE CURSO_id_curso = ?`,
+      [idenCurso],
+      (err, rows, fields) => {
+        if (!err) {
+          res.json(rows);
+        } else {
+          console.log(err);
+        }
+      }
+    );
+  } else {
+    console.log("no existe tal curso, para eliminar");   
+  }
+  console.log("sale del post");
+});
+
+router.delete("/crearcurso/deleteEtiquetas", async (req, res) => {
+  const eliminados = await pool.query(
+    `DELETE
+    FROM etiqueta
+    WHERE etiqueta.id_etiqueta NOT IN (SELECT E2.id_etiqueta FROM etiqueta as E2, curso_has_etiqueta as CE WHERE E2.id_etiqueta = CE.ETIQUETA_id_etiqueta)`,
+    (err, rows, fields) => {
+      if (!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    }
+  );
+  
 });
 
 module.exports = router;
