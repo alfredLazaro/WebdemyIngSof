@@ -45,7 +45,8 @@ class CreacionCurso extends Component{
             idCurso: this.props.idenCurso(),
             idUsuario: this.props.idenUsuario(),
             idTutor: 0,
-            ImgValida   :false
+            ImgValida   :false,
+            cambiBol    :false
         }
         this.validarInicio = this.validarInicio.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -77,6 +78,7 @@ class CreacionCurso extends Component{
         this.onCharEtiq          = this.onCharEtiq.bind(this);
         this.handlePasteEtiq     = this.handlePasteEtiq.bind(this);
 
+        this.boolBot             = this.boolBot.bind(this);
     }   
     validarInicio(){
         /*No valida por ahora, solo ingresa a la lista de keywords*/
@@ -389,6 +391,7 @@ class CreacionCurso extends Component{
         this.setState({ImgValida   :true});
       }
     }
+    console.log("cdebe imp"+this.captura());
     return respImg;
   }
 
@@ -456,7 +459,7 @@ class CreacionCurso extends Component{
           var data = {
             TUTOR_id_tutor: this.state.idTutor,
             nombre: this.state.campNmC,
-            imagen: this.state.campImg,
+            imagen: this.captura(),
             descripcion: this.state.campDesc,
             litle_descripcion: this.state.campObj,
             requisitos: this.state.campReq,
@@ -603,6 +606,21 @@ class CreacionCurso extends Component{
           }
         }
         
+        boolBot(){
+          var boo = this.state.cambiBol;
+          this.setState({cambiBol:(!boo)});
+          console.log(this.state.cambiBol+"boton");
+        }
+        captura(){
+          var Imag="/assets/imagenes/noDisponible.png";
+          if(this.state.ImgValida){
+            Imag=this.state.campImg;
+            console.log("imag "+Imag);
+          }else{
+          }
+          this.setState({});
+          return Imag;
+        }
     render(){
         return(
         <html lang="en">
@@ -820,7 +838,7 @@ class CreacionCurso extends Component{
                     value={this.state.campImg}
                     onChange={this.captImg}
                   />
-                  {/* <button onClick={this.validImg}>insert</button> */}
+                   <button onClick={this.validImg}>inserta</button> 
                 </div>
                 <div>
                   {this.state.errImgSi ? (
@@ -837,12 +855,8 @@ class CreacionCurso extends Component{
                     {console.log(this.state.campImg)}
                     <img src={`/assets/imagenes/noDisponible.png`} alt="algo anda mal" height={150}/>
                   </object> */}
+                  {(this.state.ImgValida)?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/> ) :(<img src={this.state.campImg} onerror='/assets/imagenes/noDisponible.png' alt="se pondra la imagen por defecto" height={150}/>)}
                   
-                  
-
-                  {(this.state.campImg=="")?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/>):(<img src={this.state.campImg} onerror="this.src='/assets/imagenes/noDisponible.png'"  alt="not found" onerror="this.src='/assets/imagenes/noDisponible.png'" alt="not found" height={150}/>)}
-                  
-                  {/* <img  src={this.state.campImg} alt="hola" height={150}/> */}
               </div>
               <div className="encolumnar">
                 <div className="alinearCamp">
