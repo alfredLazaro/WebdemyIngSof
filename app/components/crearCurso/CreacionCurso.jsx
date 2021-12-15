@@ -514,7 +514,8 @@ class CreacionCurso extends Component{
                     campObj: data.litle_descripcion,
                     campImg: data.imagen,
                     campReq: data.requisitos,
-                    campDura: data.duracion
+                    campDura: data.duracion,
+                    ImgValida: true
                 });
             });
         }
@@ -838,7 +839,7 @@ class CreacionCurso extends Component{
                     value={this.state.campImg}
                     onChange={this.captImg}
                   />
-                   <button onClick={this.validImg}>inserta</button> 
+                   <button id="EstiloBnt" onClick={this.validImg}>inserta</button> 
                 </div>
                 <div>
                   {this.state.errImgSi ? (
@@ -855,7 +856,7 @@ class CreacionCurso extends Component{
                     {console.log(this.state.campImg)}
                     <img src={`/assets/imagenes/noDisponible.png`} alt="algo anda mal" height={150}/>
                   </object> */}
-                  {!(this.state.ImgValida)?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/> ) :(<img src={this.state.campImg} onerror='/assets/imagenes/noDisponible.png' alt="se pondra la imagen por defecto" height={150}/>)}
+                  {(!this.state.ImgValida)?(<img src='/assets/imagenes/noDisponible.png' alt="error" height={150}/> ) :(<img src={this.state.campImg} onerror='/assets/imagenes/noDisponible.png' alt="se pondra la imagen por defecto" height={150}/>)}
                   
               </div>
               <div className="encolumnar">
