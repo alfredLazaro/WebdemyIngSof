@@ -5,10 +5,5 @@ module.exports = {
     password: "pl7TQyNVrNog321QJICH",
     database: "bnzejryfzccllt1iv6cd",
   }
-  /*database: {
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "wdemy",
-  }*/
+  
 }; 
